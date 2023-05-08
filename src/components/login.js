@@ -47,7 +47,6 @@ export default function Login() {
               type="email"
               ref={emailInput}
               name="email"
-              placeholder="example@example.com"
               required
             />
           </div>
@@ -58,7 +57,6 @@ export default function Login() {
               type="password"
               ref={passwordInput}
               name="password"
-              placeholder="=<6 characters"
               required
             />
           </div>

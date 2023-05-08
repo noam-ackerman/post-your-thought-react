@@ -75,7 +75,7 @@ export default function Signup() {
               type="password"
               ref={passwordConfirmInput}
               name="password-confirmation"
-              placeholder="=<6 characters"
+              placeholder="=< 6 characters"
               required
             />
           </div>
