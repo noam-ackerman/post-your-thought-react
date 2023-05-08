@@ -41,23 +41,25 @@ export default function Signup () {
 
    return (
     <div>
+        <div>
         <h2>Sign Up</h2>
-        <form onSubmit={handleSubmit}>
-            <div>{error}</div>
-            <div>
-                <label>Email</label>
-                <input type="email" ref={emailInput} name="email" placeholder='example@example.com' required/>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" ref={passwordInput} name="password" required/>
-            </div>
-            <div>
-                <label>Password Confirmation</label>
-                <input type="password" ref={passwordConfirmInput} name="password-confirmation" required/>
-            </div>
-            <button type="submit" disabled={loading}>Sign Up</button>
-        </form>
+            <form onSubmit={handleSubmit}>
+                {error && <div>{error}</div>}   
+                <div>
+                    <label>Email</label>
+                    <input type="email" ref={emailInput} name="email" placeholder='example@example.com' required/>
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" ref={passwordInput} name="password" required/>
+                </div>
+                <div>
+                    <label>Password Confirmation</label>
+                    <input type="password" ref={passwordConfirmInput} name="password-confirmation" required/>
+                </div>
+                <button type="submit" disabled={loading}>Sign Up</button>
+            </form>
+        </div>
         <div>
             Already have an account?{" "}
             <Link to="/login">

@@ -21,7 +21,7 @@ export default function Profile() {
     return(
         <div>
             <div>YOU ARE LOGGED IN {currentUser.email}</div>
-            <div>{error}</div>
+            {error && <div>{error}</div>}
             <button onClick={HandleLogout}>Logout</button>
         </div>
     )
