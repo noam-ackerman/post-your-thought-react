@@ -1,8 +1,10 @@
 import React, {useRef, useState} from 'react';
 import { useAuth } from '../context/AuthContext';
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup () {
     const { SignupUser } = useAuth();
+    const navigate = useNavigate();
     const emailInput = useRef();
     const passwordInput = useRef();
     const passwordConfirmInput = useRef();
@@ -18,12 +20,21 @@ export default function Signup () {
         try {
             setError(""); 
             setLoading(true);
-            console.log(emailInput.current.value, passwordInput.current.value)
             await SignupUser(emailInput.current.value, passwordInput.current.value);
-            console.log("signed up!")
+            navigate("/")
         }
-        catch {
-            setError("Something went wrong!")
+        catch (err){
+            if(err.code === "auth/invalid-email") {
+                setError('Failed to Signup! Invalid email.')
+            } 
+            if(err.code === "auth/weak-password") {
+                setError('Password must be at least 6 characters long')
+            } 
+            if(err.code === "auth/email-already-in-use") {
+                setError('Email is already in use!')
+            } else {
+                setError('Failed to Signup!')
+            }
         }
         setLoading(false);
     }    
@@ -47,6 +58,12 @@ export default function Signup () {
             </div>
             <button type="submit" disabled={loading}>Sign Up</button>
         </form>
+        <div>
+            Already have an account?{" "}
+            <Link to="/login">
+                Login
+            </Link>
+        </div>
     </div>
    )
 }
