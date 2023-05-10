@@ -2,7 +2,7 @@
 
 .AuthContainer {
   text-align: center;
-  padding: 3% 0 5%;
+  padding: 3.2% 0 5%;
   margin: 0 auto;
   max-width: 100vw;
   display: flex;
@@ -18,6 +18,91 @@
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   box-sizing: border-box;
+}
+
+.navContainer {
+  background-color: #eed5c2;
+  width: 100%;
+  padding: 10px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 10px -10px;
+}
+
+.profileContainerContent {
+  padding: 2rem 1.3rem;
+  display: flex;
+}
+
+.actionWrapperNav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 17px;
+  flex-wrap: wrap;
+}
+
+.modalCard {
+  position: fixed;
+  width: min(400px, 88%);
+  background: #eed5c2;
+  padding: 20px 30px;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-sizing: border-box;
+  transform: translate(50%, 50%);
+  bottom: 50%;
+  right: 50%;
+  z-index: 3;
+}
+
+.modalOverlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(0, 0, 0, 0.5);
+  z-index: 2;
+  position: fixed;
+}
+
+.profileBlockWrapper {
+  background-color: #eed5c2;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 3px solid #fff;
+  width: 25%;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.profileDetailsWrapper {
+  background-color: #eda4bd;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 5px;
+  border: 3px solid #fff;
+  width: 100%;
+  padding: 10px 20px;
+  margin: 20px 0 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 550px) {
+  .actionWrapperNav {
+    gap: 15px;
+    margin: 0 0 10px;
+    justify-content: flex-start;
+  }
+  .navContainer {
+    gap: 5px;
+  }
 }
 
 /* forms */
@@ -56,6 +141,38 @@
   font-weight: 500;
 }
 
+.formError {
+  background: #ff5c5c;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 5px;
+  border: none;
+  padding: 12px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+.formMessage {
+  background: #74c365;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 5px;
+  border: none;
+  padding: 12px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+/* actions */
+
 .submitButton {
   width: 100%;
   background-color: #eda4bd;
@@ -74,36 +191,119 @@
 .submitButton:hover {
   background-color: #fbbcd1;
 }
-.submitButton:hover[disabled] {
-  background-color: #f2d1dc;
+.submitButton[disabled] {
+  background-color: #fbbcd1;
 }
 
-.formError {
-  background: #ff5c5c;
+.actionButtonPrimary {
+  width: fit-content;
+  background-color: #ccbfff;
   color: #fff;
-  font-size: 0.9rem;
-  font-weight: 500;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 5px;
-  border: none;
-  padding: 12px 10px;
-  width: 100%;
-  box-sizing: border-box;
-  line-height: 1.5rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 3px 8px 0px;
+  border: 2px solid #fff;
+  padding: 10px 20px;
+  margin: 15px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 150ms ease;
+  display: block;
 }
 
-.formMessage {
-  background: #74c365;
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 500;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 5px;
-  border: none;
-  padding: 12px 10px;
+.actionButtonPrimary:hover,
+.selectImageButton:hover {
+  background-color: #dcd4ff;
+}
+.actionButtonPrimary[disabled],
+.selectImageButton[disabled] {
+  background-color: #dcd4ff;
+}
+
+.selectImageButton {
   width: 100%;
   box-sizing: border-box;
-  line-height: 1.5rem;
+  background-color: #ccbfff;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(226, 171, 171, 0.2) 0px 3px 8px 0px;
+  border: 2px solid #fff;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 150ms ease;
+  text-align: center;
+}
+
+.actionButtonPrimary svg {
+  vertical-align: middle;
+}
+
+.exitBtn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.oval {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+}
+
+/* images */
+
+.profileImgThumbnailWrapper {
+  width: 45px;
+  height: 45px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.profileImgThumbnail {
+  border-radius: 999px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profileImageWrapper {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 3px solid #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+}
+.profileImage {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profileImgModalWrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  position: relative;
+  margin: 0 auto;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.profileImgModal {
+  border-radius: 999px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Titles and Texts */
@@ -128,6 +328,21 @@
   padding: 10px;
   margin-bottom: 0.9rem;
   text-transform: uppercase;
+  text-align: center;
+}
+
+.nicknameProfile {
+  font-family: "Sigmar", cursive;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+.nicknameLabel {
+  text-decoration: underline;
+}
+.nicknameTitle {
+  padding: 0 7px;
 }
 
 .linkText {
@@ -143,11 +358,39 @@
   font-weight: 400;
 }
 
+.MainTitleNav a {
+  font-family: "Sigmar", cursive;
+  color: #eda4bd;
+  font-size: 2rem;
+  text-decoration: none;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fff;
+}
+
+.usernameNav {
+  color: #7c606b;
+  background-color: #b3c7e3;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  right: -6px;
+  padding: 0 4px;
+}
+
 @media (max-width: 550px) {
   .MainTitle {
     font-size: 3rem;
   }
   .SecondaryTitle {
     font-size: 1.6rem;
+  }
+  .MainTitleNav a {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .usernameNav {
+    order: 4;
   }
 }

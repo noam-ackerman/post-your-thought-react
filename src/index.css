@@ -1,9 +1,18 @@
+html {
+  overflow-x: hidden;
+}
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #c1f7dc;
+  overflow-x: hidden;
+}
+
+body.modal-open {
+  height: 100vh;
+  overflow: hidden;
 }
 
 code {
