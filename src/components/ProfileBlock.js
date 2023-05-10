@@ -21,7 +21,7 @@ export default function ProfileContent() {
 
   return (
     <div className={styles.profileBlockWrapper}>
-      <div className={styles.SecondaryTitle}>My Profile</div>
+      {/* <div className={styles.SecondaryTitle}>My Profile</div> */}
       <div className={styles.profileImageWrapper} onClick={toggleModalOpen}>
         <img
           ref={profileImg}
