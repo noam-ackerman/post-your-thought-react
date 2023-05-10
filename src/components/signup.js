@@ -24,7 +24,6 @@ export default function Signup() {
       await SignupUser(emailInput.current.value, passwordInput.current.value);
       navigate("/");
     } catch (err) {
-      console.log(err.code === "auth/invalid-email");
       if (err.code === "auth/invalid-email") {
         setError("Failed to sign up! Invalid email.");
       } else if (err.code === "auth/weak-password") {
