@@ -61,7 +61,7 @@ export default function UpdateSettingsModal(props) {
 
       setMessage("Your setting were updated!");
     } catch {
-      return setError("Failed! Incorrent old password");
+      return setError("Failed! Incorrent password");
     } finally {
       setLoading(false);
     }

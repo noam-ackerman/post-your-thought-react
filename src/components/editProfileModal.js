@@ -17,7 +17,7 @@ export default function EditProfileModal(props) {
   const [imgUrl, setImgUrl] = useState(
     currentUser.photoURL ? currentUser.photoURL : defaultAvatarUrl
   );
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const modal = useRef();
   const fileInput = useRef();
   const nicknameInput = useRef();
@@ -40,7 +40,6 @@ export default function EditProfileModal(props) {
         setImgUrl(imageURL);
       } catch {
         setError("Failed to upload Image!");
-      } finally {
         setLoading(false);
       }
     }
@@ -103,6 +102,7 @@ export default function EditProfileModal(props) {
                     ? currentUser.displayName
                     : currentUser.email
                 }
+                onLoad={() => setLoading(false)}
               />
             </div>
             <label htmlFor="fileInputTag" className={styles.selectImageButton}>

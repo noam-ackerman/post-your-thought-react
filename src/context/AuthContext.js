@@ -26,6 +26,7 @@ const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [currentUserUpdating, setCurrentUserUpdating] = React.useState(false);
   const [Loading, setLoading] = useState(true);
+  const [defaultImageAndNickName, setDefaultImageAndNickname] = useState(false);
   const defaultAvatarUrl =
     "https://firebasestorage.googleapis.com/v0/b/post-auth-dev-e4058.appspot.com/o/photography.png?alt=media&token=ee8ac101-275e-496c-9d6e-0cd6159a29f1";
 
@@ -65,6 +66,22 @@ const AuthContextProvider = ({ children }) => {
     return updateProfile(currentUser, data);
   }
 
+  React.useEffect(() => {
+    if (
+      currentUser &&
+      !defaultImageAndNickName &&
+      !currentUser.photoURL &&
+      !currentUser.displayName
+    ) {
+      updateProfile(currentUser, {
+        displayName: currentUser.email.split("@")[0],
+        photoURL: defaultAvatarUrl,
+      }).then(() => {
+        setDefaultImageAndNickname(true);
+      });
+    }
+  }, [currentUser, defaultImageAndNickName]);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -75,7 +92,6 @@ const AuthContextProvider = ({ children }) => {
 
   const ContextValue = {
     currentUser,
-    defaultAvatarUrl,
     SignupUser,
     LoginUser,
     LogoutUser,

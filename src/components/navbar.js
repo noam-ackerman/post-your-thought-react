@@ -9,9 +9,9 @@ import { LogoutSVG, SettingsSVG } from "./logos";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { currentUser, LogoutUser, defaultAvatarUrl, currentUserUpdating } =
-    useAuth();
+  const { currentUser, LogoutUser, currentUserUpdating } = useAuth();
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   React.useEffect(() => {
     updateModalOpen
@@ -41,23 +41,17 @@ export default function Navbar() {
       <div className={styles.MainTitleNav}>
         <Link to="/">Post Your Thought.</Link>
       </div>
-      <div className={styles.actionWrapperNav}>
+      <div className={styles.actionWrapper}>
         <div className={styles.usernameNav}>
-          Hi{" "}
-          {currentUser.displayName
-            ? currentUser.displayName
-            : currentUser.email.split("@")[0]}{" "}
-          (✧ω✧)☆
+          Hi {currentUser.displayName} (✧ω✧)☆
         </div>
         <Link to="/profile" className={styles.profileImgThumbnailWrapper}>
           <img
             className={styles.profileImgThumbnail}
-            src={currentUser.photoURL ? currentUser.photoURL : defaultAvatarUrl}
-            alt={
-              currentUser.displayName
-                ? currentUser.displayName
-                : currentUser.email
-            }
+            src={currentUser.photoURL}
+            alt={currentUser.displayName}
+            style={{ display: imageLoaded ? "block" : "none" }}
+            onLoad={() => setImageLoaded(true)}
           />
         </Link>
         <button

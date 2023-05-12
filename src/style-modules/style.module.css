@@ -33,15 +33,40 @@
 }
 
 .profileContainerContent {
-  padding: 2rem 1.3rem;
+  padding: 1.8rem 1.5rem;
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
 }
 
-.actionWrapperNav {
+.postingSectionWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.postingFormWrraper {
+  background-color: #ccbfff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 3px solid #fff;
+  width: 100%;
+  padding: 1.2rem 2.2rem 1.8rem;
+  border-radius: 5px;
+}
+.postBlockWrraper {
+  background-color: rgb(187, 233, 255);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 3px solid #fff;
+  width: 100%;
+  padding: 1.8rem 2rem 1rem;
+  border-radius: 5px;
+}
+.actionWrapper {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 17px;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -90,9 +115,23 @@
   display: flex;
   flex-direction: column;
 }
+.postInfoLineWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.footer {
+  background-color: #eed5c2;
+  width: 100%;
+  padding: 10px 25px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 10px 10px;
+}
 
 @media (max-width: 550px) {
-  .actionWrapperNav {
+  .actionWrapper {
     gap: 15px;
     margin: 0 0 10px;
     justify-content: flex-start;
@@ -131,7 +170,8 @@
   .profileContainerContent {
     flex-direction: column;
   }
-  .profileBlockWrapper {
+  .profileBlockWrapper,
+  .postingSectionWrapper {
     width: 100%;
   }
 }
@@ -203,6 +243,17 @@
   text-align: center;
 }
 
+.textArea {
+  width: 100%;
+  height: 10rem;
+  border: none;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 0.7rem 1.1rem;
+  line-height: 1.3rem;
+  resize: none;
+}
+
 /* actions */
 
 .submitButton {
@@ -220,11 +271,29 @@
   transition: all 150ms ease;
 }
 
-.submitButton:hover {
+.submitButton:hover,
+.postSubmitbutton:hover {
   background-color: #fbbcd1;
 }
-.submitButton[disabled] {
+.submitButton[disabled],
+.postSubmitbutton[disabled] {
   background-color: #fbbcd1;
+}
+
+.postSubmitbutton {
+  width: fit-content;
+  background-color: #eda4bd;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 3px 8px 0px;
+  border: 2px solid #fff;
+  padding: 10px;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 150ms ease;
+  align-self: flex-end;
 }
 
 .actionButtonPrimary {
@@ -289,7 +358,17 @@
   top: -12px;
   left: -12px;
 }
+.ovalProfileImage {
+  display: block;
+  margin: 29% auto;
+  height: 100%;
+  width: 100%;
+}
 
+.ovalProfileImage svg {
+  margin: auto;
+  display: block;
+}
 /* images */
 
 .profileImgThumbnailWrapper {
@@ -320,7 +399,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  /* display: block; */
+  /* transition: opacity 150ms ease; */
 }
 
 .profileImgModalWrapper {
@@ -409,12 +489,37 @@
 
 .usernameNav {
   color: #7c606b;
-  background-color: #b3c7e3;
+  background-color: rgb(187, 233, 255, 0.8);
   font-weight: 600;
   font-size: 1rem;
   position: relative;
   right: -6px;
   padding: 0 4px;
+}
+.usernamePost {
+  color: #fff;
+  background-color: #eda4bd;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  padding: 1px 5px;
+  width: fit-content;
+}
+
+.dateAndTime {
+  flex: 1;
+  text-align: right;
+  font-weight: 600;
+  color: #fff;
+}
+
+.postContent {
+  color: #7c606b;
+  font-family: monospace;
+  padding: 1.5rem 0.7rem;
+  font-size: 0.9rem;
+  white-space: pre-line;
+  line-height: 1.5rem;
 }
 
 @media (max-width: 550px) {
@@ -433,4 +538,20 @@
   .usernameNav {
     order: 4;
   }
+}
+
+/* spacing */
+
+.marginTopBottom1 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.marginTopBottom2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.marginTopBottom3 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
