@@ -12,6 +12,7 @@ export default function EditProfileModal(props) {
     defaultAvatarUrl,
     setCurrentUserUpdating,
     currentUserUpdating,
+    updateUserDatabase,
   } = useAuth();
   const [error, setError] = useState("");
   const [imgUrl, setImgUrl] = useState(
@@ -21,6 +22,7 @@ export default function EditProfileModal(props) {
   const modal = useRef();
   const fileInput = useRef();
   const nicknameInput = useRef();
+  const bioInput = useRef();
 
   function handleOverlayClick(event) {
     if (event.target !== modal.current) {
@@ -55,9 +57,18 @@ export default function EditProfileModal(props) {
           displayName: nicknameInput.current.value,
           photoURL: imgUrl,
         });
+        await updateUserDatabase({
+          displayName: nicknameInput.current.value,
+          photoURL: imgUrl,
+          bio: bioInput.current.value,
+        });
       } else {
         await UpdateProfile({
           displayName: nicknameInput.current.value,
+        });
+        await updateUserDatabase({
+          displayName: nicknameInput.current.value,
+          bio: bioInput.current.value,
         });
       }
       setCurrentUserUpdating(!currentUserUpdating);
@@ -132,6 +143,16 @@ export default function EditProfileModal(props) {
               }
               ref={nicknameInput}
               required
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <label className={styles.inputLabel}>Bio:</label>
+            <textarea
+              className={styles.textAreaSmall}
+              type="text"
+              name="bio"
+              defaultValue={props.bio}
+              ref={bioInput}
             />
           </div>
           <button

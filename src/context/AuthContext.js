@@ -12,9 +12,16 @@ import {
 } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import firebaseApp from "../firebase";
+import {
+  getDatabase,
+  ref as databaseRef,
+  set,
+  update,
+} from "firebase/database";
 
 const auth = getAuth(firebaseApp);
 const storage = getStorage();
+const database = getDatabase();
 
 const AuthContext = React.createContext();
 
@@ -66,6 +73,11 @@ const AuthContextProvider = ({ children }) => {
     return updateProfile(currentUser, data);
   }
 
+  function updateUserDatabase(data) {
+    const userRef = databaseRef(database, "users/" + currentUser.uid);
+    return update(userRef, data);
+  }
+
   React.useEffect(() => {
     if (
       currentUser &&
@@ -78,6 +90,13 @@ const AuthContextProvider = ({ children }) => {
         photoURL: defaultAvatarUrl,
       }).then(() => {
         setDefaultImageAndNickname(true);
+        const userRef = databaseRef(database, "users/" + currentUser.uid);
+        set(userRef, {
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+          photoURL: currentUser.photoURL,
+          bio: "",
+        });
       });
     }
   }, [currentUser, defaultImageAndNickName]);
@@ -102,6 +121,7 @@ const AuthContextProvider = ({ children }) => {
     UpdateProfile,
     currentUserUpdating,
     setCurrentUserUpdating,
+    updateUserDatabase,
   };
 
   return (

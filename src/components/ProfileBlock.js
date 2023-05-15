@@ -4,12 +4,15 @@ import { useAuth } from "../context/AuthContext";
 import { Oval } from "react-loader-spinner";
 import EditProfileModal from "./editProfileModal";
 import styles from "../style-modules/style.module.css";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 export default function ProfileContent() {
   const { currentUser } = useAuth();
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [bio, setBio] = useState(null);
   const profileImg = useRef();
+  const database = getDatabase();
 
   function toggleModalOpen() {
     setUpdateModalOpen(!updateModalOpen);
@@ -20,6 +23,18 @@ export default function ProfileContent() {
       ? document.querySelector("body").classList.add("modal-open")
       : document.querySelector("body").classList.remove("modal-open");
   }, [updateModalOpen]);
+
+  React.useEffect(() => {
+    const bioRef = ref(database, "users/" + currentUser.uid + "/bio");
+    onValue(bioRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setBio(data);
+      } else {
+        setBio(null);
+      }
+    });
+  }, [currentUser.uid, database]);
 
   return (
     <div className={styles.profileBlockWrapper}>
@@ -48,12 +63,16 @@ export default function ProfileContent() {
         />
       </div>
       <div className={styles.profileDetailsWrapper}>
-        <div className={styles.nicknameProfile}>
-          <span className={styles.nicknameLabel}>Nickname:</span>
-          <span className={styles.nicknameTitle}>
-            {currentUser.displayName}
-          </span>
+        <div className={styles.detailProfile}>
+          <span className={styles.detailLabel}>Nickname:</span>
+          <span className={styles.detailTitle}>{currentUser.displayName}</span>
         </div>
+        {bio && (
+          <div className={styles.detailProfile}>
+            <span className={styles.detailLabel}>Bio:</span>
+            <span className={styles.detailTitle}>{bio}</span>
+          </div>
+        )}
         <button
           onClick={toggleModalOpen}
           className={styles.actionButtonPrimary}
@@ -63,7 +82,7 @@ export default function ProfileContent() {
       </div>
       {updateModalOpen &&
         ReactDOM.createPortal(
-          <EditProfileModal toggleModalOpen={toggleModalOpen} />,
+          <EditProfileModal toggleModalOpen={toggleModalOpen} bio={bio} />,
           document.getElementById("modal-root")
         )}
     </div>

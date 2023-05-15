@@ -5,7 +5,7 @@ import styles from "../style-modules/style.module.css";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import UpdateSettingsModal from "./updateSettingsModal";
-import { LogoutSVG, SettingsSVG } from "./logos";
+import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "./logos";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -20,8 +20,6 @@ export default function Navbar() {
   }, [updateModalOpen]);
 
   React.useEffect(() => {}, [currentUserUpdating]);
-
-  console.log("updated");
 
   function toggleModalOpen() {
     setUpdateModalOpen(!updateModalOpen);
@@ -54,13 +52,24 @@ export default function Navbar() {
             onLoad={() => setImageLoaded(true)}
           />
         </Link>
+        <button title="Homepage" className={styles.actionButtonPrimary}>
+          <HomeSVG color="#fff" height="22px" width="22px" />
+        </button>
+        <button title="Search Users" className={styles.actionButtonPrimary}>
+          <SearchSVG color="#fff" height="23px" width="23px" />
+        </button>
         <button
           onClick={toggleModalOpen}
           className={styles.actionButtonPrimary}
+          title="Settings"
         >
-          <SettingsSVG color="#fff" height="20px" width="20px" />
+          <SettingsSVG color="#fff" height="21px" width="21px" />
         </button>
-        <button onClick={HandleLogout} className={styles.actionButtonPrimary}>
+        <button
+          title="Log Out"
+          onClick={HandleLogout}
+          className={styles.actionButtonPrimary}
+        >
           <LogoutSVG color="#fff" height="20px" width="20px" />
         </button>
       </div>
