@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import styles from "../style-modules/style.module.css";
+import styles from "../../style-modules/style.module.css";
 
 export default function PostingForm(props) {
   const textArea = useRef();

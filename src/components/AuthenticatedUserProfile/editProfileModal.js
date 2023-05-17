@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
-import styles from "../style-modules/style.module.css";
-import { useAuth } from "../context/AuthContext";
+import styles from "../../style-modules/style.module.css";
+import { useAuth } from "../../context/AuthContext";
+import { useUsersCtx } from "../../context/usersContext";
 import { Oval } from "react-loader-spinner";
-import { ExitSVG } from "./logos";
+import { ExitSVG } from "../logos";
 
 export default function EditProfileModal(props) {
   const {
@@ -12,8 +13,8 @@ export default function EditProfileModal(props) {
     defaultAvatarUrl,
     setCurrentUserUpdating,
     currentUserUpdating,
-    updateUserDatabase,
   } = useAuth();
+  const { updateUserDatabase } = useUsersCtx();
   const [error, setError] = useState("");
   const [imgUrl, setImgUrl] = useState(
     currentUser.photoURL ? currentUser.photoURL : defaultAvatarUrl
@@ -35,14 +36,20 @@ export default function EditProfileModal(props) {
 
   async function handleImageUpload(e) {
     setLoading(true);
+    setError("");
     const [file] = e.target.files;
     if (file) {
-      try {
-        const imageURL = await UploadImageToStorageAndGetUrl(file);
-        setImgUrl(imageURL);
-      } catch {
-        setError("Failed to upload Image!");
+      if (file.size <= 5242880) {
+        try {
+          const imageURL = await UploadImageToStorageAndGetUrl(file);
+          setImgUrl(imageURL);
+        } catch {
+          setError("Failed to upload Image!");
+          setLoading(false);
+        }
+      } else {
         setLoading(false);
+        setError("Image is too large! Max size is 5MB");
       }
     }
   }
@@ -116,8 +123,13 @@ export default function EditProfileModal(props) {
                 onLoad={() => setLoading(false)}
               />
             </div>
-            <label htmlFor="fileInputTag" className={styles.selectImageButton}>
-              Select an Image file
+            <label
+              htmlFor="fileInputTag"
+              className={styles.selectImageButton}
+              disabled={loading}
+            >
+              Select an Image file{" "}
+              <span className={styles.maxSize}>(max 5MB)</span>
               <input
                 id="fileInputTag"
                 type="file"

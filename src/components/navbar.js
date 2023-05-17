@@ -43,7 +43,11 @@ export default function Navbar() {
         <div className={styles.usernameNav}>
           Hi {currentUser.displayName} (✧ω✧)☆
         </div>
-        <Link to="/profile" className={styles.profileImgThumbnailWrapper}>
+        <Link
+          to="/profile"
+          title="My Profile"
+          className={styles.profileImgThumbnailWrapper}
+        >
           <img
             className={styles.profileImgThumbnail}
             src={currentUser.photoURL}
@@ -52,12 +56,16 @@ export default function Navbar() {
             onLoad={() => setImageLoaded(true)}
           />
         </Link>
-        <button title="Homepage" className={styles.actionButtonPrimary}>
+        <Link to="/" title="Homepage" className={styles.actionButtonPrimary}>
           <HomeSVG color="#fff" height="22px" width="22px" />
-        </button>
-        <button title="Search Users" className={styles.actionButtonPrimary}>
+        </Link>
+        <Link
+          to="/search-users"
+          title="Search Users"
+          className={styles.actionButtonPrimary}
+        >
           <SearchSVG color="#fff" height="23px" width="23px" />
-        </button>
+        </Link>
         <button
           onClick={toggleModalOpen}
           className={styles.actionButtonPrimary}

@@ -18,7 +18,30 @@
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+.SearchPageContainter {
+  padding: 3.5rem 1.5rem;
+}
+.searchResultsWrapper {
+  width: min(40rem, 100%);
+  margin: 1rem auto 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.7rem;
+}
 
+.userCard {
+  width: 100%;
+  background-color: rgb(187, 233, 255);
+  border: 3px solid #fff;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  text-decoration: none;
+}
 .navContainer {
   background-color: #eed5c2;
   width: 100%;
@@ -33,7 +56,7 @@
 }
 
 .profileContainerContent {
-  padding: 1.8rem 1.5rem;
+  padding: 2rem 1.7rem;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -110,7 +133,7 @@
   border-radius: 5px;
   border: 3px solid #fff;
   width: 100%;
-  padding: 15px 20px 10px;
+  padding: 15px 20px;
   margin: 20px 0 0;
   display: flex;
   flex-direction: column;
@@ -135,7 +158,7 @@
     gap: 5px;
   }
   .profileContainerContent {
-    padding: 1.7rem 1rem;
+    padding: 1.8rem 1.1rem;
   }
   .modalCard {
     transform: none;
@@ -266,6 +289,19 @@
   line-height: 1.3rem;
   resize: none;
 }
+
+.searchInput {
+  width: min(40rem, 100%);
+  font-family: monospace;
+  display: block;
+  padding: 20px 15px;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1.5rem auto 2.5rem;
+}
 /* actions */
 
 .submitButton {
@@ -289,8 +325,9 @@
 }
 .submitButton[disabled],
 .postSubmitbutton[disabled] {
-  background-color: #fbbcd1;
+  background-color: #f6d2de;
   cursor: default;
+  pointer-events: none;
 }
 
 .postSubmitbutton {
@@ -317,7 +354,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 3px 8px 0px;
   border: 2px solid #fff;
   padding: 10px 20px;
-  margin: 15px 0;
+  margin: 15px 0 15px;
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
@@ -333,11 +370,15 @@
 .selectImageButton[disabled] {
   background-color: #dcd4ff;
   cursor: default;
+  pointer-events: none;
 }
 
 .selectImageButton {
   width: 100%;
-
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  align-items: center;
   background-color: #ccbfff;
   color: #fff;
   border-radius: 5px;
@@ -349,7 +390,6 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 150ms ease;
-  text-align: center;
 }
 
 .actionButtonPrimary svg {
@@ -383,16 +423,27 @@
   margin: auto;
   display: block;
 }
+
+.heartsPageLoader {
+  margin: 10% auto;
+  justify-content: center;
+}
 /* images */
 
 .profileImgThumbnailWrapper {
-  width: 45px;
-  height: 45px;
+  width: 49px;
+  height: 49px;
   border-radius: 999px;
   border: 2px solid #fff;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-
+.profileImgLargerThumbnailWrapper {
+  width: 75px;
+  height: 75px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
 .profileImgThumbnail {
   border-radius: 999px;
   width: 100%;
@@ -464,6 +515,18 @@
   width: 100%;
 }
 
+.SearchTitle {
+  color: #ccbfff;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #7c606b;
+  font-size: 2.5rem;
+  font-weight: 700;
+  padding: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+}
+
 .detailProfile {
   font-family: "Sigmar", cursive;
   color: #fff;
@@ -477,6 +540,12 @@
 }
 .detailLabel {
   text-decoration: underline;
+}
+.usernameResult {
+  font-family: "Sigmar", cursive;
+  color: #eda4bd;
+  font-weight: 500;
+  font-size: 1.2rem;
 }
 
 .linkText {
@@ -534,6 +603,10 @@
   font-size: 0.9rem;
   white-space: pre-line;
   line-height: 1.5rem;
+}
+.maxSize {
+  opacity: 0.8;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 550px) {

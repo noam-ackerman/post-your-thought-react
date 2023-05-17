@@ -12,16 +12,13 @@ import {
 } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import firebaseApp from "../firebase";
-import {
-  getDatabase,
-  ref as databaseRef,
-  set,
-  update,
-} from "firebase/database";
+import { getDatabase, ref as databaseRef, set } from "firebase/database";
 
 const auth = getAuth(firebaseApp);
 const storage = getStorage();
 const database = getDatabase();
+const defaultAvatarUrl =
+  "https://firebasestorage.googleapis.com/v0/b/post-auth-dev-e4058.appspot.com/o/photography.png?alt=media&token=ee8ac101-275e-496c-9d6e-0cd6159a29f1";
 
 const AuthContext = React.createContext();
 
@@ -34,8 +31,6 @@ const AuthContextProvider = ({ children }) => {
   const [currentUserUpdating, setCurrentUserUpdating] = React.useState(false);
   const [Loading, setLoading] = useState(true);
   const [defaultImageAndNickName, setDefaultImageAndNickname] = useState(false);
-  const defaultAvatarUrl =
-    "https://firebasestorage.googleapis.com/v0/b/post-auth-dev-e4058.appspot.com/o/photography.png?alt=media&token=ee8ac101-275e-496c-9d6e-0cd6159a29f1";
 
   function SignupUser(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -73,11 +68,7 @@ const AuthContextProvider = ({ children }) => {
     return updateProfile(currentUser, data);
   }
 
-  function updateUserDatabase(data) {
-    const userRef = databaseRef(database, "users/" + currentUser.uid);
-    return update(userRef, data);
-  }
-
+  // setting default image and nickname in user object on first login and updating Database
   React.useEffect(() => {
     if (
       currentUser &&
@@ -92,6 +83,7 @@ const AuthContextProvider = ({ children }) => {
         setDefaultImageAndNickname(true);
         const userRef = databaseRef(database, "users/" + currentUser.uid);
         set(userRef, {
+          userId: currentUser.uid,
           displayName: currentUser.displayName,
           email: currentUser.email,
           photoURL: currentUser.photoURL,
@@ -101,6 +93,7 @@ const AuthContextProvider = ({ children }) => {
     }
   }, [currentUser, defaultImageAndNickName]);
 
+  // unsubscribing from auth
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -121,7 +114,6 @@ const AuthContextProvider = ({ children }) => {
     UpdateProfile,
     currentUserUpdating,
     setCurrentUserUpdating,
-    updateUserDatabase,
   };
 
   return (

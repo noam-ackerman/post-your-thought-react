@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
-import styles from "../style-modules/style.module.css";
-// import { useAuth } from "../context/AuthContext";
+import styles from "../../style-modules/style.module.css";
 
-export default function PostBlock(props) {
+export default function PostBlockAuthenticated(props) {
   const textAreaEdit = useRef();
   const [editMode, setEditMode] = useState(false);
   let date = new Date(props.post.date);

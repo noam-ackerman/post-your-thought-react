@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { Oval } from "react-loader-spinner";
 import EditProfileModal from "./editProfileModal";
-import styles from "../style-modules/style.module.css";
+import styles from "../../style-modules/style.module.css";
 import { getDatabase, ref, onValue } from "firebase/database";
 
-export default function ProfileContent() {
+export default function ProfileBlockAuthenticated() {
   const { currentUser } = useAuth();
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -64,7 +64,7 @@ export default function ProfileContent() {
       </div>
       <div className={styles.profileDetailsWrapper}>
         <div className={styles.detailProfile}>
-          <span className={styles.detailLabel}>Nickname:</span>
+          <span className={styles.detailLabel}>Username:</span>
           <span className={styles.detailTitle}>{currentUser.displayName}</span>
         </div>
         {bio && (
