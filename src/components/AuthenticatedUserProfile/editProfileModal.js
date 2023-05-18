@@ -120,6 +120,7 @@ export default function EditProfileModal(props) {
                     ? currentUser.displayName
                     : currentUser.email
                 }
+                style={{ display: !loading ? "block" : "none" }}
                 onLoad={() => setLoading(false)}
               />
             </div>
