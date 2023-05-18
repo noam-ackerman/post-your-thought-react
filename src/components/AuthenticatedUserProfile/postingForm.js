@@ -10,6 +10,7 @@ export default function PostingForm(props) {
       id: Math.random().toString(),
       content: textArea.current.value,
       date: Date.now(),
+      likes: 0,
     };
     props.addingPostFromForm(newPostData);
     textArea.current.value = "";

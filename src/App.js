@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Homepage from "./pages/Homepage";
 import Search from "./pages/searchPage";
 import ForgotPassword from "./pages/forgotPassword";
+import ScrollToTop from "./components/scrollToTop";
 import { AuthContextProvider } from "./context/AuthContext";
 import { UsersContextProvider } from "./context/usersContext";
 import {
@@ -22,6 +23,7 @@ function App() {
       <Router>
         <AuthContextProvider>
           <UsersContextProvider>
+            <ScrollToTop />
             <Routes>
               <Route
                 path="/"

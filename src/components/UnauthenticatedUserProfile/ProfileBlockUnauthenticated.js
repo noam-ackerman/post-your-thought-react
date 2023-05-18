@@ -9,7 +9,7 @@ export default function ProfileBlockUnauthenticated(props) {
 
   return (
     <div className={styles.profileBlockWrapper}>
-      <div className={styles.profileImageWrapper}>
+      <div className={styles.profileImageWrapper} style={{ cursor: "default" }}>
         {!imageLoaded && (
           <Oval
             height={138}

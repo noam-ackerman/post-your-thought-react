@@ -22,7 +22,7 @@
   padding: 3.5rem 1.5rem;
 }
 .searchResultsWrapper {
-  width: min(40rem, 100%);
+  width: min(600px, 100%);
   margin: 1rem auto 3rem;
   display: flex;
   flex-direction: column;
@@ -68,6 +68,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: center;
 }
 .postingFormWrraper {
   background-color: #ccbfff;
@@ -82,7 +83,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border: 3px solid #fff;
   width: 100%;
-  padding: 1.8rem 2rem 1rem;
+  padding: 1.8rem 2rem 1.4rem;
   border-radius: 5px;
 }
 .actionWrapper {
@@ -144,6 +145,22 @@
   align-items: center;
   margin-bottom: 0.5rem;
   flex-wrap: wrap;
+}
+
+.heroBanner {
+  width: 100%;
+  height: 350px;
+  background-color: #8cb4fe;
+  border: 5px solid #eda4bd;
+  padding: 2rem;
+}
+.hpPostsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 1.5rem;
 }
 
 .footer {
@@ -217,7 +234,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 1.5rem;
   margin-top: 1rem;
 }
 
@@ -291,7 +308,7 @@
 }
 
 .searchInput {
-  width: min(40rem, 100%);
+  width: min(600px, 100%);
   font-family: monospace;
   display: block;
   padding: 20px 15px;
@@ -425,9 +442,10 @@
 }
 
 .heartsPageLoader {
-  margin: 10% auto;
+  margin: 12% auto;
   justify-content: center;
 }
+
 /* images */
 
 .profileImgThumbnailWrapper {
@@ -546,6 +564,7 @@
   color: #eda4bd;
   font-weight: 500;
   font-size: 1.2rem;
+  word-break: break-word;
 }
 
 .linkText {
@@ -587,6 +606,8 @@
   position: relative;
   padding: 1px 5px;
   width: fit-content;
+  display: block;
+  text-decoration: none;
 }
 
 .dateAndTime {
@@ -607,6 +628,22 @@
 .maxSize {
   opacity: 0.8;
   font-size: 0.8rem;
+}
+
+.welcomeText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 12rem;
+  gap: 1.2rem;
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.welcomeText span {
+  opacity: 0;
+  transition: opacity 500ms ease;
 }
 
 @media (max-width: 550px) {
@@ -641,4 +678,8 @@
 .marginTopBottom3 {
   margin-top: 3rem;
   margin-bottom: 3rem;
+}
+
+.maxWidth1200 {
+  max-width: 1200px;
 }

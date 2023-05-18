@@ -31,7 +31,6 @@ const UsersContextProvider = ({ children }) => {
   // getting current user posts from database and setting state
 
   React.useEffect(() => {
-    console.log("fetching user posts");
     if (currentUser) {
       const postsRef = databaseRef(
         database,
@@ -53,7 +52,7 @@ const UsersContextProvider = ({ children }) => {
   // fetching all users data from database and setting state
 
   const fetchingUsers = React.useCallback(() => {
-    console.log("fetching users");
+    setUsersData();
     const postsRef = databaseRef(database, "users");
     onValue(postsRef, (snapshot) => {
       const data = snapshot.val();
@@ -72,6 +71,7 @@ const UsersContextProvider = ({ children }) => {
     currentUserPosts,
     setCurrentUserPosts,
     usersData,
+    setUsersData,
     fetchingUsers,
   };
 
