@@ -73,7 +73,6 @@ export default function Homepage() {
             {usersPostsArray.length ? (
               usersPostsArray.map((post, index) => {
                 if (index <= numPosts) {
-                  console.log(post.date);
                   let date = new Date(post.date);
                   let year = date.getFullYear(),
                     month = ("0" + (date.getMonth() + 1)).slice(-2),

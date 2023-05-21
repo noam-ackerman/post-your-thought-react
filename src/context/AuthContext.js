@@ -9,8 +9,18 @@ import {
   updateEmail,
   updatePassword,
   updateProfile,
+  deleteUser,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+  listAll,
+} from "firebase/storage";
 import firebaseApp from "../firebase";
 import { getDatabase, ref as databaseRef, set } from "firebase/database";
 
@@ -47,6 +57,10 @@ const AuthContextProvider = ({ children }) => {
     return sendPasswordResetEmail(auth, email);
   }
 
+  function DeleteUser() {
+    return deleteUser(currentUser);
+  }
+
   function UpdateEmail(email) {
     return updateEmail(currentUser, email);
   }
@@ -54,14 +68,38 @@ const AuthContextProvider = ({ children }) => {
     return updatePassword(currentUser, password);
   }
 
+  function reAuthenticateUser(providedPassword) {
+    const credentials = EmailAuthProvider.credential(
+      currentUser.email,
+      providedPassword
+    );
+    return reauthenticateWithCredential(currentUser, credentials);
+  }
+
   async function UploadImageToStorageAndGetUrl(imgFile) {
-    const fileRef = ref(storage, currentUser.uid + "-" + imgFile.name);
+    const fileRef = ref(
+      storage,
+      "images/" + currentUser.uid + "/" + imgFile.name
+    );
     try {
       await uploadBytes(fileRef, imgFile);
       return getDownloadURL(fileRef);
     } catch {
       return alert("Failed to upload image!");
     }
+  }
+
+  function deleteStorageUser() {
+    const ImagesRef = ref(storage, "images/" + currentUser.uid);
+    listAll(ImagesRef)
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          deleteObject(itemRef);
+        });
+      })
+      .catch((err) => {
+        return new Error();
+      });
   }
 
   function UpdateProfile(data) {
@@ -114,6 +152,9 @@ const AuthContextProvider = ({ children }) => {
     UpdateProfile,
     currentUserUpdating,
     setCurrentUserUpdating,
+    DeleteUser,
+    deleteStorageUser,
+    reAuthenticateUser,
   };
 
   return (

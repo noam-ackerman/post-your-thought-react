@@ -80,12 +80,13 @@ export default function EditProfileModal(props) {
       }
       setCurrentUserUpdating(!currentUserUpdating);
       props.toggleModalOpen();
-    } catch (error) {
-      setError("Failed to update profile!");
+    } catch {
+      setError("Something went wrong!");
     } finally {
       setLoading(false);
     }
   }
+
   return (
     <>
       <div className={styles.modalOverlay} onClick={handleOverlayClick}></div>

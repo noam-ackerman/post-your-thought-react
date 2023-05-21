@@ -1,13 +1,25 @@
 import React, { useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useUsersCtx } from "../context/usersContext";
+import { useNavigate } from "react-router-dom";
 import styles from "../style-modules/style.module.css";
 import { ExitSVG } from "./logos";
 
 export default function UpdateSettingsModal(props) {
-  const { currentUser, LoginUser, UpdateEmail, UpdatePassword } = useAuth();
+  const {
+    currentUser,
+    UpdateEmail,
+    UpdatePassword,
+    DeleteUser,
+    deleteStorageUser,
+    reAuthenticateUser,
+  } = useAuth();
+  const { deleteUserDatabase } = useUsersCtx();
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [deleteClick, setDeleteClick] = useState(false);
+  const navigate = useNavigate();
 
   const emailInput = useRef();
   const oldPasswordInput = useRef();
@@ -30,7 +42,7 @@ export default function UpdateSettingsModal(props) {
     setMessage("");
     setLoading(true);
     try {
-      await LoginUser(currentUser.email, oldPasswordInput.current.value);
+      await reAuthenticateUser(oldPasswordInput.current.value);
       if (
         newPasswordInput.current.value !== newPasswordConfirmInput.current.value
       ) {
@@ -64,6 +76,37 @@ export default function UpdateSettingsModal(props) {
       return setError("Failed! Incorrent password");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleDeleteUser() {
+    setError("");
+    setMessage("");
+    if (!oldPasswordInput.current.checkValidity()) {
+      oldPasswordInput.current.reportValidity();
+      return;
+    } else {
+      if (!deleteClick) {
+        setDeleteClick(true);
+      } else {
+        setLoading(true);
+        try {
+          await reAuthenticateUser(oldPasswordInput.current.value);
+          try {
+            await deleteStorageUser();
+            await deleteUserDatabase();
+            await DeleteUser();
+            navigate("/login");
+          } catch {
+            setError("Failed to delete account fully!");
+            setDeleteClick(false);
+          }
+        } catch {
+          setError("Failed! Incorrent password");
+          setDeleteClick(false);
+        }
+        setLoading(false);
+      }
     }
   }
 
@@ -122,13 +165,23 @@ export default function UpdateSettingsModal(props) {
               placeholder="Leave blank to keep"
             />
           </div>
-          <button
-            className={styles.submitButton}
-            type="submit"
-            disabled={loading}
-          >
-            Update
-          </button>
+          <div className={styles.settingsActions}>
+            <button
+              className={styles.submitButton}
+              type="submit"
+              disabled={loading}
+            >
+              Update
+            </button>
+            <button
+              className={styles.deleteAccountBtn}
+              onClick={handleDeleteUser}
+              disabled={loading}
+              type="button"
+            >
+              {!deleteClick ? "Delete My Account" : "Are you sure? 'Yes'"}
+            </button>
+          </div>
         </form>
       </div>
     </>

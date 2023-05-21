@@ -5,6 +5,7 @@ import {
   ref as databaseRef,
   update,
   onValue,
+  remove,
 } from "firebase/database";
 
 const UsersContext = React.createContext();
@@ -23,6 +24,15 @@ const UsersContextProvider = ({ children }) => {
     if (currentUser) {
       const userRef = databaseRef(database, "users/" + currentUser.uid);
       return update(userRef, data);
+    } else {
+      return;
+    }
+  }
+
+  function deleteUserDatabase() {
+    if (currentUser) {
+      const userRef = databaseRef(database, "users/" + currentUser.uid);
+      return remove(userRef);
     } else {
       return;
     }
@@ -73,6 +83,7 @@ const UsersContextProvider = ({ children }) => {
     usersData,
     setUsersData,
     fetchingUsers,
+    deleteUserDatabase,
   };
 
   return (

@@ -24,27 +24,39 @@ export default function ProfileAuthenticated() {
     }
   }, [numPosts, currentUserPosts]);
 
-  function addingPostFromForm(newPostData) {
-    setCurrentUserPosts([newPostData, ...currentUserPosts]);
-    updateUserDatabase({ posts: [newPostData, ...currentUserPosts] });
+  async function addingPostFromForm(newPostData) {
+    try {
+      await updateUserDatabase({ posts: [newPostData, ...currentUserPosts] });
+      setCurrentUserPosts([newPostData, ...currentUserPosts]);
+    } catch {
+      alert("Something went wrong!");
+    }
   }
 
-  function deletePost(post) {
-    let newPostsArray = currentUserPosts.filter((x) => x.id !== post.id);
-    setCurrentUserPosts(newPostsArray);
-    updateUserDatabase({ posts: newPostsArray });
+  async function deletePost(post) {
+    try {
+      let newPostsArray = currentUserPosts.filter((x) => x.id !== post.id);
+      await updateUserDatabase({ posts: newPostsArray });
+      setCurrentUserPosts(newPostsArray);
+    } catch {
+      alert("Something went wrong!");
+    }
   }
 
-  function editPost(post, newContent) {
-    let newPostsArray = currentUserPosts.map((x) => {
-      if (x.id === post.id) {
-        return { ...x, content: newContent };
-      } else {
-        return x;
-      }
-    });
-    setCurrentUserPosts(newPostsArray);
-    updateUserDatabase({ posts: newPostsArray });
+  async function editPost(post, newContent) {
+    try {
+      let newPostsArray = currentUserPosts.map((x) => {
+        if (x.id === post.id) {
+          return { ...x, content: newContent };
+        } else {
+          return x;
+        }
+      });
+      await updateUserDatabase({ posts: newPostsArray });
+      setCurrentUserPosts(newPostsArray);
+    } catch {
+      alert("Something went wrong!");
+    }
   }
 
   function handleLikes() {}

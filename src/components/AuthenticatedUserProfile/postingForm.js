@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { uid } from "uid";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostingForm(props) {
@@ -7,10 +8,9 @@ export default function PostingForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
     let newPostData = {
-      id: Math.random().toString(),
+      id: uid(32),
       content: textArea.current.value,
       date: Date.now(),
-      likes: 0,
     };
     props.addingPostFromForm(newPostData);
     textArea.current.value = "";

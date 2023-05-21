@@ -234,7 +234,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.2rem;
   margin-top: 1rem;
 }
 
@@ -446,6 +446,32 @@
   justify-content: center;
 }
 
+.settingsActions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.deleteAccountBtn {
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: #ff5c5c;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 3px 8px 0px;
+  border: 2px solid #fff;
+  padding: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.deleteAccountBtn:hover,
+.deleteAccountBtn[disabled] {
+  background-color: #ff8585;
+}
 /* images */
 
 .profileImgThumbnailWrapper {
