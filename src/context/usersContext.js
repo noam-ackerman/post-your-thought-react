@@ -19,6 +19,7 @@ const UsersContextProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [currentUserPosts, setCurrentUserPosts] = useState();
   const [usersData, setUsersData] = useState();
+  const [likesData, setLikesData] = useState();
 
   function updateUserDatabase(data) {
     if (currentUser) {
@@ -36,6 +37,15 @@ const UsersContextProvider = ({ children }) => {
     } else {
       return;
     }
+  }
+
+  function updatePostsLikes(postId, data) {
+    const postRef = databaseRef(database, "likes/" + postId);
+    return update(postRef, { likes: data });
+  }
+  function removePostsLikes(postId) {
+    const postRef = databaseRef(database, "likes/" + postId);
+    return remove(postRef);
   }
 
   // getting current user posts from database and setting state
@@ -74,6 +84,19 @@ const UsersContextProvider = ({ children }) => {
     });
   }, []);
 
+  const fetchingLikes = React.useCallback(() => {
+    setLikesData();
+    const likesRef = databaseRef(database, "likes");
+    onValue(likesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setLikesData(data);
+      } else {
+        setLikesData([]);
+      }
+    });
+  }, []);
+
   //
 
   let ContextValue = {
@@ -84,6 +107,10 @@ const UsersContextProvider = ({ children }) => {
     setUsersData,
     fetchingUsers,
     deleteUserDatabase,
+    likesData,
+    fetchingLikes,
+    updatePostsLikes,
+    removePostsLikes,
   };
 
   return (

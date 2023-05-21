@@ -10,7 +10,7 @@ import styles from "../style-modules/style.module.css";
 
 export default function Profile() {
   const { currentUser } = useAuth();
-  const { usersData, fetchingUsers } = useUsersCtx();
+  const { usersData, fetchingUsers, likesData, fetchingLikes } = useUsersCtx();
   const { userId } = useParams();
   const userCurrentlyAuthenticated = userId === currentUser.uid;
 
@@ -18,7 +18,8 @@ export default function Profile() {
     if (!userCurrentlyAuthenticated) {
       fetchingUsers();
     }
-  }, [fetchingUsers, userCurrentlyAuthenticated]);
+    fetchingLikes();
+  }, [fetchingUsers, userCurrentlyAuthenticated, fetchingLikes]);
 
   if (userCurrentlyAuthenticated) {
     return (
@@ -28,7 +29,7 @@ export default function Profile() {
       </>
     );
   } else {
-    if (usersData) {
+    if (usersData && likesData) {
       const userExist = Object.keys(usersData).includes(userId);
 
       return (

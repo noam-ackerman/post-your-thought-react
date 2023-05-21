@@ -9,8 +9,12 @@ import { useUsersCtx } from "../../context/usersContext";
 
 export default function ProfileAuthenticated() {
   const { currentUser } = useAuth();
-  const { currentUserPosts, setCurrentUserPosts, updateUserDatabase } =
-    useUsersCtx();
+  const {
+    currentUserPosts,
+    setCurrentUserPosts,
+    updateUserDatabase,
+    removePostsLikes,
+  } = useUsersCtx();
   const [numPosts, setNumPosts] = React.useState(14);
   const [disable, setDisable] = React.useState(false);
 
@@ -37,6 +41,7 @@ export default function ProfileAuthenticated() {
     try {
       let newPostsArray = currentUserPosts.filter((x) => x.id !== post.id);
       await updateUserDatabase({ posts: newPostsArray });
+      await removePostsLikes(post.id);
       setCurrentUserPosts(newPostsArray);
     } catch {
       alert("Something went wrong!");
@@ -58,8 +63,6 @@ export default function ProfileAuthenticated() {
       alert("Something went wrong!");
     }
   }
-
-  function handleLikes() {}
 
   if (currentUserPosts) {
     return (
@@ -83,7 +86,6 @@ export default function ProfileAuthenticated() {
                   post={post}
                   deletePost={deletePost}
                   editPost={editPost}
-                  handleLikes={handleLikes}
                 />
               );
             } else {

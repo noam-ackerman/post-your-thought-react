@@ -163,6 +163,15 @@
   padding: 3rem 1.5rem;
 }
 
+.likeWrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.7rem 0.45rem;
+  font-size: 1rem;
+  flex: 1;
+}
+
 .footer {
   background-color: #eed5c2;
   width: 100%;

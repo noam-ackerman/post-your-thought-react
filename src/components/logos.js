@@ -122,4 +122,58 @@ const SearchSVG = (props) => {
     </svg>
   );
 };
-export { SearchSVG, HomeSVG, ExitSVG, LogoutSVG, SettingsSVG };
+
+const EmptyHeartSVG = (props) => {
+  return (
+    <svg
+      fill={props.color}
+      height={props.height}
+      width={props.width}
+      viewBox="0 0 192 192"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ verticalAlign: "middle" }}
+    >
+      <path
+        d="M60.732 29.7C41.107 29.7 22 39.7 22 67.41c0 27.29 45.274 67.29 74 94.89 28.744-27.6 74-67.6 74-94.89 0-27.71-19.092-37.71-38.695-37.71C116 29.7 104.325 41.575 96 54.066 87.638 41.516 76 29.7 60.732 29.7z"
+        style={{
+          clipRule: "evenodd",
+          display: "inline",
+          fill: "none",
+          stroke: "#000000",
+          strokeWidth: "12",
+          strokeLinecap: "round",
+          strokeLinejoin: "round",
+          strokeMiterlimit: "2",
+          strokeDasharray: "none",
+          strokeOpacity: "1",
+        }}
+      />
+    </svg>
+  );
+};
+const FullHeartSVG = (props) => {
+  return (
+    <svg
+      fill={props.color}
+      height={props.height}
+      width={props.width}
+      style={{ verticalAlign: "middle" }}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.39 20.87a.696.696 0 0 1-.78 0C9.764 19.637 2 14.15 2 8.973c0-6.68 7.85-7.75 10-3.25 2.15-4.5 10-3.43 10 3.25 0 5.178-7.764 10.664-9.61 11.895z"
+        fill={props.color}
+      />
+    </svg>
+  );
+};
+export {
+  SearchSVG,
+  HomeSVG,
+  ExitSVG,
+  LogoutSVG,
+  SettingsSVG,
+  EmptyHeartSVG,
+  FullHeartSVG,
+};

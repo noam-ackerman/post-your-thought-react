@@ -2,12 +2,11 @@ import React from "react";
 import Navbar from "../components/navbar";
 import { useUsersCtx } from "../context/usersContext";
 import { Hearts } from "react-loader-spinner";
-import { Link } from "react-router-dom";
+import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import styles from "../style-modules/style.module.css";
 
 export default function Homepage() {
-  const { usersData, fetchingUsers } = useUsersCtx();
-  const [imageLoaded, setImageLoaded] = React.useState(false);
+  const { usersData, fetchingUsers, likesData, fetchingLikes } = useUsersCtx();
   const [usersPostsArray, setUsersPostsArray] = React.useState([]);
   const [numPosts, setNumPosts] = React.useState(14);
   const [disable, setDisable] = React.useState(false);
@@ -16,18 +15,21 @@ export default function Homepage() {
 
   React.useEffect(() => {
     fetchingUsers();
-  }, [fetchingUsers]);
+    fetchingLikes();
+  }, [fetchingUsers, fetchingLikes]);
 
   React.useEffect(() => {
-    if (usersData) {
+    if (usersData && likesData) {
       const usersPosts = Object.values(usersData)
         .flatMap((user) =>
           user.posts?.map((post) => {
             return {
-              ...post,
-              displayName: user.displayName,
-              photoURL: user.photoURL,
-              userId: user.userId,
+              post: { ...post },
+              user: {
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+                userId: user.userId,
+              },
             };
           })
         )
@@ -41,7 +43,7 @@ export default function Homepage() {
         }, 220 * (index + 1));
       });
     }
-  }, [usersData]);
+  }, [usersData, likesData]);
 
   React.useEffect(() => {
     if (usersData && usersPostsArray) {
@@ -56,7 +58,7 @@ export default function Homepage() {
   return (
     <>
       <Navbar />
-      {usersData ? (
+      {usersData && likesData ? (
         <>
           <div className={styles.heroBanner}>
             <div ref={welcome} className={styles.welcomeText}>
@@ -73,41 +75,13 @@ export default function Homepage() {
             {usersPostsArray.length ? (
               usersPostsArray.map((post, index) => {
                 if (index <= numPosts) {
-                  let date = new Date(post.date);
-                  let year = date.getFullYear(),
-                    month = ("0" + (date.getMonth() + 1)).slice(-2),
-                    day = ("0" + date.getDate()).slice(-2),
-                    hour = ("0" + date.getHours()).slice(-2),
-                    minutes = ("0" + date.getMinutes()).slice(-2);
-                  let time = `${day}/${month}/${year} ${hour}:${minutes}`;
                   return (
-                    <div
-                      className={`${styles.postBlockWrraper} ${styles.maxWidth1200}`}
-                      key={post.id}
-                    >
-                      <div className={styles.postInfoLineWrapper}>
-                        <Link
-                          to={`/${post.userId}`}
-                          className={styles.profileImgThumbnailWrapper}
-                        >
-                          <img
-                            className={styles.profileImgThumbnail}
-                            src={post.photoURL}
-                            alt={post.displayName}
-                            style={{ display: imageLoaded ? "block" : "none" }}
-                            onLoad={() => setImageLoaded(true)}
-                          />
-                        </Link>
-                        <Link
-                          to={`/${post.userId}`}
-                          className={styles.usernamePost}
-                        >
-                          {post.displayName}
-                        </Link>
-                        <div className={styles.dateAndTime}>{time}</div>
-                      </div>
-                      <div className={styles.postContent}>{post.content}</div>
-                    </div>
+                    <PostBlockUnauthenticated
+                      key={post.post.id}
+                      user={post.user}
+                      post={post.post}
+                      homepage={true}
+                    />
                   );
                 } else {
                   return null;
