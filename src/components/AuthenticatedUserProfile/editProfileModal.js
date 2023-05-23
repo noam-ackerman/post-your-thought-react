@@ -56,8 +56,14 @@ export default function EditProfileModal(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setError("");
     setLoading(true);
     const thereIsImage = fileInput.current.value !== "";
+    if (nicknameInput.current.value.length > 20) {
+      setLoading(false);
+      setError("Username is too long! Max 20 characters");
+      return;
+    }
     try {
       if (thereIsImage) {
         await UpdateProfile({

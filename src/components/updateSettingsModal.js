@@ -14,7 +14,7 @@ export default function UpdateSettingsModal(props) {
     deleteStorageUser,
     reAuthenticateUser,
   } = useAuth();
-  const { deleteUserDatabase } = useUsersCtx();
+  const { usersData, deleteUserDatabase, removePostsLikes } = useUsersCtx();
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -93,12 +93,18 @@ export default function UpdateSettingsModal(props) {
         try {
           await reAuthenticateUser(oldPasswordInput.current.value);
           try {
+            let userData = Object.values(usersData).find(
+              (user) => user.userId === currentUser.uid
+            );
+            userData.posts?.forEach(async (post) => {
+              await removePostsLikes(post.id);
+            });
             await deleteStorageUser();
             await deleteUserDatabase();
             await DeleteUser();
             navigate("/login");
           } catch {
-            setError("Failed to delete account fully!");
+            setError("Failed to delete account!");
             setDeleteClick(false);
           }
         } catch {

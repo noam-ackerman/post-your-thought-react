@@ -19,11 +19,11 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .SearchPageContainter {
-  padding: 3.5rem 1.5rem;
+  padding: 3.5rem 1.8rem 4rem;
 }
 .searchResultsWrapper {
   width: min(600px, 100%);
-  margin: 1rem auto 3rem;
+  margin: 1rem auto 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,22 +41,26 @@
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   text-decoration: none;
+  transition: all 120ms ease-in-out;
+}
+
+.userCard:hover {
+  border-color: #ccbfff;
 }
 .navContainer {
   background-color: #eed5c2;
   width: 100%;
-  padding: 10px 25px;
+  padding: 20px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-
   flex-wrap: wrap;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 10px -10px;
 }
 
 .profileContainerContent {
-  padding: 2rem 1.7rem;
+  padding: 2rem 1.7rem 6.5rem;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -83,7 +87,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border: 3px solid #fff;
   width: 100%;
-  padding: 1.8rem 2rem 1.4rem;
+  padding: 1.8rem 2rem;
   border-radius: 5px;
 }
 .actionWrapper {
@@ -92,13 +96,14 @@
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  margin: 0.5rem 0;
 }
 
 .modalCard {
   position: fixed;
   width: min(400px, 88%);
   background: #eed5c2;
-  padding: 20px 30px;
+  padding: 1.7rem 2rem;
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   transform: translate(50%, 50%);
@@ -134,17 +139,24 @@
   border-radius: 5px;
   border: 3px solid #fff;
   width: 100%;
-  padding: 15px 20px;
+  padding: 1rem 1.25rem;
   margin: 20px 0 0;
   display: flex;
   flex-direction: column;
 }
 .postInfoLineWrapper {
   display: flex;
+  justify-content: space-between;
   gap: 10px;
   align-items: center;
   margin-bottom: 0.5rem;
   flex-wrap: wrap;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .heroBanner {
@@ -155,19 +167,20 @@
   padding: 2rem;
 }
 .hpPostsWrapper {
+  width: min(1200px, 99%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  padding: 3rem 1.5rem;
+  padding: 3rem 2.5rem 7rem;
 }
 
 .likeWrapper {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 0.7rem 0.45rem;
+  padding: 0.5rem 0.6rem;
   font-size: 1rem;
   flex: 1;
 }
@@ -175,28 +188,32 @@
 .footer {
   background-color: #eed5c2;
   width: 100%;
-  padding: 10px 25px;
+  padding: 1rem 0.2rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 10px 10px;
+  text-align: center;
+  margin-top: auto;
+  color: #7c606b;
+  font-family: monospace;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.6rem;
+  font-size: 0.82rem;
 }
 
-@media (max-width: 550px) {
-  .navContainer {
-    gap: 5px;
-  }
-  .profileContainerContent {
-    padding: 1.8rem 1.1rem;
-  }
-  .modalCard {
-    transform: none;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    overflow-y: scroll;
-  }
+.footer a {
+  font-family: "Sigmar", cursive;
+  font-size: 0.75rem;
+  color: #7c606b;
+  letter-spacing: 0.5px;
+  transition: all 150ms ease;
+  text-decoration: none;
+  background-color: rgb(187, 233, 255, 0.8);
+  padding: 0 4px;
 }
+.footer a:hover {
+  text-decoration: underline;
+}
+
 @media (min-width: 650px) and (max-width: 1024px) {
   .profileBlockWrapper {
     display: flex;
@@ -208,13 +225,12 @@
     width: 48%;
     margin-top: 0;
   }
-}
-
-@media (max-width: 767px) {
-  .actionWrapper {
-    gap: 15px;
-    margin: 0 0 10px;
-    justify-content: flex-start;
+  .navContainer {
+    gap: 8px;
+  }
+  .hpPostsWrapper {
+    gap: 1.5rem;
+    padding: 3.2rem 2.5rem 5rem;
   }
 }
 
@@ -225,6 +241,63 @@
   .profileBlockWrapper,
   .postingSectionWrapper {
     width: 100%;
+  }
+  .navContainer {
+    padding-bottom: 23px;
+  }
+}
+
+@media (max-width: 767px) {
+  .actionWrapper {
+    gap: 15px;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 649px) {
+  .navContainer {
+    gap: 5px;
+  }
+  .profileContainerContent {
+    padding: 2rem 1.4rem 4.5rem;
+  }
+  .modalCard {
+    transform: none;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+  }
+
+  .hpPostsWrapper {
+    padding: 3.2rem 1.5rem 5rem;
+  }
+  .postingFormWrraper {
+    padding: 1.2rem 1.8rem 1.8rem;
+  }
+  .footer {
+    font-size: 0.5rem;
+    padding: 0.6rem 0.2rem;
+  }
+  .footer a {
+    font-size: 0.4rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .postBlockWrraper {
+    padding: 1.75rem 1.5rem 1.4rem;
+  }
+  .postInfoLineWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .userCard {
+    padding: 2rem 1.15rem;
+    gap: 0.8rem;
   }
 }
 
@@ -380,7 +453,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 3px 8px 0px;
   border: 2px solid #fff;
   padding: 10px 20px;
-  margin: 15px 0 15px;
+  margin: 5px 0;
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
@@ -481,6 +554,12 @@
 .deleteAccountBtn[disabled] {
   background-color: #ff8585;
 }
+
+@media (max-width: 767px) {
+  .actionButtonPrimary {
+    padding: 8px 12px;
+  }
+}
 /* images */
 
 .profileImgThumbnailWrapper {
@@ -489,6 +568,7 @@
   border-radius: 999px;
   border: 2px solid #fff;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: block;
 }
 .profileImgLargerThumbnailWrapper {
   width: 75px;
@@ -517,8 +597,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* display: block; */
-  /* transition: opacity 150ms ease; */
 }
 
 .profileImgModalWrapper {
@@ -540,6 +618,13 @@
 @media (min-width: 650px) and (max-width: 1024px) {
   .profileImageWrapper {
     width: 48%;
+  }
+}
+
+@media (max-width: 550px) {
+  .profileImgLargerThumbnailWrapper {
+    width: 55px;
+    height: 55px;
   }
 }
 
@@ -629,8 +714,6 @@
   background-color: rgb(187, 233, 255, 0.8);
   font-weight: 600;
   font-size: 1rem;
-  position: relative;
-  right: -6px;
   padding: 0 4px;
 }
 .usernamePost {
@@ -646,16 +729,16 @@
 }
 
 .dateAndTime {
-  flex: 1;
   text-align: right;
   font-weight: 600;
   color: #fff;
+  text-decoration: underline;
 }
 
 .postContent {
   color: #7c606b;
   font-family: monospace;
-  padding: 1.5rem 0.7rem;
+  padding: 1.5rem 0.7rem 1.8rem;
   font-size: 0.9rem;
   white-space: pre-line;
   line-height: 1.5rem;
@@ -681,6 +764,71 @@
   transition: opacity 500ms ease;
 }
 
+.titleHpText {
+  margin: 2.5rem auto 1rem 0;
+  font-size: 2.3rem;
+  font-family: monospace;
+  color: #7c606b;
+  line-height: 2.4rem;
+}
+
+.titleHpText span {
+  display: none;
+}
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 2.3rem;
+  vertical-align: bottom;
+  background-color: #7c606b;
+  margin-left: 8px;
+  animation: blink-animation 1s steps(5, start) infinite;
+}
+
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 1024px) {
+  .profileImageNav {
+    order: 5;
+  }
+  .usernameNav {
+    order: 6;
+  }
+  .welcomeText {
+    font-size: 8rem;
+  }
+  .heroBanner {
+    height: 300px;
+  }
+}
+
+@media (max-width: 767px) {
+  .welcomeText {
+    font-size: 5.5rem;
+    gap: 1rem;
+  }
+  .heroBanner {
+    height: 250px;
+  }
+  .titleHpText {
+    font-size: 1.8rem;
+    margin: 0 auto 1rem 0;
+    line-height: 1.9rem;
+  }
+  .cursor {
+    height: 1.8rem;
+  }
+}
+
 @media (max-width: 550px) {
   .MainTitle {
     font-size: 3rem;
@@ -689,13 +837,34 @@
     font-size: 1.6rem;
   }
   .MainTitleNav a {
-    font-size: 1.6rem;
+    font-size: 1.75rem;
   }
-}
-
-@media (max-width: 1024px) {
+  .welcomeText {
+    font-size: 3.3rem;
+    gap: 0.7rem;
+  }
+  .heroBanner {
+    height: 180px;
+  }
+  .titleHpText {
+    font-size: 1.1rem;
+    margin: 0 auto 0 0;
+    line-height: 1.15rem;
+  }
+  .cursor {
+    height: 1.1rem;
+  }
+  .dateAndTime {
+    padding: 0.8rem 0.4rem 0;
+  }
   .usernameNav {
-    order: 6;
+    margin-top: 5px;
+  }
+  .usernameResult {
+    font-size: 0.9rem;
+  }
+  .SearchTitle {
+    font-size: 2.1rem;
   }
 }
 
@@ -713,6 +882,10 @@
 .marginTopBottom3 {
   margin-top: 3rem;
   margin-bottom: 3rem;
+}
+
+.marginAuto {
+  margin: auto;
 }
 
 .maxWidth1200 {

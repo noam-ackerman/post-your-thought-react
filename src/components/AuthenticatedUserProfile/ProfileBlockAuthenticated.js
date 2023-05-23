@@ -75,7 +75,7 @@ export default function ProfileBlockAuthenticated() {
         )}
         <button
           onClick={toggleModalOpen}
-          className={styles.actionButtonPrimary}
+          className={`${styles.actionButtonPrimary} ${styles.marginTopBottom1}`}
         >
           Edit Profile
         </button>

@@ -1,4 +1,3 @@
-import "./App.css";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Profile from "./pages/Profile";
@@ -19,7 +18,7 @@ import {
 
 function App() {
   return (
-    <div>
+    <>
       <Router>
         <AuthContextProvider>
           <UsersContextProvider>
@@ -65,7 +64,7 @@ function App() {
           </UsersContextProvider>
         </AuthContextProvider>
       </Router>
-    </div>
+    </>
   );
 }
 

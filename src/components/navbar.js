@@ -44,9 +44,9 @@ export default function Navbar() {
           Hi {currentUser.displayName} (✧ω✧)☆
         </div>
         <Link
-          to="/profile"
+          to={`/${currentUser.uid}`}
           title="My Profile"
-          className={styles.profileImgThumbnailWrapper}
+          className={`${styles.profileImgThumbnailWrapper} ${styles.profileImageNav}`}
         >
           <img
             className={styles.profileImgThumbnail}

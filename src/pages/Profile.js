@@ -5,6 +5,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useUsersCtx } from "../context/usersContext";
 import { Hearts } from "react-loader-spinner";
+import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import styles from "../style-modules/style.module.css";
 
@@ -21,42 +22,42 @@ export default function Profile() {
     fetchingLikes();
   }, [fetchingUsers, userCurrentlyAuthenticated, fetchingLikes]);
 
-  if (userCurrentlyAuthenticated) {
+  if (userCurrentlyAuthenticated && likesData) {
     return (
       <>
         <Navbar />
         <ProfileAuthenticated />
+        <Footer />
+      </>
+    );
+  } else if (!userCurrentlyAuthenticated && usersData && likesData) {
+    const userExist = Object.keys(usersData).includes(userId);
+    return (
+      <>
+        <Navbar />
+        {userExist ? (
+          <ProfileUnauthenticated user={usersData[userId]} />
+        ) : (
+          <Navigate to="/" />
+        )}
+        <Footer />
       </>
     );
   } else {
-    if (usersData && likesData) {
-      const userExist = Object.keys(usersData).includes(userId);
-
-      return (
-        <>
-          <Navbar />
-          {userExist ? (
-            <ProfileUnauthenticated user={usersData[userId]} />
-          ) : (
-            <Navigate to="/" />
-          )}
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Navbar />
-          <Hearts
-            height="200"
-            width="200"
-            color="#B5A1FF"
-            ariaLabel="hearts-loading"
-            wrapperStyle={{}}
-            wrapperClass={styles.heartsPageLoader}
-            visible={true}
-          />
-        </>
-      );
-    }
+    return (
+      <>
+        <Navbar />
+        <Hearts
+          height="200"
+          width="200"
+          color="#B5A1FF"
+          ariaLabel="hearts-loading"
+          wrapperStyle={{}}
+          wrapperClass={styles.heartsPageLoader}
+          visible={true}
+        />
+        <Footer />
+      </>
+    );
   }
 }

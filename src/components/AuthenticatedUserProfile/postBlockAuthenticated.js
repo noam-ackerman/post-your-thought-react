@@ -22,7 +22,6 @@ export default function PostBlockAuthenticated(props) {
   let postLikesObj = likesData[props.post.id] ? likesData[props.post.id] : null;
   let postLikes = postLikesObj ? postLikesObj.likes : [];
   let postIsLikedByCurrentUser = postLikes.includes(currentUser.uid);
-  const homepageClass = props.homepage ? styles.maxWidth1200 : "";
 
   function handleDeletePost() {
     props.deletePost(props.post);
@@ -50,26 +49,28 @@ export default function PostBlockAuthenticated(props) {
   }
 
   return (
-    <div className={`${styles.postBlockWrraper} ${homepageClass}`}>
+    <div className={styles.postBlockWrraper}>
       <div className={styles.postInfoLineWrapper}>
-        <Link
-          to={`/${props.user.userId || props.user.uid}`}
-          className={styles.profileImgThumbnailWrapper}
-        >
-          <img
-            className={styles.profileImgThumbnail}
-            src={props.user.photoURL}
-            alt={props.user.displayName}
-            style={{ display: imageLoaded ? "block" : "none" }}
-            onLoad={() => setImageLoaded(true)}
-          />
-        </Link>
-        <Link
-          to={`/${props.user.userId || props.user.uid}`}
-          className={styles.usernamePost}
-        >
-          {props.user.displayName}
-        </Link>
+        <div className={styles.userInfo}>
+          <Link
+            to={`/${props.user.userId || props.user.uid}`}
+            className={styles.profileImgThumbnailWrapper}
+          >
+            <img
+              className={styles.profileImgThumbnail}
+              src={props.user.photoURL}
+              alt={props.user.displayName}
+              style={{ display: imageLoaded ? "block" : "none" }}
+              onLoad={() => setImageLoaded(true)}
+            />
+          </Link>
+          <Link
+            to={`/${props.user.userId || props.user.uid}`}
+            className={styles.usernamePost}
+          >
+            {props.user.displayName}
+          </Link>
+        </div>
         <div className={styles.dateAndTime}>{time}</div>
       </div>
       {editMode ? (

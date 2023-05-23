@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/navbar";
 import { useUsersCtx } from "../context/usersContext";
 import { Hearts } from "react-loader-spinner";
+import Footer from "../components/footer";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import styles from "../style-modules/style.module.css";
 
@@ -12,6 +13,7 @@ export default function Homepage() {
   const [disable, setDisable] = React.useState(false);
 
   const welcome = React.useRef();
+  const title = React.useRef();
 
   React.useEffect(() => {
     fetchingUsers();
@@ -34,13 +36,18 @@ export default function Homepage() {
           })
         )
         .filter((n) => n)
-        .sort((a, b) => b.date - a.date);
+        .sort((a, b) => b.post.date - a.post.date);
       setUsersPostsArray(usersPosts);
 
       Array.from(welcome.current.children).forEach((child, index) => {
         setTimeout(() => {
           child.style.opacity = 1;
         }, 220 * (index + 1));
+      });
+      Array.from(title.current.children).forEach((child, index) => {
+        setTimeout(() => {
+          child.style.display = "inline-block";
+        }, 200 * (index + 8));
       });
     }
   }, [usersData, likesData]);
@@ -71,7 +78,35 @@ export default function Homepage() {
               <span style={{ color: "#ccbfff" }}>E</span>
             </div>
           </div>
-          <div className={styles.hpPostsWrapper}>
+          <div className={`${styles.hpPostsWrapper} ${styles.marginAuto}`}>
+            <div ref={title} className={styles.titleHpText}>
+              <span>U</span>
+              <span>s</span>
+              <span>e</span>
+              <span>r</span>
+              <span>s</span>
+              <span>&nbsp; </span>
+              <span>T</span>
+              <span>h</span>
+              <span>o</span>
+              <span>u</span>
+              <span>g</span>
+              <span>h</span>
+              <span>t</span>
+              <span>s</span>
+              <span>&nbsp;</span>
+              <span>.</span>
+              <span>｡</span>
+              <span>ｏ</span>
+              <span>♡</span>
+              <span>✧</span>
+              <span>˖</span>
+              <span>°</span>
+              <span>･</span>
+              <span>☆</span>
+              <span>✧</span>
+              <div className={styles.cursor}></div>
+            </div>
             {usersPostsArray.length ? (
               usersPostsArray.map((post, index) => {
                 if (index <= numPosts) {
@@ -80,7 +115,6 @@ export default function Homepage() {
                       key={post.post.id}
                       user={post.user}
                       post={post.post}
-                      homepage={true}
                     />
                   );
                 } else {
@@ -115,6 +149,7 @@ export default function Homepage() {
           visible={true}
         />
       )}
+      <Footer />
     </>
   );
 }

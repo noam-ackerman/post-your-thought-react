@@ -4,7 +4,7 @@ import styles from "../style-modules/style.module.css";
 export default function Footer() {
   return (
     <div className={styles.footer}>
-      This site is an
+      This site is an{" "}
       <a
         href="https://github.com/noam-ackerman/post-your-thought-react"
         target="_blank"

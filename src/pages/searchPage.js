@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar";
+import Footer from "../components/footer";
 import { useUsersCtx } from "../context/usersContext";
 import styles from "../style-modules/style.module.css";
 import { Link } from "react-router-dom";
@@ -72,6 +73,7 @@ export default function Search() {
             })}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

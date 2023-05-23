@@ -20,7 +20,6 @@ export default function PostBlockUnauthenticated(props) {
   let postLikesObj = likesData[props.post.id] ? likesData[props.post.id] : null;
   let postLikes = postLikesObj ? postLikesObj.likes : [];
   let postIsLikedByCurrentUser = postLikes.includes(currentUser.uid);
-  const homepageClass = props.homepage ? styles.maxWidth1200 : "";
 
   function handleLike(postId, likes) {
     if (heart.current.getAttribute("action") === "like") {
@@ -33,41 +32,45 @@ export default function PostBlockUnauthenticated(props) {
   }
 
   return (
-    <div className={`${styles.postBlockWrraper} ${homepageClass}`}>
+    <div className={styles.postBlockWrraper}>
       <div className={styles.postInfoLineWrapper}>
-        <Link
-          to={`/${props.user.userId}`}
-          className={styles.profileImgThumbnailWrapper}
-        >
-          <img
-            className={styles.profileImgThumbnail}
-            src={props.user.photoURL}
-            alt={props.user.displayName}
-            style={{ display: imageLoaded ? "block" : "none" }}
-            onLoad={() => setImageLoaded(true)}
-          />
-        </Link>
-        <Link to={`/${props.user.userId}`} className={styles.usernamePost}>
-          {props.user.displayName}
-        </Link>
+        <div className={styles.userInfo}>
+          <Link
+            to={`/${props.user.userId}`}
+            className={styles.profileImgThumbnailWrapper}
+          >
+            <img
+              className={styles.profileImgThumbnail}
+              src={props.user.photoURL}
+              alt={props.user.displayName}
+              style={{ display: imageLoaded ? "block" : "none" }}
+              onLoad={() => setImageLoaded(true)}
+            />
+          </Link>
+          <Link to={`/${props.user.userId}`} className={styles.usernamePost}>
+            {props.user.displayName}
+          </Link>
+        </div>
         <div className={styles.dateAndTime}>{time}</div>
       </div>
 
       <div className={styles.postContent}>{props.post.content}</div>
-      <div className={styles.likeWrapper}>
-        <div
-          ref={heart}
-          onClick={(e) => handleLike(props.post.id, postLikes)}
-          action={postIsLikedByCurrentUser ? "unlike" : "like"}
-          style={{ cursor: "pointer" }}
-        >
-          {postIsLikedByCurrentUser ? (
-            <FullHeartSVG color="#EE4B2B" height="24px" width="24px" />
-          ) : (
-            <EmptyHeartSVG color="#000" height="24px" width="24px" />
-          )}
+      <div className={styles.actionWrapper}>
+        <div className={styles.likeWrapper}>
+          <div
+            ref={heart}
+            onClick={(e) => handleLike(props.post.id, postLikes)}
+            action={postIsLikedByCurrentUser ? "unlike" : "like"}
+            style={{ cursor: "pointer" }}
+          >
+            {postIsLikedByCurrentUser ? (
+              <FullHeartSVG color="#EE4B2B" height="24px" width="24px" />
+            ) : (
+              <EmptyHeartSVG color="#000" height="24px" width="24px" />
+            )}
+          </div>
+          <span>{postLikes.length}</span>
         </div>
-        <span>{postLikes.length}</span>
       </div>
     </div>
   );

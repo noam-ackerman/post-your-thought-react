@@ -8,8 +8,6 @@ export default function ProfileAuthenticated(props) {
   const [numPosts, setNumPosts] = React.useState(14);
   const [disable, setDisable] = React.useState(false);
 
-  console.log(user.posts);
-
   React.useEffect(() => {
     if (user.posts) {
       if (numPosts >= user.posts.length - 1) {

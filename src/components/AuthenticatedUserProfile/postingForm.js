@@ -17,7 +17,11 @@ export default function PostingForm(props) {
   }
   return (
     <div className={styles.postingFormWrraper}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+        style={{ gap: "1.6rem" }}
+      >
         <textarea
           className={styles.textArea}
           required

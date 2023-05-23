@@ -6,6 +6,7 @@ export default function ProfileBlockUnauthenticated(props) {
   const user = props.user;
   const [imageLoaded, setImageLoaded] = useState(false);
   const profileImg = useRef();
+  
 
   return (
     <div className={styles.profileBlockWrapper}>
