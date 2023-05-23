@@ -3,18 +3,13 @@ import ProfileBlockAuthenticated from "./ProfileBlockAuthenticated";
 import styles from "../../style-modules/style.module.css";
 import PostingForm from "./postingForm";
 import PostBlockAuthenticated from "./postBlockAuthenticated";
-import { Hearts } from "react-loader-spinner";
 import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
 
 export default function ProfileAuthenticated() {
   const { currentUser } = useAuth();
-  const {
-    currentUserPosts,
-    setCurrentUserPosts,
-    updateUserDatabase,
-    removePostsLikes,
-  } = useUsersCtx();
+  const { currentUserPosts, updateUserDatabase, removePostsLikes } =
+    useUsersCtx();
   const [numPosts, setNumPosts] = React.useState(14);
   const [disable, setDisable] = React.useState(false);
 
@@ -31,7 +26,6 @@ export default function ProfileAuthenticated() {
   async function addingPostFromForm(newPostData) {
     try {
       await updateUserDatabase({ posts: [newPostData, ...currentUserPosts] });
-      setCurrentUserPosts([newPostData, ...currentUserPosts]);
     } catch {
       alert("Something went wrong!");
     }
@@ -42,7 +36,6 @@ export default function ProfileAuthenticated() {
       let newPostsArray = currentUserPosts.filter((x) => x.id !== post.id);
       await updateUserDatabase({ posts: newPostsArray });
       await removePostsLikes(post.id);
-      setCurrentUserPosts(newPostsArray);
     } catch {
       alert("Something went wrong!");
     }
@@ -58,62 +51,47 @@ export default function ProfileAuthenticated() {
         }
       });
       await updateUserDatabase({ posts: newPostsArray });
-      setCurrentUserPosts(newPostsArray);
     } catch {
       alert("Something went wrong!");
     }
   }
 
-  if (currentUserPosts) {
-    return (
-      <div className={styles.profileContainerContent}>
-        <ProfileBlockAuthenticated />
-        <div className={styles.postingSectionWrapper}>
-          <PostingForm addingPostFromForm={addingPostFromForm} />
-          {currentUserPosts?.length === 0 && (
-            <div
-              className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
-            >
-              No Posts Yet
-            </div>
-          )}
-          {currentUserPosts.map((post, index) => {
-            if (index <= numPosts) {
-              return (
-                <PostBlockAuthenticated
-                  key={post.id}
-                  user={currentUser}
-                  post={post}
-                  deletePost={deletePost}
-                  editPost={editPost}
-                />
-              );
-            } else {
-              return null;
-            }
-          })}
-          {!disable && (
-            <button
-              className={styles.actionButtonPrimary}
-              onClick={() => setNumPosts(numPosts + 15)}
-            >
-              Load More Posts
-            </button>
-          )}
-        </div>
+  return (
+    <div className={styles.profileContainerContent}>
+      <ProfileBlockAuthenticated />
+      <div className={styles.postingSectionWrapper}>
+        <PostingForm addingPostFromForm={addingPostFromForm} />
+        {currentUserPosts?.length === 0 && (
+          <div
+            className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
+          >
+            No Posts Yet
+          </div>
+        )}
+        {currentUserPosts.map((post, index) => {
+          if (index <= numPosts) {
+            return (
+              <PostBlockAuthenticated
+                key={post.id}
+                user={currentUser}
+                post={post}
+                deletePost={deletePost}
+                editPost={editPost}
+              />
+            );
+          } else {
+            return null;
+          }
+        })}
+        {!disable && (
+          <button
+            className={styles.actionButtonPrimary}
+            onClick={() => setNumPosts(numPosts + 15)}
+          >
+            Load More Posts
+          </button>
+        )}
       </div>
-    );
-  } else {
-    return (
-      <Hearts
-        height="200"
-        width="200"
-        color="#B5A1FF"
-        ariaLabel="hearts-loading"
-        wrapperStyle={{}}
-        wrapperClass={styles.heartsPageLoader}
-        visible={true}
-      />
-    );
-  }
+    </div>
+  );
 }

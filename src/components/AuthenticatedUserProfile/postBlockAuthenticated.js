@@ -38,13 +38,17 @@ export default function PostBlockAuthenticated(props) {
     }
   }
 
-  function handleLike(postId, likes) {
-    if (heart.current.getAttribute("action") === "like") {
-      let data = [...likes, currentUser.uid];
-      updatePostsLikes(postId, data);
-    } else if (heart.current.getAttribute("action") === "unlike") {
-      let data = likes.filter((x) => x !== currentUser.uid);
-      updatePostsLikes(postId, data);
+  async function handleLike(postId, likes) {
+    try {
+      if (heart.current.getAttribute("action") === "like") {
+        let data = [...likes, currentUser.uid];
+        await updatePostsLikes(postId, data);
+      } else if (heart.current.getAttribute("action") === "unlike") {
+        let data = likes.filter((x) => x !== currentUser.uid);
+        await updatePostsLikes(postId, data);
+      }
+    } catch {
+      alert("Something went wrong!");
     }
   }
 

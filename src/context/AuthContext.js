@@ -150,11 +150,11 @@ const AuthContextProvider = ({ children }) => {
     UpdatePassword,
     UploadImageToStorageAndGetUrl,
     UpdateProfile,
-    currentUserUpdating,
-    setCurrentUserUpdating,
     DeleteUser,
     deleteStorageUser,
     reAuthenticateUser,
+    currentUserUpdating,
+    setCurrentUserUpdating,
   };
 
   return (

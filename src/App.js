@@ -1,3 +1,5 @@
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorPage from "./pages/ErrorPage";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Profile from "./pages/Profile";
@@ -19,51 +21,53 @@ import {
 function App() {
   return (
     <>
-      <Router>
-        <AuthContextProvider>
-          <UsersContextProvider>
-            <ScrollToTop />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Homepage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <NavigateToProfile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/:userId"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/search-users"
-                element={
-                  <ProtectedRoute>
-                    <Search />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/resetpassword" element={<ForgotPassword />} />
-              <Route path="/*" element={<Navigate to="/" />} />
-            </Routes>
-          </UsersContextProvider>
-        </AuthContextProvider>
-      </Router>
+      <ErrorBoundary fallback={<ErrorPage />}>
+        <Router>
+          <AuthContextProvider>
+            <UsersContextProvider>
+              <ScrollToTop />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <Homepage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <NavigateToProfile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/:userId"
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/search-users"
+                  element={
+                    <ProtectedRoute>
+                      <Search />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/resetpassword" element={<ForgotPassword />} />
+                <Route path="/*" element={<Navigate to="/" />} />
+              </Routes>
+            </UsersContextProvider>
+          </AuthContextProvider>
+        </Router>
+      </ErrorBoundary>
     </>
   );
 }

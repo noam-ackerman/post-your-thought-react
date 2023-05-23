@@ -22,51 +22,41 @@ const UsersContextProvider = ({ children }) => {
   const [likesData, setLikesData] = useState();
 
   function updateUserDatabase(data) {
-    if (currentUser) {
-      const userRef = databaseRef(database, "users/" + currentUser.uid);
-      return update(userRef, data);
-    } else {
-      return;
-    }
+    const userRef = databaseRef(database, "users/" + currentUser.uid);
+    return update(userRef, data);
   }
 
   function deleteUserDatabase() {
-    if (currentUser) {
-      const userRef = databaseRef(database, "users/" + currentUser.uid);
-      return remove(userRef);
-    } else {
-      return;
-    }
+    const userRef = databaseRef(database, "users/" + currentUser.uid);
+    return remove(userRef);
   }
 
   function updatePostsLikes(postId, data) {
     const postRef = databaseRef(database, "likes/" + postId);
     return update(postRef, { likes: data });
   }
+
   function removePostsLikes(postId) {
     const postRef = databaseRef(database, "likes/" + postId);
     return remove(postRef);
   }
 
-  // getting current user posts from database and setting state
+  // fetching current user posts from database and setting state
 
-  React.useEffect(() => {
-    if (currentUser) {
-      const postsRef = databaseRef(
-        database,
-        "users/" + currentUser.uid + "/posts"
-      );
-      onValue(postsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          setCurrentUserPosts(data);
-        } else {
-          setCurrentUserPosts([]);
-        }
-      });
-    } else if (!currentUser) {
-      setCurrentUserPosts();
-    }
+  const fetchingCurrentUserPosts = React.useCallback(() => {
+    setCurrentUserPosts();
+    const postsRef = databaseRef(
+      database,
+      "users/" + currentUser.uid + "/posts"
+    );
+    onValue(postsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setCurrentUserPosts(data);
+      } else {
+        setCurrentUserPosts([]);
+      }
+    });
   }, [currentUser]);
 
   // fetching all users data from database and setting state
@@ -83,6 +73,8 @@ const UsersContextProvider = ({ children }) => {
       }
     });
   }, []);
+
+  // fetching all likes data from database and setting state
 
   const fetchingLikes = React.useCallback(() => {
     setLikesData();
@@ -103,6 +95,7 @@ const UsersContextProvider = ({ children }) => {
     updateUserDatabase,
     currentUserPosts,
     setCurrentUserPosts,
+    fetchingCurrentUserPosts,
     usersData,
     setUsersData,
     fetchingUsers,
