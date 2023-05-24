@@ -6,10 +6,24 @@ import {
   update,
   onValue,
   remove,
+  set,
+  get,
+  child,
 } from "firebase/database";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+  listAll,
+} from "firebase/storage";
 
 const UsersContext = React.createContext();
 const database = getDatabase();
+const storage = getStorage();
+const defaultAvatarUrl =
+  "https://firebasestorage.googleapis.com/v0/b/post-auth-dev-e4058.appspot.com/o/photography.png?alt=media&token=ee8ac101-275e-496c-9d6e-0cd6159a29f1";
 
 const useUsersCtx = () => {
   return useContext(UsersContext);
@@ -17,9 +31,39 @@ const useUsersCtx = () => {
 
 const UsersContextProvider = ({ children }) => {
   const { currentUser } = useAuth();
-  const [currentUserPosts, setCurrentUserPosts] = useState();
   const [usersData, setUsersData] = useState();
   const [likesData, setLikesData] = useState();
+  const [currentUserData, setCurrentUserData] = useState();
+
+  // storage
+
+  async function UploadImageToStorageAndGetUrl(imgFile) {
+    const fileRef = ref(
+      storage,
+      "images/" + currentUser.uid + "/" + imgFile.name
+    );
+    try {
+      await uploadBytes(fileRef, imgFile);
+      return getDownloadURL(fileRef);
+    } catch {
+      return alert("Failed to upload image!");
+    }
+  }
+
+  function deleteStorageUser() {
+    const ImagesRef = ref(storage, "images/" + currentUser.uid);
+    listAll(ImagesRef)
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          deleteObject(itemRef);
+        });
+      })
+      .catch((err) => {
+        return new Error();
+      });
+  }
+
+  //database
 
   function updateUserDatabase(data) {
     const userRef = databaseRef(database, "users/" + currentUser.uid);
@@ -41,69 +85,76 @@ const UsersContextProvider = ({ children }) => {
     return remove(postRef);
   }
 
-  // fetching current user posts from database and setting state
+  // fetching users , current user and likes data from database
 
-  const fetchingCurrentUserPosts = React.useCallback(() => {
-    setCurrentUserPosts();
-    const postsRef = databaseRef(
-      database,
-      "users/" + currentUser.uid + "/posts"
-    );
-    onValue(postsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setCurrentUserPosts(data);
-      } else {
-        setCurrentUserPosts([]);
-      }
-    });
+  React.useEffect(() => {
+    if (currentUser) {
+      // current user data
+      const userRef = databaseRef(database, "users/" + currentUser.uid);
+      onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setCurrentUserData(data);
+        } else {
+          setCurrentUserData({});
+        }
+      });
+      //setting current user in database on first signup
+      get(child(databaseRef(database), "users/" + currentUser.uid)).then(
+        (snapshot) => {
+          if (!snapshot.exists()) {
+            set(userRef, {
+              userId: currentUser.uid,
+              displayName: currentUser.email.split("@")[0],
+              email: currentUser.email,
+              photoURL: defaultAvatarUrl,
+              bio: "",
+            });
+          }
+        }
+      );
+
+      // all users data
+      const usersRef = databaseRef(database, "users");
+      onValue(usersRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setUsersData(data);
+        } else {
+          setUsersData({});
+        }
+      });
+
+      // likes data
+      const likesRef = databaseRef(database, "likes");
+      onValue(likesRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setLikesData(data);
+        } else {
+          setLikesData({});
+        }
+      });
+    } else if (!currentUser) {
+      setCurrentUserData();
+      setUsersData();
+      setLikesData();
+    }
   }, [currentUser]);
-
-  // fetching all users data from database and setting state
-
-  const fetchingUsers = React.useCallback(() => {
-    setUsersData();
-    const postsRef = databaseRef(database, "users");
-    onValue(postsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setUsersData(data);
-      } else {
-        setUsersData([]);
-      }
-    });
-  }, []);
-
-  // fetching all likes data from database and setting state
-
-  const fetchingLikes = React.useCallback(() => {
-    setLikesData();
-    const likesRef = databaseRef(database, "likes");
-    onValue(likesRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setLikesData(data);
-      } else {
-        setLikesData([]);
-      }
-    });
-  }, []);
 
   //
 
   let ContextValue = {
     updateUserDatabase,
-    currentUserPosts,
-    setCurrentUserPosts,
-    fetchingCurrentUserPosts,
     usersData,
     setUsersData,
-    fetchingUsers,
     deleteUserDatabase,
     likesData,
-    fetchingLikes,
     updatePostsLikes,
     removePostsLikes,
+    currentUserData,
+    UploadImageToStorageAndGetUrl,
+    deleteStorageUser,
   };
 
   return (

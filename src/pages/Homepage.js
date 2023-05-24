@@ -1,24 +1,22 @@
 import React from "react";
 import Navbar from "../components/navbar";
 import { useUsersCtx } from "../context/usersContext";
+import { useAuth } from "../context/AuthContext";
 import { Hearts } from "react-loader-spinner";
 import Footer from "../components/footer";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
+import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
 import styles from "../style-modules/style.module.css";
 
 export default function Homepage() {
-  const { usersData, fetchingUsers, likesData, fetchingLikes } = useUsersCtx();
+  const { currentUser } = useAuth();
+  const { usersData, likesData } = useUsersCtx();
   const [usersPostsArray, setUsersPostsArray] = React.useState([]);
   const [numPosts, setNumPosts] = React.useState(14);
   const [disable, setDisable] = React.useState(false);
 
   const welcome = React.useRef();
   const title = React.useRef();
-
-  React.useEffect(() => {
-    fetchingUsers();
-    fetchingLikes();
-  }, [fetchingUsers, fetchingLikes]);
 
   React.useEffect(() => {
     if (usersData && likesData) {
@@ -110,13 +108,23 @@ export default function Homepage() {
             {usersPostsArray.length ? (
               usersPostsArray.map((post, index) => {
                 if (index <= numPosts) {
-                  return (
-                    <PostBlockUnauthenticated
-                      key={post.post.id}
-                      user={post.user}
-                      post={post.post}
-                    />
-                  );
+                  if (post.user.userId === currentUser.uid) {
+                    return (
+                      <PostBlockAuthenticated
+                        key={post.post.id}
+                        user={post.user}
+                        post={post.post}
+                      />
+                    );
+                  } else {
+                    return (
+                      <PostBlockUnauthenticated
+                        key={post.post.id}
+                        user={post.user}
+                        post={post.post}
+                      />
+                    );
+                  }
                 } else {
                   return null;
                 }

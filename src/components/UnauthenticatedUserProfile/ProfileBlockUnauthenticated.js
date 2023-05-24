@@ -6,11 +6,16 @@ export default function ProfileBlockUnauthenticated(props) {
   const user = props.user;
   const [imageLoaded, setImageLoaded] = useState(false);
   const profileImg = useRef();
-  
 
   return (
     <div className={styles.profileBlockWrapper}>
-      <div className={styles.profileImageWrapper} style={{ cursor: "default" }}>
+      <div
+        className={styles.profileImageWrapper}
+        style={{
+          cursor:
+            "url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto",
+        }}
+      >
         {!imageLoaded && (
           <Oval
             height={138}

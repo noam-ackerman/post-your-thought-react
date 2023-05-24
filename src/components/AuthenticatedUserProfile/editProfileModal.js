@@ -6,19 +6,11 @@ import { Oval } from "react-loader-spinner";
 import { ExitSVG } from "../logos";
 
 export default function EditProfileModal(props) {
-  const {
-    currentUser,
-    UploadImageToStorageAndGetUrl,
-    UpdateProfile,
-    defaultAvatarUrl,
-    setCurrentUserUpdating,
-    currentUserUpdating,
-  } = useAuth();
-  const { updateUserDatabase } = useUsersCtx();
+  const { UpdateProfile } = useAuth();
+  const { updateUserDatabase, currentUserData, UploadImageToStorageAndGetUrl } =
+    useUsersCtx();
   const [error, setError] = useState("");
-  const [imgUrl, setImgUrl] = useState(
-    currentUser.photoURL ? currentUser.photoURL : defaultAvatarUrl
-  );
+  const [imgUrl, setImgUrl] = useState("");
   const [loading, setLoading] = useState(true);
   const modal = useRef();
   const fileInput = useRef();
@@ -84,7 +76,6 @@ export default function EditProfileModal(props) {
           bio: bioInput.current.value,
         });
       }
-      setCurrentUserUpdating(!currentUserUpdating);
       props.toggleModalOpen();
     } catch {
       setError("Something went wrong!");
@@ -92,6 +83,10 @@ export default function EditProfileModal(props) {
       setLoading(false);
     }
   }
+
+  React.useLayoutEffect(() => {
+    setImgUrl(currentUserData.photoURL);
+  }, [currentUserData]);
 
   return (
     <>
@@ -122,12 +117,7 @@ export default function EditProfileModal(props) {
               <img
                 className={styles.profileImgModal}
                 src={imgUrl}
-                alt={
-                  currentUser.displayName
-                    ? currentUser.displayName
-                    : currentUser.email
-                }
-                style={{ display: !loading ? "block" : "none" }}
+                alt={currentUserData.displayName}
                 onLoad={() => setLoading(false)}
               />
             </div>
@@ -156,11 +146,7 @@ export default function EditProfileModal(props) {
               className={styles.input}
               type="text"
               name="nickname"
-              defaultValue={
-                currentUser.displayName
-                  ? currentUser.displayName
-                  : currentUser.email.split("@")[0]
-              }
+              defaultValue={currentUserData.displayName}
               ref={nicknameInput}
               required
             />
@@ -171,7 +157,7 @@ export default function EditProfileModal(props) {
               className={styles.textAreaSmall}
               type="text"
               name="bio"
-              defaultValue={props.bio}
+              defaultValue={currentUserData.bio}
               ref={bioInput}
             />
           </div>

@@ -1,18 +1,15 @@
 import React, { useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { useAuth } from "../../context/AuthContext";
 import { Oval } from "react-loader-spinner";
 import EditProfileModal from "./editProfileModal";
+import { useUsersCtx } from "../../context/usersContext";
 import styles from "../../style-modules/style.module.css";
-import { getDatabase, ref, onValue } from "firebase/database";
 
 export default function ProfileBlockAuthenticated() {
-  const { currentUser } = useAuth();
+  const { currentUserData } = useUsersCtx();
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [bio, setBio] = useState(null);
   const profileImg = useRef();
-  const database = getDatabase();
 
   function toggleModalOpen() {
     setUpdateModalOpen(!updateModalOpen);
@@ -23,18 +20,6 @@ export default function ProfileBlockAuthenticated() {
       ? document.querySelector("body").classList.add("modal-open")
       : document.querySelector("body").classList.remove("modal-open");
   }, [updateModalOpen]);
-
-  React.useEffect(() => {
-    const bioRef = ref(database, "users/" + currentUser.uid + "/bio");
-    onValue(bioRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setBio(data);
-      } else {
-        setBio(null);
-      }
-    });
-  }, [currentUser.uid, database]);
 
   return (
     <div className={styles.profileBlockWrapper}>
@@ -56,21 +41,23 @@ export default function ProfileBlockAuthenticated() {
         <img
           ref={profileImg}
           style={{ display: imageLoaded ? "block" : "none" }}
-          src={currentUser.photoURL}
+          src={currentUserData?.photoURL}
           onLoad={() => setImageLoaded(true)}
-          alt={currentUser.displayName}
+          alt={currentUserData.displayName}
           className={styles.profileImage}
         />
       </div>
       <div className={styles.profileDetailsWrapper}>
         <div className={styles.detailProfile}>
           <span className={styles.detailLabel}>Username:</span>
-          <span className={styles.detailTitle}>{currentUser.displayName}</span>
+          <span className={styles.detailTitle}>
+            {currentUserData.displayName}
+          </span>
         </div>
-        {bio && (
+        {currentUserData.bio !== "" && (
           <div className={styles.detailProfile}>
             <span className={styles.detailLabel}>Bio:</span>
-            <span className={styles.detailTitle}>{bio}</span>
+            <span className={styles.detailTitle}>{currentUserData.bio}</span>
           </div>
         )}
         <button
@@ -82,7 +69,7 @@ export default function ProfileBlockAuthenticated() {
       </div>
       {updateModalOpen &&
         ReactDOM.createPortal(
-          <EditProfileModal toggleModalOpen={toggleModalOpen} bio={bio} />,
+          <EditProfileModal toggleModalOpen={toggleModalOpen} />,
           document.getElementById("modal-root")
         )}
     </div>

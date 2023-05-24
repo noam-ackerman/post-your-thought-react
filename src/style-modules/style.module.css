@@ -129,9 +129,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgb(0, 0, 0, 0.5);
+  background: rgb(0, 0, 0);
+  opacity: 0.6;
   z-index: 2;
   position: fixed;
+  transition: all 100ms ease;
 }
 
 .profileBlockWrapper {
@@ -203,22 +205,26 @@
   text-align: center;
   margin-top: auto;
   color: #7c606b;
-  font-family: monospace;
+  font-family: "Cutive Mono", monospace;
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.6rem;
-  font-size: 0.82rem;
+  font-size: 13.5px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
 }
 
 .footer a {
   font-family: "Sigmar", cursive;
-  font-size: 0.75rem;
+  font-size: 12px;
   color: #7c606b;
   letter-spacing: 0.5px;
   transition: all 150ms ease;
   text-decoration: none;
   background-color: rgb(187, 233, 255, 0.8);
   padding: 0 4px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 .footer a:hover {
   text-decoration: underline;
@@ -259,17 +265,8 @@
 
 @media (max-width: 767px) {
   .actionWrapper {
-    gap: 15px;
+    gap: 0.7rem;
     justify-content: flex-start;
-  }
-}
-
-@media (max-width: 649px) {
-  .navContainer {
-    gap: 5px;
-  }
-  .profileContainerContent {
-    padding: 2rem 1.4rem 4.5rem;
   }
   .modalCard {
     transform: none;
@@ -281,6 +278,15 @@
     height: 100vh;
     overflow-y: scroll;
   }
+}
+
+@media (max-width: 649px) {
+  .navContainer {
+    gap: 5px;
+  }
+  .profileContainerContent {
+    padding: 2rem 1.1rem 4.5rem;
+  }
 
   .hpPostsWrapper {
     padding: 3.2rem 1.5rem 5rem;
@@ -289,11 +295,11 @@
     padding: 1.2rem 1.8rem 1.8rem;
   }
   .footer {
-    font-size: 0.5rem;
+    font-size: 8px;
     padding: 0.6rem 0.2rem;
   }
   .footer a {
-    font-size: 0.4rem;
+    font-size: 6.5px;
   }
 }
 
@@ -343,9 +349,9 @@
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border: none;
-
+  font-family: "Roboto", sans-serif;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .formError {
@@ -387,6 +393,8 @@
   padding: 0.7rem 1.1rem;
   line-height: 1.3rem;
   resize: none;
+  font-size: 13px;
+  font-weight: 500px;
 }
 .textAreaSmall {
   width: 100%;
@@ -396,18 +404,21 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 8px 10px;
   line-height: 1.3rem;
+  font-weight: 500px;
   resize: none;
+  font-size: 13px;
 }
 
 .searchInput {
   width: min(600px, 100%);
-  font-family: monospace;
+  font-family: "Cutive Mono", monospace;
   display: block;
   padding: 20px 15px;
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border: none;
   font-size: 1rem;
+  letter-spacing: -0.5px;
   font-weight: 500;
   margin: 1.5rem auto 2.5rem;
 }
@@ -424,7 +435,6 @@
   margin: 15px 0;
   font-size: 1.1rem;
   font-weight: 700;
-  cursor: pointer;
   transition: all 150ms ease;
 }
 
@@ -435,7 +445,7 @@
 .submitButton[disabled],
 .postSubmitbutton[disabled] {
   background-color: #f6d2de;
-  cursor: default;
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto !important;
   pointer-events: none;
 }
 
@@ -450,7 +460,6 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 700;
-  cursor: pointer;
   transition: all 150ms ease;
   align-self: flex-end;
 }
@@ -466,7 +475,6 @@
   margin: 5px 0;
   font-size: 1.1rem;
   font-weight: 700;
-  cursor: pointer;
   transition: all 150ms ease;
   display: block;
 }
@@ -478,7 +486,7 @@
 .actionButtonPrimary[disabled],
 .selectImageButton[disabled] {
   background-color: #dcd4ff;
-  cursor: default;
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
   pointer-events: none;
 }
 
@@ -497,7 +505,7 @@
   margin: 10px 0;
   font-size: 1.1rem;
   font-weight: 700;
-  cursor: pointer;
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;
   transition: all 150ms ease;
 }
 
@@ -513,7 +521,6 @@
   border: none;
   font-size: 1.5rem;
   font-weight: 700;
-  cursor: pointer;
 }
 
 .oval {
@@ -556,7 +563,6 @@
   padding: 10px;
   font-size: 1.1rem;
   font-weight: 700;
-  cursor: pointer;
   transition: all 150ms ease;
 }
 
@@ -569,6 +575,13 @@
   .actionButtonPrimary {
     padding: 8px 12px;
   }
+  .submitButton,
+  .deleteAccountBtn,
+  .selectImageButton,
+  .actionButtonPrimary,
+  .postSubmitbutton {
+    font-size: 1rem;
+  }
 }
 /* images */
 
@@ -579,6 +592,7 @@
   border: 2px solid #fff;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   display: block;
+  transition: all 100ms ease-in-out;
 }
 .profileImgLargerThumbnailWrapper {
   width: 75px;
@@ -586,6 +600,9 @@
   border-radius: 999px;
   border: 2px solid #fff;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.profileImgThumbnailWrapper:hover {
+  border-color: #8cb4fe;
 }
 .profileImgThumbnail {
   border-radius: 999px;
@@ -596,11 +613,10 @@
 
 .profileImageWrapper {
   width: 100%;
-
   border-radius: 5px;
   border: 3px solid #fff;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  cursor: pointer;
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto;
 }
 .profileImage {
   border-radius: 5px;
@@ -743,15 +759,30 @@
   font-weight: 600;
   color: #fff;
   text-decoration: underline;
+  font-size: 1rem;
 }
 
 .postContent {
   color: #7c606b;
-  font-family: monospace;
-  padding: 1.5rem 0.7rem 1.8rem;
-  font-size: 0.9rem;
+  font-family: "Cutive Mono", monospace;
+  margin: 1.5rem 0 1.8rem;
+  padding: 0 0.7rem;
+  font-size: 1rem;
   white-space: pre-line;
   line-height: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  max-height: 12rem;
+  overflow-y: scroll;
+}
+.postContent::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+.postContent::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 .maxSize {
   opacity: 0.8;
@@ -776,11 +807,12 @@
 
 .errorPageMessage {
   margin: 2rem auto;
-  font-size: 1.5rem;
-  font-family: monospace;
+  font-size: 1.2rem;
+  font-family: "Cutive", serif;
   color: #7c606b;
   line-height: 2.5rem;
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 .errorPageMessage a {
@@ -790,9 +822,11 @@
 .titleHpText {
   margin: 2.5rem auto 1rem 0;
   font-size: 2.3rem;
-  font-family: monospace;
+  font-family: "Cutive Mono", monospace;
+  letter-spacing: -0.5px;
   color: #7c606b;
   line-height: 2.4rem;
+  font-weight: 400;
 }
 
 .titleHpText span {
@@ -802,7 +836,7 @@
   display: inline-block;
   width: 2px;
   height: 2.3rem;
-  vertical-align: bottom;
+  vertical-align: text-top;
   background-color: #7c606b;
   margin-left: 8px;
   animation: blink-animation 1s steps(5, start) infinite;
@@ -852,8 +886,8 @@
   }
   .errorPageMessage {
     margin: 1.2rem auto 2rem;
-    font-size: 1.2rem;
-    line-height: 1.8rem;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
   }
 }
 
@@ -875,7 +909,7 @@
     height: 180px;
   }
   .titleHpText {
-    font-size: 1.1rem;
+    font-size: 1.12rem;
     margin: 0 auto 0 0;
     line-height: 1.15rem;
   }
@@ -884,6 +918,10 @@
   }
   .dateAndTime {
     padding: 0.8rem 0.4rem 0;
+    font-size: 0.9rem;
+  }
+  .usernamePost {
+    font-size: 0.9rem;
   }
   .usernameNav {
     margin-top: 5px;
@@ -893,6 +931,12 @@
   }
   .SearchTitle {
     font-size: 2.1rem;
+  }
+  .postContent {
+    font-size: 0.9rem;
+  }
+  .detailProfile {
+    font-size: 0.8rem;
   }
 }
 

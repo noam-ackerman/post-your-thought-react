@@ -17,7 +17,6 @@ export default function Signup() {
     if (passwordInput.current.value !== passwordConfirmInput.current.value) {
       return setError("Passwords do not match!");
     }
-
     try {
       setError("");
       setLoading(true);
@@ -52,6 +51,7 @@ export default function Signup() {
               type="email"
               ref={emailInput}
               name="email"
+              autoComplete="email"
               placeholder="example@example.com"
               required
             />
@@ -64,6 +64,7 @@ export default function Signup() {
               ref={passwordInput}
               name="password"
               placeholder="=< 6 characters"
+              autoComplete="new-password"
               required
             />
           </div>
@@ -75,6 +76,7 @@ export default function Signup() {
               ref={passwordConfirmInput}
               name="password-confirmation"
               placeholder="=< 6 characters"
+              autoComplete="off"
               required
             />
           </div>

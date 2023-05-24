@@ -11,32 +11,11 @@ import styles from "../style-modules/style.module.css";
 
 export default function Profile() {
   const { currentUser } = useAuth();
-  const {
-    usersData,
-    fetchingUsers,
-    likesData,
-    fetchingLikes,
-    currentUserPosts,
-    fetchingCurrentUserPosts,
-  } = useUsersCtx();
+  const { usersData, likesData, currentUserData } = useUsersCtx();
   const { userId } = useParams();
   const userCurrentlyAuthenticated = userId === currentUser.uid;
 
-  React.useEffect(() => {
-    if (!userCurrentlyAuthenticated) {
-      fetchingUsers();
-    } else if (userCurrentlyAuthenticated) {
-      fetchingCurrentUserPosts();
-    }
-    fetchingLikes();
-  }, [
-    fetchingUsers,
-    userCurrentlyAuthenticated,
-    fetchingLikes,
-    fetchingCurrentUserPosts,
-  ]);
-
-  if (userCurrentlyAuthenticated && likesData && currentUserPosts) {
+  if (userCurrentlyAuthenticated && likesData && currentUserData) {
     return (
       <>
         <Navbar />

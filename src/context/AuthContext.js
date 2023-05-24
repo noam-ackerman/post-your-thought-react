@@ -13,20 +13,9 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from "firebase/auth";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-  listAll,
-} from "firebase/storage";
 import firebaseApp from "../firebase";
-import { getDatabase, ref as databaseRef, set } from "firebase/database";
 
 const auth = getAuth(firebaseApp);
-const storage = getStorage();
-const database = getDatabase();
 const defaultAvatarUrl =
   "https://firebasestorage.googleapis.com/v0/b/post-auth-dev-e4058.appspot.com/o/photography.png?alt=media&token=ee8ac101-275e-496c-9d6e-0cd6159a29f1";
 
@@ -38,9 +27,7 @@ const useAuth = () => {
 
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
-  const [currentUserUpdating, setCurrentUserUpdating] = React.useState(false);
   const [Loading, setLoading] = useState(true);
-  const [defaultImageAndNickName, setDefaultImageAndNickname] = useState(false);
 
   function SignupUser(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -76,60 +63,20 @@ const AuthContextProvider = ({ children }) => {
     return reauthenticateWithCredential(currentUser, credentials);
   }
 
-  async function UploadImageToStorageAndGetUrl(imgFile) {
-    const fileRef = ref(
-      storage,
-      "images/" + currentUser.uid + "/" + imgFile.name
-    );
-    try {
-      await uploadBytes(fileRef, imgFile);
-      return getDownloadURL(fileRef);
-    } catch {
-      return alert("Failed to upload image!");
-    }
-  }
-
-  function deleteStorageUser() {
-    const ImagesRef = ref(storage, "images/" + currentUser.uid);
-    listAll(ImagesRef)
-      .then((res) => {
-        res.items.forEach((itemRef) => {
-          deleteObject(itemRef);
-        });
-      })
-      .catch((err) => {
-        return new Error();
-      });
-  }
-
   function UpdateProfile(data) {
     return updateProfile(currentUser, data);
   }
 
-  // setting default image and nickname in user object on first login and updating Database
+  // setting default image and nickname in user object on first login
+
   React.useEffect(() => {
-    if (
-      currentUser &&
-      !defaultImageAndNickName &&
-      !currentUser.photoURL &&
-      !currentUser.displayName
-    ) {
+    if (currentUser && !currentUser.photoURL && !currentUser.displayName) {
       updateProfile(currentUser, {
         displayName: currentUser.email.split("@")[0],
         photoURL: defaultAvatarUrl,
-      }).then(() => {
-        setDefaultImageAndNickname(true);
-        const userRef = databaseRef(database, "users/" + currentUser.uid);
-        set(userRef, {
-          userId: currentUser.uid,
-          displayName: currentUser.displayName,
-          email: currentUser.email,
-          photoURL: currentUser.photoURL,
-          bio: "",
-        });
       });
     }
-  }, [currentUser, defaultImageAndNickName]);
+  }, [currentUser]);
 
   // unsubscribing from auth
   useEffect(() => {
@@ -148,13 +95,9 @@ const AuthContextProvider = ({ children }) => {
     resetPassword,
     UpdateEmail,
     UpdatePassword,
-    UploadImageToStorageAndGetUrl,
     UpdateProfile,
     DeleteUser,
-    deleteStorageUser,
     reAuthenticateUser,
-    currentUserUpdating,
-    setCurrentUserUpdating,
   };
 
   return (

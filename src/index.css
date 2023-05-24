@@ -14,7 +14,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #c1f7dc;
   overflow-x: hidden;
-  cursor: default;
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
+}
+
+a,
+button {
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;
+}
+
+input,
+textarea {
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
+}
+
+button[disabled] {
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto !important;
 }
 
 body.modal-open {
@@ -23,8 +37,8 @@ body.modal-open {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: monospace, "SF Mono", SFMono-Regular, ui-monospace,
+    "DejaVu Sans Mono", Menlo, Consolas;
 }
 
 #root {

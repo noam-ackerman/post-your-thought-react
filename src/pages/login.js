@@ -47,6 +47,7 @@ export default function Login() {
               type="email"
               ref={emailInput}
               name="email"
+              autoComplete="email"
               required
             />
           </div>
@@ -56,6 +57,7 @@ export default function Login() {
               className={styles.input}
               type="password"
               ref={passwordInput}
+              autoComplete="current-password"
               name="password"
               required
             />

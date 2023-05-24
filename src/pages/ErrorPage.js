@@ -9,7 +9,7 @@ export default function ErrorPage() {
         <div className={styles.errorPageMessage}>
           Try to refresh the page or return later.
           <br />
-          If this Error is still occuring,
+          If this error still occurs,
           <br />
           Please contact me at{" "}
           <a href="mailto:developer.noam@gmail.com">

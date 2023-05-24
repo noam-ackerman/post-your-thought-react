@@ -65,7 +65,10 @@ export default function PostBlockUnauthenticated(props) {
             ref={heart}
             onClick={(e) => handleLike(props.post.id, postLikes)}
             action={postIsLikedByCurrentUser ? "unlike" : "like"}
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor:
+                "url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto",
+            }}
           >
             {postIsLikedByCurrentUser ? (
               <FullHeartSVG color="#EE4B2B" height="24px" width="24px" />

@@ -6,7 +6,7 @@ import styles from "../style-modules/style.module.css";
 import { Link } from "react-router-dom";
 
 export default function Search() {
-  const { usersData, fetchingUsers } = useUsersCtx();
+  const { usersData } = useUsersCtx();
   const usersArray = React.useMemo(
     () => (usersData ? Object.values(usersData) : []),
     [usersData]
@@ -14,10 +14,6 @@ export default function Search() {
   const [searchQuery, setsearchQuery] = useState("");
   const [scoredUsers, setScoredUsers] = useState([]);
   const searchInput = React.useRef();
-
-  React.useEffect(() => {
-    fetchingUsers();
-  }, [fetchingUsers]);
 
   React.useEffect(() => {
     if (searchQuery === "") {

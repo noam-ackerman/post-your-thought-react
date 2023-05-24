@@ -5,13 +5,15 @@ import styles from "../style-modules/style.module.css";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import UpdateSettingsModal from "./updateSettingsModal";
+import { useUsersCtx } from "../context/usersContext";
 import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "./logos";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { currentUser, LogoutUser, currentUserUpdating } = useAuth();
+  const { currentUser, LogoutUser } = useAuth();
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { currentUserData } = useUsersCtx();
 
   React.useEffect(() => {
     updateModalOpen
@@ -19,7 +21,7 @@ export default function Navbar() {
       : document.querySelector("body").classList.remove("modal-open");
   }, [updateModalOpen]);
 
-  React.useEffect(() => {}, [currentUserUpdating]);
+  // React.useEffect(() => {}, [currentUserUpdating]);
 
   function toggleModalOpen() {
     setUpdateModalOpen(!updateModalOpen);
@@ -41,17 +43,17 @@ export default function Navbar() {
       </div>
       <div className={styles.actionWrapper}>
         <div className={styles.usernameNav}>
-          Hi {currentUser.displayName} (✧ω✧)☆
+          Hi {currentUserData?.displayName || currentUser?.displayName} (✧ω✧)☆
         </div>
         <Link
-          to={`/${currentUser.uid}`}
+          to={`/${currentUserData?.userId}`}
           title="My Profile"
           className={`${styles.profileImgThumbnailWrapper} ${styles.profileImageNav}`}
         >
           <img
             className={styles.profileImgThumbnail}
-            src={currentUser.photoURL}
-            alt={currentUser.displayName}
+            src={currentUserData?.photoURL}
+            alt={currentUserData?.displayName}
             style={{ display: imageLoaded ? "block" : "none" }}
             onLoad={() => setImageLoaded(true)}
           />

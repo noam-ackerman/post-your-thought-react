@@ -11,13 +11,18 @@ export default function UpdateSettingsModal(props) {
     UpdateEmail,
     UpdatePassword,
     DeleteUser,
-    deleteStorageUser,
     reAuthenticateUser,
   } = useAuth();
-  const { usersData, deleteUserDatabase, removePostsLikes } = useUsersCtx();
+  const {
+    currentUserData,
+    deleteUserDatabase,
+    deleteStorageUser,
+    removePostsLikes,
+  } = useUsersCtx();
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [deleteClick, setDeleteClick] = useState(false);
   const navigate = useNavigate();
 
@@ -70,7 +75,6 @@ export default function UpdateSettingsModal(props) {
           }
         }
       }
-
       setMessage("Your setting were updated!");
     } catch {
       return setError("Failed! Incorrent password");
@@ -93,18 +97,18 @@ export default function UpdateSettingsModal(props) {
         try {
           await reAuthenticateUser(oldPasswordInput.current.value);
           try {
-            let userData = Object.values(usersData).find(
-              (user) => user.userId === currentUser.uid
-            );
-            userData.posts?.forEach(async (post) => {
+            setDeleting(true);
+            currentUserData.posts?.forEach(async (post) => {
               await removePostsLikes(post.id);
             });
             await deleteStorageUser();
             await deleteUserDatabase();
             await DeleteUser();
+            document.querySelector("body").classList.remove("modal-open");
             navigate("/login");
           } catch {
             setError("Failed to delete account!");
+            setDeleting(false);
             setDeleteClick(false);
           }
         } catch {
@@ -118,7 +122,14 @@ export default function UpdateSettingsModal(props) {
 
   return (
     <>
-      <div className={styles.modalOverlay} onClick={handleOverlayClick}></div>
+      <div
+        className={styles.modalOverlay}
+        onClick={handleOverlayClick}
+        style={{
+          backgroundColor: deleting && "#c1f7dc",
+          opacity: deleting && "1",
+        }}
+      ></div>
       <div ref={modal} className={styles.modalCard}>
         <button className={styles.exitBtn} onClick={cancelEdit}>
           <ExitSVG color="#7c606b" height="15px" width="15px" />
@@ -134,6 +145,7 @@ export default function UpdateSettingsModal(props) {
               type="email"
               ref={emailInput}
               name="email"
+              autoComplete="email"
               defaultValue={currentUser.email}
               required
             />
@@ -145,6 +157,7 @@ export default function UpdateSettingsModal(props) {
               type="password"
               ref={oldPasswordInput}
               name="old-password"
+              autoComplete="current-password"
               placeholder="Required for update"
               required
             />
@@ -154,6 +167,7 @@ export default function UpdateSettingsModal(props) {
             <input
               className={styles.input}
               type="password"
+              autoComplete="new-password"
               ref={newPasswordInput}
               name="password"
               placeholder="Leave blank to keep"
@@ -167,6 +181,7 @@ export default function UpdateSettingsModal(props) {
               className={styles.input}
               type="password"
               ref={newPasswordConfirmInput}
+              autoComplete="off"
               name="password-confirmation"
               placeholder="Leave blank to keep"
             />

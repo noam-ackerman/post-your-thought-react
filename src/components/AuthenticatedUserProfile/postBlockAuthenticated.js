@@ -16,27 +16,18 @@ export default function PostBlockAuthenticated(props) {
     minutes = ("0" + date.getMinutes()).slice(-2);
   let time = `${day}/${month}/${year} ${hour}:${minutes}`;
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { likesData, updatePostsLikes } = useUsersCtx();
+  const {
+    likesData,
+    updatePostsLikes,
+    removePostsLikes,
+    currentUserData,
+    updateUserDatabase,
+  } = useUsersCtx();
   const { currentUser } = useAuth();
   const heart = React.useRef();
   let postLikesObj = likesData[props.post.id] ? likesData[props.post.id] : null;
   let postLikes = postLikesObj ? postLikesObj.likes : [];
   let postIsLikedByCurrentUser = postLikes.includes(currentUser.uid);
-
-  function handleDeletePost() {
-    props.deletePost(props.post);
-  }
-
-  function handleEditPost() {
-    if (!editMode) {
-      setEditMode(true);
-    }
-    if (editMode) {
-      let newContent = textAreaEdit.current.value;
-      setEditMode(false);
-      props.editPost(props.post, newContent);
-    }
-  }
 
   async function handleLike(postId, likes) {
     try {
@@ -52,12 +43,48 @@ export default function PostBlockAuthenticated(props) {
     }
   }
 
+  async function handleDeletePost(postId) {
+    try {
+      let newPostsArray = currentUserData.posts?.filter((x) => x.id !== postId);
+      await updateUserDatabase({ posts: newPostsArray });
+      await removePostsLikes(postId);
+    } catch {
+      alert("Something went wrong!");
+    }
+  }
+
+  async function editPost(post, newContent) {
+    try {
+      let newPostsArray = currentUserData.posts?.map((x) => {
+        if (x.id === post.id) {
+          return { ...x, content: newContent };
+        } else {
+          return x;
+        }
+      });
+      await updateUserDatabase({ posts: newPostsArray });
+    } catch {
+      alert("Something went wrong!");
+    }
+  }
+
+  function handleEditPost() {
+    if (!editMode) {
+      setEditMode(true);
+    }
+    if (editMode) {
+      let newContent = textAreaEdit.current.value;
+      setEditMode(false);
+      editPost(props.post, newContent);
+    }
+  }
+
   return (
     <div className={styles.postBlockWrraper}>
       <div className={styles.postInfoLineWrapper}>
         <div className={styles.userInfo}>
           <Link
-            to={`/${props.user.userId || props.user.uid}`}
+            to={`/${props.user.userId}`}
             className={styles.profileImgThumbnailWrapper}
           >
             <img
@@ -68,10 +95,7 @@ export default function PostBlockAuthenticated(props) {
               onLoad={() => setImageLoaded(true)}
             />
           </Link>
-          <Link
-            to={`/${props.user.userId || props.user.uid}`}
-            className={styles.usernamePost}
-          >
+          <Link to={`/${props.user.userId}`} className={styles.usernamePost}>
             {props.user.displayName}
           </Link>
         </div>
@@ -93,7 +117,10 @@ export default function PostBlockAuthenticated(props) {
             ref={heart}
             onClick={(e) => handleLike(props.post.id, postLikes)}
             action={postIsLikedByCurrentUser ? "unlike" : "like"}
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor:
+                "url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto",
+            }}
           >
             {postIsLikedByCurrentUser ? (
               <FullHeartSVG color="#EE4B2B" height="24px" width="24px" />
@@ -108,7 +135,7 @@ export default function PostBlockAuthenticated(props) {
         </button>{" "}
         <button
           className={styles.actionButtonPrimary}
-          onClick={handleDeletePost}
+          onClick={(e) => handleDeletePost(props.post.id)}
         >
           Delete
         </button>{" "}
