@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import styles from "../style-modules/style.module.css";
 
 export default function Login() {
-  const { LoginUser } = useAuth();
+  const { LoginUser, currentUser } = useAuth();
   const navigate = useNavigate();
   const emailInput = useRef();
   const passwordInput = useRef();
@@ -34,64 +34,68 @@ export default function Login() {
     }
   }
 
-  return (
-    <div className={styles.AuthContainer}>
-      <div className={styles.MainTitle}>Post Your Thought.</div>
-      <div className={styles.cardPrimary}>
-        <div className={styles.SecondaryTitle}>Login</div>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          {error && <div className={styles.formError}>{error}</div>}
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Email</label>
-            <input
-              className={styles.input}
-              type="email"
-              ref={emailInput}
-              name="email"
-              autoComplete="email"
-              required
-            />
-          </div>
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Password</label>
-            <input
-              className={styles.input}
-              type="password"
-              ref={passwordInput}
-              autoComplete="current-password"
-              name="password"
-              required
-            />
-          </div>
-          <button
-            className={styles.submitButton}
-            type="submit"
-            disabled={loading}
-          >
-            {loading && (
-              <Oval
-                height={22}
-                width={22}
-                color="#B5A1FF"
-                wrapperStyle={{}}
-                wrapperClass={styles.ovalBtn}
-                visible={true}
-                ariaLabel="oval-loading"
-                secondaryColor="#B5A1FF"
-                strokeWidth={8}
-                strokeWidthSecondary={8}
+  if (currentUser) {
+    return <Navigate to="/" />;
+  } else {
+    return (
+      <div className={styles.AuthContainer}>
+        <div className={styles.MainTitle}>Post Your Thought.</div>
+        <div className={styles.cardPrimary}>
+          <div className={styles.SecondaryTitle}>Login</div>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            {error && <div className={styles.formError}>{error}</div>}
+            <div className={styles.inputGroup}>
+              <label className={styles.inputLabel}>Email</label>
+              <input
+                className={styles.input}
+                type="email"
+                ref={emailInput}
+                name="email"
+                autoComplete="email"
+                required
               />
-            )}
-            <span style={{ opacity: loading && "0" }}>Login</span>
-          </button>
-        </form>
+            </div>
+            <div className={styles.inputGroup}>
+              <label className={styles.inputLabel}>Password</label>
+              <input
+                className={styles.input}
+                type="password"
+                ref={passwordInput}
+                autoComplete="current-password"
+                name="password"
+                required
+              />
+            </div>
+            <button
+              className={styles.submitButton}
+              type="submit"
+              disabled={loading}
+            >
+              {loading && (
+                <Oval
+                  height={22}
+                  width={22}
+                  color="#B5A1FF"
+                  wrapperStyle={{}}
+                  wrapperClass={styles.ovalBtn}
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="#B5A1FF"
+                  strokeWidth={8}
+                  strokeWidthSecondary={8}
+                />
+              )}
+              <span style={{ opacity: loading && "0" }}>Login</span>
+            </button>
+          </form>
+          <div className={styles.linkText}>
+            <Link to="/resetpassword">Forgot Password?</Link>
+          </div>
+        </div>
         <div className={styles.linkText}>
-          <Link to="/resetpassword">Forgot Password?</Link>
+          Need an account? <Link to="/signup">Sign up</Link>
         </div>
       </div>
-      <div className={styles.linkText}>
-        Need an account? <Link to="/signup">Sign up</Link>
-      </div>
-    </div>
-  );
+    );
+  }
 }

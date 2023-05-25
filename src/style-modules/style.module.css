@@ -270,13 +270,17 @@
   }
   .modalCard {
     transform: none;
-    bottom: 0;
     right: 0;
     top: 0;
     left: 0;
-    width: 100%;
+    bottom: unset;
+    width: 100vw;
     height: 100vh;
     overflow-y: scroll;
+    padding: 2rem 2rem 3rem;
+  }
+  .modalOverlay {
+    display: none;
   }
 }
 
@@ -960,7 +964,8 @@
     font-size: 2.1rem;
   }
   .postContent {
-    font-size: 0.9rem;
+    font-size: 1rem;
+    padding: 0 0.5rem;
   }
   .detailProfile {
     font-size: 0.8rem;

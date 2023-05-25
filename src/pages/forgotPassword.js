@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import styles from "../style-modules/style.module.css";
 
 export default function ForgotPassword() {
-  const { resetPassword } = useAuth();
+  const { resetPassword, currentUser } = useAuth();
   const emailInput = useRef();
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -25,52 +25,56 @@ export default function ForgotPassword() {
     setLoading(false);
   }
 
-  return (
-    <div className={styles.AuthContainer}>
-      <div className={styles.MainTitle}>Post Your Thought.</div>
-      <div className={styles.cardPrimary}>
-        <div className={styles.SecondaryTitle}>Reset Password</div>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          {error && <div className={styles.formError}>{error}</div>}
-          {message && <div className={styles.formMessage}>{message}</div>}
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Email</label>
-            <input
-              className={styles.input}
-              type="email"
-              ref={emailInput}
-              name="email"
-              autoComplete="email"
-              placeholder="example@example.com"
-              required
-            />
-          </div>
-          <button
-            className={styles.submitButton}
-            type="submit"
-            disabled={loading}
-          >
-            {loading && (
-              <Oval
-                height={22}
-                width={22}
-                color="#B5A1FF"
-                wrapperStyle={{}}
-                wrapperClass={styles.ovalBtn}
-                visible={true}
-                ariaLabel="oval-loading"
-                secondaryColor="#B5A1FF"
-                strokeWidth={8}
-                strokeWidthSecondary={8}
+  if (currentUser) {
+    return <Navigate to="/" />;
+  } else {
+    return (
+      <div className={styles.AuthContainer}>
+        <div className={styles.MainTitle}>Post Your Thought.</div>
+        <div className={styles.cardPrimary}>
+          <div className={styles.SecondaryTitle}>Reset Password</div>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            {error && <div className={styles.formError}>{error}</div>}
+            {message && <div className={styles.formMessage}>{message}</div>}
+            <div className={styles.inputGroup}>
+              <label className={styles.inputLabel}>Email</label>
+              <input
+                className={styles.input}
+                type="email"
+                ref={emailInput}
+                name="email"
+                autoComplete="email"
+                placeholder="example@example.com"
+                required
               />
-            )}
-            <span style={{ opacity: loading && "0" }}>Reset Password</span>
-          </button>
-        </form>
-        <div className={styles.linkText}>
-          <Link to="/login">Log in</Link>
+            </div>
+            <button
+              className={styles.submitButton}
+              type="submit"
+              disabled={loading}
+            >
+              {loading && (
+                <Oval
+                  height={22}
+                  width={22}
+                  color="#B5A1FF"
+                  wrapperStyle={{}}
+                  wrapperClass={styles.ovalBtn}
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="#B5A1FF"
+                  strokeWidth={8}
+                  strokeWidthSecondary={8}
+                />
+              )}
+              <span style={{ opacity: loading && "0" }}>Reset Password</span>
+            </button>
+          </form>
+          <div className={styles.linkText}>
+            <Link to="/login">Log in</Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
