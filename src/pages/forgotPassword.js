@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 import styles from "../style-modules/style.module.css";
 
 export default function ForgotPassword() {
@@ -39,6 +40,7 @@ export default function ForgotPassword() {
               type="email"
               ref={emailInput}
               name="email"
+              autoComplete="email"
               placeholder="example@example.com"
               required
             />
@@ -48,7 +50,21 @@ export default function ForgotPassword() {
             type="submit"
             disabled={loading}
           >
-            Reset Password
+            {loading && (
+              <Oval
+                height={22}
+                width={22}
+                color="#B5A1FF"
+                wrapperStyle={{}}
+                wrapperClass={styles.ovalBtn}
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="#B5A1FF"
+                strokeWidth={8}
+                strokeWidthSecondary={8}
+              />
+            )}
+            <span style={{ opacity: loading && "0" }}>Reset Password</span>
           </button>
         </form>
         <div className={styles.linkText}>

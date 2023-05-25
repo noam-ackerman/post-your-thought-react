@@ -51,7 +51,7 @@
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   text-decoration: none;
-  transition: all 120ms ease-in-out;
+  transition: all 50ms ease-in-out;
 }
 
 .userCard:hover {
@@ -216,7 +216,7 @@
 
 .footer a {
   font-family: "Sigmar", cursive;
-  font-size: 12px;
+  font-size: 11px;
   color: #7c606b;
   letter-spacing: 0.5px;
   transition: all 150ms ease;
@@ -317,6 +317,12 @@
   }
 }
 
+@media (max-width: 350px) {
+  .footer a {
+    font-size: 5px;
+  }
+}
+
 /* forms */
 
 .inputGroup {
@@ -362,9 +368,8 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 5px;
   border: none;
-  padding: 12px 10px;
+  padding: 0.6rem 0.5rem;
   width: 100%;
-
   line-height: 1.5rem;
   text-align: center;
 }
@@ -377,9 +382,8 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 5px;
   border: none;
-  padding: 12px 10px;
+  padding: 0.6rem 0.5rem;
   width: 100%;
-
   line-height: 1.5rem;
   text-align: center;
 }
@@ -390,10 +394,12 @@
   border: none;
   border-radius: 5px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  padding: 0.7rem 1.1rem;
+  padding: 0.9rem 1rem;
   line-height: 1.3rem;
+  font-family: "Cutive Mono", monospace;
+  letter-spacing: -0.8px;
   resize: none;
-  font-size: 13px;
+  font-size: 1rem;
   font-weight: 500px;
 }
 .textAreaSmall {
@@ -406,7 +412,8 @@
   line-height: 1.3rem;
   font-weight: 500px;
   resize: none;
-  font-size: 13px;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
 }
 
 .searchInput {
@@ -436,6 +443,7 @@
   font-size: 1.1rem;
   font-weight: 700;
   transition: all 150ms ease;
+  position: relative;
 }
 
 .submitButton:hover,
@@ -535,6 +543,13 @@
   width: 100%;
 }
 
+.ovalBtn {
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%, 50%);
+}
+
 .ovalProfileImage svg {
   margin: auto;
   display: block;
@@ -564,6 +579,7 @@
   font-size: 1.1rem;
   font-weight: 700;
   transition: all 150ms ease;
+  position: relative;
 }
 
 .deleteAccountBtn:hover,
@@ -651,6 +667,17 @@
   .profileImgLargerThumbnailWrapper {
     width: 55px;
     height: 55px;
+  }
+}
+
+@media (max-width: 350px) {
+  .profileImgThumbnailWrapper {
+    width: 45px;
+    height: 45px;
+  }
+  .profileImgLargerThumbnailWrapper {
+    width: 45px;
+    height: 45px;
   }
 }
 
@@ -771,7 +798,7 @@
   white-space: pre-line;
   line-height: 1.5rem;
   font-weight: 400;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.8px;
   max-height: 12rem;
   overflow-y: scroll;
 }
@@ -939,7 +966,26 @@
     font-size: 0.8rem;
   }
 }
-
+@media (max-width: 350px) {
+  .usernameNav span {
+    display: none;
+  }
+  .usernameNav {
+    font-size: 0.8rem;
+  }
+  .MainTitleNav a {
+    font-size: 1.5rem;
+  }
+  .usernamePost {
+    font-size: 0.8rem;
+  }
+  .titleHpText {
+    font-size: 1rem;
+  }
+  .usernameResult {
+    font-size: 0.7rem;
+  }
+}
 /* spacing */
 
 .marginTopBottom1 {

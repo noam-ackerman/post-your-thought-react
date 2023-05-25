@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useUsersCtx } from "../context/usersContext";
 import { useNavigate } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 import styles from "../style-modules/style.module.css";
 import { ExitSVG } from "./logos";
 
@@ -31,6 +32,21 @@ export default function UpdateSettingsModal(props) {
   const newPasswordInput = useRef();
   const newPasswordConfirmInput = useRef();
   const modal = useRef();
+
+  const OvalElem = (
+    <Oval
+      height={22}
+      width={22}
+      color="#B5A1FF"
+      wrapperStyle={{}}
+      wrapperClass={styles.ovalBtn}
+      visible={true}
+      ariaLabel="oval-loading"
+      secondaryColor="#B5A1FF"
+      strokeWidth={8}
+      strokeWidthSecondary={8}
+    />
+  );
 
   function handleOverlayClick(event) {
     if (event.target !== modal.current) {
@@ -192,7 +208,8 @@ export default function UpdateSettingsModal(props) {
               type="submit"
               disabled={loading}
             >
-              Update
+              {loading && OvalElem}
+              <span style={{ opacity: loading && "0" }}>Update</span>
             </button>
             <button
               className={styles.deleteAccountBtn}

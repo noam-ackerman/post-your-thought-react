@@ -43,7 +43,8 @@ export default function Navbar() {
       </div>
       <div className={styles.actionWrapper}>
         <div className={styles.usernameNav}>
-          Hi {currentUserData?.displayName || currentUser?.displayName} (✧ω✧)☆
+          Hi {currentUserData?.displayName || currentUser?.displayName}{" "}
+          <span>(✧ω✧)☆</span>
         </div>
         <Link
           to={`/${currentUserData?.userId}`}

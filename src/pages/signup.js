@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 import styles from "../style-modules/style.module.css";
 
 export default function Signup() {
@@ -85,7 +86,21 @@ export default function Signup() {
             type="submit"
             disabled={loading}
           >
-            Sign Up
+            {loading && (
+              <Oval
+                height={22}
+                width={22}
+                color="#B5A1FF"
+                wrapperStyle={{}}
+                wrapperClass={styles.ovalBtn}
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="#B5A1FF"
+                strokeWidth={8}
+                strokeWidthSecondary={8}
+              />
+            )}
+            <span style={{ opacity: loading && "0" }}>Sign Up</span>
           </button>
         </form>
       </div>

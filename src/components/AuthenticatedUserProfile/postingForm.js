@@ -28,11 +28,7 @@ export default function PostingForm(props) {
           ref={textArea}
           placeholder="Post your thought here..."
         />
-        <button
-          className={styles.postSubmitbutton}
-          type="submit"
-          // disabled={loading}
-        >
+        <button className={styles.postSubmitbutton} type="submit">
           Post
         </button>
       </form>
