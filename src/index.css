@@ -35,6 +35,7 @@ button[disabled] {
 body.modal-open {
   position: fixed;
   overflow: hidden;
+  max-height: 100vh;
 }
 
 code {

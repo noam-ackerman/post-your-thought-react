@@ -165,6 +165,11 @@
   flex-wrap: wrap;
 }
 
+.postWrapper {
+  margin: 1.5rem 0 1.8rem;
+  padding: 0 0.7rem;
+}
+
 .userInfo {
   display: flex;
   align-items: center;
@@ -293,7 +298,7 @@
   }
 
   .hpPostsWrapper {
-    padding: 3.2rem 1.5rem 5rem;
+    padding: 3.2rem 1.1rem 5rem;
   }
   .postingFormWrraper {
     padding: 1.2rem 1.8rem 1.8rem;
@@ -318,6 +323,10 @@
   .userCard {
     padding: 2rem 1.15rem;
     gap: 0.8rem;
+  }
+
+  .postWrapper {
+    padding: 0 0.5rem;
   }
 }
 
@@ -591,6 +600,16 @@
   background-color: #ff8585;
 }
 
+.showMoreBtn {
+  padding-top: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  text-decoration: underline;
+  color: #eda4bd;
+  font-weight: 700;
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;
+}
+
 @media (max-width: 767px) {
   .actionButtonPrimary {
     padding: 8px 12px;
@@ -796,25 +815,18 @@
 .postContent {
   color: #7c606b;
   font-family: "Cutive Mono", monospace;
-  margin: 1.5rem 0 1.8rem;
-  padding: 0 0.7rem;
   font-size: 1rem;
   white-space: pre-line;
   line-height: 1.5rem;
   font-weight: 400;
   letter-spacing: -0.8px;
   max-height: 12rem;
-  overflow-y: scroll;
+  overflow: hidden;
 }
-.postContent::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
+.postContent div {
+  max-height: max-content;
 }
-.postContent::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
-}
+
 .maxSize {
   opacity: 0.8;
   font-size: 0.8rem;
@@ -965,7 +977,6 @@
   }
   .postContent {
     font-size: 1rem;
-    padding: 0 0.5rem;
   }
   .detailProfile {
     font-size: 0.8rem;

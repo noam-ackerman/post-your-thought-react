@@ -24,7 +24,12 @@ export default function PostBlockAuthenticated(props) {
     updateUserDatabase,
   } = useUsersCtx();
   const { currentUser } = useAuth();
-  const heart = React.useRef();
+  const heart = useRef();
+  const postContentWrapper = useRef();
+  const postContent = useRef();
+  const [longPost, setLongPost] = useState(false);
+  const [showMorePost, setShowMorePost] = useState(false);
+
   let postLikesObj = likesData[props.post.id] ? likesData[props.post.id] : null;
   let postLikes = postLikesObj ? postLikesObj.likes : [];
   let postIsLikedByCurrentUser = postLikes.includes(currentUser.uid);
@@ -74,10 +79,31 @@ export default function PostBlockAuthenticated(props) {
     }
     if (editMode) {
       let newContent = textAreaEdit.current.value;
-      setEditMode(false);
-      editPost(props.post, newContent);
+      if (textAreaEdit.current.value.trim() === "") {
+        return;
+      } else {
+        setEditMode(false);
+        editPost(props.post, newContent);
+      }
     }
   }
+
+  function ShowMore() {
+    setShowMorePost(!showMorePost);
+  }
+
+  React.useEffect(() => {
+    if (!editMode) {
+      if (
+        postContent?.current.clientHeight >
+        postContentWrapper?.current.clientHeight
+      ) {
+        setLongPost(true);
+      } else {
+        setLongPost(false);
+      }
+    }
+  }, [editMode, props.post.content]);
 
   return (
     <div className={styles.postBlockWrraper}>
@@ -109,7 +135,23 @@ export default function PostBlockAuthenticated(props) {
           defaultValue={props.post.content}
         />
       ) : (
-        <div className={styles.postContent}>{props.post.content}</div>
+        <div className={styles.postWrapper}>
+          <div
+            ref={postContentWrapper}
+            className={styles.postContent}
+            style={{ maxHeight: longPost && showMorePost && "max-content" }}
+          >
+            <div ref={postContent}>{props.post.content}</div>
+          </div>
+          {longPost && !showMorePost && (
+            <div style={{ color: "#7c606b" }}>...</div>
+          )}
+          {longPost && (
+            <div className={styles.showMoreBtn} onClick={ShowMore}>
+              {showMorePost ? "Show less" : "Show more"}
+            </div>
+          )}
+        </div>
       )}
       <div className={styles.actionWrapper}>
         <div className={styles.likeWrapper}>
