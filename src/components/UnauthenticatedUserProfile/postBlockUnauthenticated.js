@@ -3,16 +3,12 @@ import { useUsersCtx } from "../../context/usersContext";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../logos";
+import FormatDate from "../formatDate";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockUnauthenticated(props) {
-  let date = new Date(props.post.date);
-  let year = date.getFullYear(),
-    month = ("0" + (date.getMonth() + 1)).slice(-2),
-    day = ("0" + date.getDate()).slice(-2),
-    hour = ("0" + date.getHours()).slice(-2),
-    minutes = ("0" + date.getMinutes()).slice(-2);
-  let time = `${day}/${month}/${year} ${hour}:${minutes}`;
+  const user = props.user;
+  let time = FormatDate(props.post.date);
   const [imageLoaded, setImageLoaded] = useState(false);
   const { likesData, updatePostsLikes } = useUsersCtx();
   const { currentUser } = useAuth();
@@ -59,19 +55,19 @@ export default function PostBlockUnauthenticated(props) {
       <div className={styles.postInfoLineWrapper}>
         <div className={styles.userInfo}>
           <Link
-            to={`/${props.user.userId}`}
+            to={`/${user.userId}`}
             className={styles.profileImgThumbnailWrapper}
           >
             <img
               className={styles.profileImgThumbnail}
-              src={props.user.photoURL}
-              alt={props.user.displayName}
+              src={user.photoURL}
+              alt={user.displayName}
               style={{ display: imageLoaded ? "block" : "none" }}
               onLoad={() => setImageLoaded(true)}
             />
           </Link>
-          <Link to={`/${props.user.userId}`} className={styles.usernamePost}>
-            {props.user.displayName}
+          <Link to={`/${user.userId}`} className={styles.usernamePost}>
+            {user.displayName}
           </Link>
         </div>
         <div className={styles.dateAndTime}>{time}</div>

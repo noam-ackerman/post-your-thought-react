@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Oval } from "react-loader-spinner";
 import EditProfileModal from "./editProfileModal";
@@ -9,7 +9,6 @@ export default function ProfileBlockAuthenticated() {
   const { currentUserData } = useUsersCtx();
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const profileImg = useRef();
 
   function toggleModalOpen() {
     setUpdateModalOpen(!updateModalOpen);
@@ -39,9 +38,8 @@ export default function ProfileBlockAuthenticated() {
           />
         )}
         <img
-          ref={profileImg}
           style={{ display: imageLoaded ? "block" : "none" }}
-          src={currentUserData?.photoURL}
+          src={currentUserData.photoURL}
           onLoad={() => setImageLoaded(true)}
           alt={currentUserData.displayName}
           className={styles.profileImage}

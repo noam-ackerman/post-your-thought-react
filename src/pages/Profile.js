@@ -5,8 +5,6 @@ import { useParams, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useUsersCtx } from "../context/usersContext";
 import { Hearts } from "react-loader-spinner";
-import Footer from "../components/footer";
-import Navbar from "../components/navbar";
 import styles from "../style-modules/style.module.css";
 
 export default function Profile() {
@@ -16,30 +14,21 @@ export default function Profile() {
   const userCurrentlyAuthenticated = userId === currentUser.uid;
 
   if (userCurrentlyAuthenticated && likesData && currentUserData) {
-    return (
-      <>
-        <Navbar />
-        <ProfileAuthenticated />
-        <Footer />
-      </>
-    );
+    return <ProfileAuthenticated />;
   } else if (!userCurrentlyAuthenticated && usersData && likesData) {
     const userExist = Object.keys(usersData).includes(userId);
     return (
       <>
-        <Navbar />
         {userExist ? (
           <ProfileUnauthenticated user={usersData[userId]} />
         ) : (
           <Navigate to="/" />
         )}
-        <Footer />
       </>
     );
   } else {
     return (
       <>
-        <Navbar />
         <Hearts
           height="200"
           width="200"
@@ -49,7 +38,6 @@ export default function Profile() {
           wrapperClass={styles.heartsPageLoader}
           visible={true}
         />
-        <Footer />
       </>
     );
   }

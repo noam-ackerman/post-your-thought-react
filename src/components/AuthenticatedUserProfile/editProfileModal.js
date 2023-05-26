@@ -31,7 +31,7 @@ export default function EditProfileModal(props) {
     setError("");
     const [file] = e.target.files;
     if (file) {
-      if (file.size <= 5242880) {
+      if (file.size <= 3145728) {
         try {
           const imageURL = await UploadImageToStorageAndGetUrl(file);
           setImgUrl(imageURL);
@@ -41,7 +41,7 @@ export default function EditProfileModal(props) {
         }
       } else {
         setLoading(false);
-        setError("Image is too large! Max size is 5MB");
+        setError("Image is too large! Max size is 3MB");
       }
     }
   }
@@ -86,7 +86,7 @@ export default function EditProfileModal(props) {
 
   React.useLayoutEffect(() => {
     setImgUrl(currentUserData.photoURL);
-  }, [currentUserData]);
+  }, [currentUserData.photoURL]);
 
   return (
     <>
@@ -127,7 +127,7 @@ export default function EditProfileModal(props) {
               disabled={loading}
             >
               Select an Image file{" "}
-              <span className={styles.maxSize}>(max 5MB)</span>
+              <span className={styles.maxSize}>(max 3MB)</span>
               <input
                 id="fileInputTag"
                 type="file"

@@ -1,9 +1,7 @@
 import React from "react";
-import Navbar from "../components/navbar";
 import { useUsersCtx } from "../context/usersContext";
 import { useAuth } from "../context/AuthContext";
 import { Hearts } from "react-loader-spinner";
-import Footer from "../components/footer";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
 import styles from "../style-modules/style.module.css";
@@ -62,7 +60,6 @@ export default function Homepage() {
 
   return (
     <>
-      <Navbar />
       {usersData && likesData ? (
         <>
           <div className={styles.heroBanner}>
@@ -98,7 +95,7 @@ export default function Homepage() {
               <span>ｏ</span>
               <span>♡</span>
               <span>✧</span>
-              <span>˖</span>
+              <span>+</span>
               <span>°</span>
               <span>･</span>
               <span>☆</span>
@@ -112,7 +109,6 @@ export default function Homepage() {
                     return (
                       <PostBlockAuthenticated
                         key={post.post.id}
-                        user={post.user}
                         post={post.post}
                       />
                     );
@@ -157,7 +153,6 @@ export default function Homepage() {
           visible={true}
         />
       )}
-      <Footer />
     </>
   );
 }

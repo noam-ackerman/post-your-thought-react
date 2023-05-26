@@ -22,8 +22,7 @@ import {
 const UsersContext = React.createContext();
 const database = getDatabase();
 const storage = getStorage();
-const defaultAvatarUrl =
-  "https://firebasestorage.googleapis.com/v0/b/post-auth-prod-e5bab.appspot.com/o/defaultAvatar.png?alt=media&token=1d3ad769-659c-4a80-bf48-2699da7b2fb5";
+const defaultAvatarUrl = "https://iili.io/Hrna4x1.png";
 
 const useUsersCtx = () => {
   return useContext(UsersContext);

@@ -45,13 +45,7 @@ export default function ProfileAuthenticated() {
         )}
         {currentUserData.posts?.map((post, index) => {
           if (index <= numPosts) {
-            return (
-              <PostBlockAuthenticated
-                key={post.id}
-                user={currentUserData}
-                post={post}
-              />
-            );
+            return <PostBlockAuthenticated key={post.id} post={post} />;
           } else {
             return null;
           }

@@ -3,7 +3,7 @@ import styles from "../../style-modules/style.module.css";
 import ProfileBlockUnauthenticated from "./ProfileBlockUnauthenticated";
 import PostBlockUnauthenticated from "./postBlockUnauthenticated";
 
-export default function ProfileAuthenticated(props) {
+export default function ProfileUnauthenticated(props) {
   const user = props.user;
   const [numPosts, setNumPosts] = React.useState(14);
   const [disable, setDisable] = React.useState(false);

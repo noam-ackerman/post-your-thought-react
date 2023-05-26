@@ -270,7 +270,7 @@
 
 @media (max-width: 767px) {
   .actionWrapper {
-    gap: 0.7rem;
+    gap: 0.82rem;
     justify-content: flex-start;
   }
   .modalCard {
@@ -282,7 +282,7 @@
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
-    padding: 2rem 2rem 3rem;
+    padding: 2rem 2rem 6.8rem;
   }
   .modalOverlay {
     display: none;
@@ -536,8 +536,9 @@
 
 .exitBtn {
   position: absolute;
-  right: 8px;
+  right: 12px;
   top: 8px;
+  padding: 0;
   background-color: transparent;
   border: none;
   font-size: 1.5rem;
@@ -820,7 +821,7 @@
   line-height: 1.5rem;
   font-weight: 400;
   letter-spacing: -0.8px;
-  max-height: 12rem;
+  max-height: 10.5rem;
   overflow: hidden;
 }
 .postContent div {
@@ -952,7 +953,7 @@
     height: 180px;
   }
   .titleHpText {
-    font-size: 1.12rem;
+    font-size: 1.15rem;
     margin: 0 auto 0 0;
     line-height: 1.15rem;
   }

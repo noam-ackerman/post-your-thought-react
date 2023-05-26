@@ -1,13 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { AuthContextProvider } from "./context/AuthContext";
+import { UsersContextProvider } from "./context/usersContext";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorPage from "./pages/ErrorPage";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary fallback={<ErrorPage />}>
+      <AuthContextProvider>
+        <UsersContextProvider>
+          <App />
+        </UsersContextProvider>
+      </AuthContextProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );
 
