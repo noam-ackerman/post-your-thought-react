@@ -71,6 +71,9 @@ export default function PostBlockAuthenticated(props) {
   function handleEditPost() {
     if (!editMode) {
       setEditMode(true);
+      if (showMorePost) {
+        setShowMorePost(false);
+      }
     }
     if (editMode) {
       let newContent = textAreaEdit.current.value;
