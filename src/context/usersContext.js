@@ -45,7 +45,7 @@ const UsersContextProvider = ({ children }) => {
       await uploadBytes(fileRef, imgFile);
       return getDownloadURL(fileRef);
     } catch {
-      return alert("Failed to upload image!");
+      return Promise.reject();
     }
   }
 
@@ -57,8 +57,8 @@ const UsersContextProvider = ({ children }) => {
           deleteObject(itemRef);
         });
       })
-      .catch((err) => {
-        return new Error();
+      .catch(() => {
+        return new Error("failed to delete user storage data!");
       });
   }
 
