@@ -334,6 +334,9 @@
   .footer a {
     font-size: 5px;
   }
+  .actionWrapper {
+    gap: 0.5rem;
+  }
 }
 
 /* forms */
@@ -621,6 +624,15 @@
   .actionButtonPrimary,
   .postSubmitbutton {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .footer a {
+    font-size: 5px;
+  }
+  .actionButtonPrimary {
+    font-size: 0.85rem;
   }
 }
 /* images */

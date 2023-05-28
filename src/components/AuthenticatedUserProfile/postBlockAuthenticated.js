@@ -11,6 +11,7 @@ export default function PostBlockAuthenticated(props) {
   const [editMode, setEditMode] = useState(false);
   let time = FormatDate(props.post.date);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [clickedOnce, setClickedOnce] = useState(false);
   const {
     likesData,
     updatePostsLikes,
@@ -44,12 +45,20 @@ export default function PostBlockAuthenticated(props) {
   }
 
   async function handleDeletePost(postId) {
-    try {
-      let newPostsArray = currentUserData.posts?.filter((x) => x.id !== postId);
-      await updateUserDatabase({ posts: newPostsArray });
-      await removePostsLikes(postId);
-    } catch {
-      alert("Something went wrong!");
+    if (!clickedOnce) {
+      setClickedOnce(true);
+      return;
+    } else if (clickedOnce) {
+      try {
+        let newPostsArray = currentUserData.posts?.filter(
+          (x) => x.id !== postId
+        );
+        await updateUserDatabase({ posts: newPostsArray });
+        await removePostsLikes(postId);
+      } catch {
+        alert("Something went wrong!");
+      }
+      setClickedOnce(false);
     }
   }
 
@@ -177,7 +186,7 @@ export default function PostBlockAuthenticated(props) {
           className={styles.actionButtonPrimary}
           onClick={(e) => handleDeletePost(props.post.id)}
         >
-          Delete
+          {clickedOnce ? "Sure? 'Y'" : "Delete"}
         </button>{" "}
       </div>
     </div>
