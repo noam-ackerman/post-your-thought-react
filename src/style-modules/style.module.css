@@ -166,7 +166,7 @@
 }
 
 .postWrapper {
-  margin: 1.5rem 0 1.8rem;
+  margin: 1.8rem 0;
   padding: 0 0.7rem;
 }
 
@@ -829,11 +829,11 @@
   color: #7c606b;
   font-family: "Cutive Mono", monospace;
   font-size: 1rem;
-  white-space: pre-line;
-  line-height: 1.5rem;
+  white-space: pre-wrap;
+  line-height: 1.4rem;
   font-weight: 400;
   letter-spacing: -0.8px;
-  max-height: 10.5rem;
+  max-height: 11rem;
   overflow: hidden;
 }
 .postContent div {
