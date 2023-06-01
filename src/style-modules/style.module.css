@@ -304,7 +304,7 @@
     padding: 1.2rem 1.8rem 1.8rem;
   }
   .footer {
-    font-size: 8px;
+    font-size: 9px;
     padding: 0.6rem 0.2rem;
   }
   .footer a {
@@ -332,7 +332,7 @@
 
 @media (max-width: 350px) {
   .footer {
-    font-size: 7px;
+    font-size: 8px;
   }
   .footer a {
     font-size: 5px;
