@@ -202,6 +202,25 @@
   flex: 1;
 }
 
+.profileImageModal {
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  background-color: #7c606b;
+  position: fixed;
+}
+
+.profileImageElement {
+  max-height: 96vh;
+  max-width: 96vw;
+  border: 3px solid #eed5c2;
+  border-radius: 10px;
+  object-fit: contain;
+  position: absolute;
+  bottom: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+}
 .footer {
   background-color: #eed5c2;
   width: 100%;
@@ -542,13 +561,24 @@
 
 .exitBtn {
   position: absolute;
-  right: 12px;
-  top: 8px;
+  right: 1rem;
+  top: 1rem;
   padding: 0;
   background-color: transparent;
   border: none;
   font-size: 1.5rem;
   font-weight: 700;
+}
+
+.exitBtn svg {
+  display: block;
+}
+
+.exitBtnBackground {
+  background-color: rgb(255, 255, 255, 0.8);
+  padding: 12px;
+  border-radius: 999px;
+  z-index: 1;
 }
 
 .oval {
@@ -558,9 +588,10 @@
 }
 .ovalProfileImage {
   display: block;
-  margin: 29% auto;
+  margin: auto;
   height: 100%;
   width: 100%;
+  min-height: 22rem;
 }
 
 .ovalBtn {
@@ -1018,7 +1049,7 @@
     font-size: 0.7rem;
   }
 }
-/* spacing */
+/* spacing and decoration*/
 
 .marginTopBottom1 {
   margin-top: 1rem;

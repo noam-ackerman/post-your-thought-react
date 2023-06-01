@@ -1,21 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 import { Oval } from "react-loader-spinner";
+import ProfileImage from "../profileImage";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileBlockUnauthenticated(props) {
   const user = props.user;
   const [imageLoaded, setImageLoaded] = useState(false);
-  const profileImg = useRef();
+  const [modalImageOpen, setModalImageOpen] = useState(false);
+
+  function toggleImageModal() {
+    setModalImageOpen(!modalImageOpen);
+  }
 
   return (
     <div className={styles.profileBlockWrapper}>
-      <div
-        className={styles.profileImageWrapper}
-        style={{
-          cursor:
-            "url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto",
-        }}
-      >
+      <div className={styles.profileImageWrapper} onClick={toggleImageModal}>
         {!imageLoaded && (
           <Oval
             height={138}
@@ -31,7 +31,6 @@ export default function ProfileBlockUnauthenticated(props) {
           />
         )}
         <img
-          ref={profileImg}
           style={{ display: imageLoaded ? "block" : "none" }}
           src={user.photoURL}
           onLoad={() => setImageLoaded(true)}
@@ -51,6 +50,15 @@ export default function ProfileBlockUnauthenticated(props) {
           </div>
         )}
       </div>
+      {modalImageOpen &&
+        ReactDOM.createPortal(
+          <ProfileImage
+            toggleImageModal={toggleImageModal}
+            username={user.displayName}
+            img={user.photoURL}
+          />,
+          document.getElementById("modal-root")
+        )}
     </div>
   );
 }

@@ -3,12 +3,18 @@ import ReactDOM from "react-dom";
 import { Oval } from "react-loader-spinner";
 import EditProfileModal from "./editProfileModal";
 import { useUsersCtx } from "../../context/usersContext";
+import ProfileImage from "../profileImage";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileBlockAuthenticated() {
   const { currentUserData } = useUsersCtx();
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [modalImageOpen, setModalImageOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  function toggleImageModal() {
+    setModalImageOpen(!modalImageOpen);
+  }
 
   function toggleModalOpen() {
     setUpdateModalOpen(!updateModalOpen);
@@ -22,7 +28,7 @@ export default function ProfileBlockAuthenticated() {
 
   return (
     <div className={styles.profileBlockWrapper}>
-      <div className={styles.profileImageWrapper} onClick={toggleModalOpen}>
+      <div className={styles.profileImageWrapper} onClick={toggleImageModal}>
         {!imageLoaded && (
           <Oval
             height={138}
@@ -68,6 +74,15 @@ export default function ProfileBlockAuthenticated() {
       {updateModalOpen &&
         ReactDOM.createPortal(
           <EditProfileModal toggleModalOpen={toggleModalOpen} />,
+          document.getElementById("modal-root")
+        )}
+      {modalImageOpen &&
+        ReactDOM.createPortal(
+          <ProfileImage
+            toggleImageModal={toggleImageModal}
+            username={currentUserData.displayName}
+            img={currentUserData.photoURL}
+          />,
           document.getElementById("modal-root")
         )}
     </div>
