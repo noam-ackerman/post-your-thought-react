@@ -13,6 +13,12 @@ export default function ProfileBlockUnauthenticated(props) {
     setModalImageOpen(!modalImageOpen);
   }
 
+  React.useEffect(() => {
+    modalImageOpen
+      ? document.querySelector("body").classList.add("modal-open")
+      : document.querySelector("body").classList.remove("modal-open");
+  }, [modalImageOpen]);
+
   return (
     <div className={styles.profileBlockWrapper}>
       <div className={styles.profileImageWrapper} onClick={toggleImageModal}>

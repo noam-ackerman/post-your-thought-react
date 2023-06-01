@@ -21,10 +21,10 @@ export default function ProfileBlockAuthenticated() {
   }
 
   React.useEffect(() => {
-    updateModalOpen
+    updateModalOpen || modalImageOpen
       ? document.querySelector("body").classList.add("modal-open")
       : document.querySelector("body").classList.remove("modal-open");
-  }, [updateModalOpen]);
+  }, [updateModalOpen, modalImageOpen]);
 
   return (
     <div className={styles.profileBlockWrapper}>
