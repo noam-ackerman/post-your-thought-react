@@ -204,6 +204,7 @@
 
 .profileImageModal {
   height: 100vh;
+  height: 100svh;
   width: 100vw;
   z-index: 2;
   background-color: #7c606b;
@@ -212,6 +213,7 @@
 
 .profileImageElement {
   max-height: 96vh;
+  max-height: 96svh;
   max-width: 96vw;
   border: 3px solid #eed5c2;
   border-radius: 10px;
@@ -300,8 +302,9 @@
     bottom: unset;
     width: 100vw;
     height: 100vh;
+    height: 100svh;
     overflow-y: scroll;
-    padding: 2rem 2rem 6.8rem;
+    padding: 2rem 2rem;
   }
   .modalOverlay {
     display: none;
@@ -576,7 +579,7 @@
 
 .exitBtnBackground {
   background-color: rgb(255, 255, 255, 0.8);
-  padding: 12px;
+  padding: 11px;
   border-radius: 999px;
   z-index: 1;
 }

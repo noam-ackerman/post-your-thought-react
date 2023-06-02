@@ -14,7 +14,7 @@ export default function ProfileImage(props) {
         className={`${styles.exitBtn} ${styles.exitBtnBackground}`}
         onClick={toggleImageModal}
       >
-        <ExitSVG color="#7c606b" height="25px" width="25px" />
+        <ExitSVG color="#7c606b" height="23px" width="23px" />
       </button>
       {!imageLoaded && (
         <Oval
