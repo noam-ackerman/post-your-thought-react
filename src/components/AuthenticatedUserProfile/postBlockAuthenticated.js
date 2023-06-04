@@ -25,6 +25,8 @@ export default function PostBlockAuthenticated(props) {
   const postContent = useRef();
   const [longPost, setLongPost] = useState(false);
   const [showMorePost, setShowMorePost] = useState(false);
+  const deletePostBtn = useRef();
+  const editPostBtn = useRef();
 
   let postLikesObj = likesData[props.post.id] ? likesData[props.post.id] : null;
   let postLikes = postLikesObj ? postLikesObj.likes : [];
@@ -112,6 +114,20 @@ export default function PostBlockAuthenticated(props) {
     }
   }, [editMode, props.post.content]);
 
+  const handleDocumentClick = React.useCallback(
+    (e) => {
+      if (clickedOnce && e.target !== deletePostBtn.current) {
+        setClickedOnce(false);
+      }
+    },
+    [clickedOnce]
+  );
+
+  React.useEffect(() => {
+    document.addEventListener("click", handleDocumentClick);
+    return () => document.removeEventListener("click", handleDocumentClick);
+  }, [handleDocumentClick]);
+
   return (
     <div className={styles.postBlockWrraper}>
       <div className={styles.postInfoLineWrapper}>
@@ -179,11 +195,16 @@ export default function PostBlockAuthenticated(props) {
           </div>
           <span>{postLikes.length}</span>
         </div>
-        <button className={styles.actionButtonPrimary} onClick={handleEditPost}>
+        <button
+          ref={editPostBtn}
+          className={styles.actionButtonPrimary}
+          onClick={handleEditPost}
+        >
           {editMode ? "Save" : "Edit"}
         </button>{" "}
         <button
           className={styles.actionButtonPrimary}
+          ref={deletePostBtn}
           onClick={(e) => handleDeletePost(props.post.id)}
         >
           {clickedOnce ? "Sure? 'Y'" : "Delete"}
