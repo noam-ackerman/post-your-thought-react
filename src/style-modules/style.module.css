@@ -109,6 +109,15 @@
   margin: 0.5rem 0;
 }
 
+.postFormActionWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 .modalCard {
   position: fixed;
   width: min(400px, 88%);
@@ -323,7 +332,7 @@
     padding: 3.2rem 1.1rem 5rem;
   }
   .postingFormWrraper {
-    padding: 1.2rem 1.8rem 1.8rem;
+    padding: 1rem 2rem 1.6rem;
   }
   .footer {
     font-size: 9px;
@@ -399,6 +408,12 @@
   font-family: "Roboto", sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
+}
+
+.postFormError {
+  color: #ff5c5c;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .formError {

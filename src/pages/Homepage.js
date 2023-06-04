@@ -2,13 +2,14 @@ import React from "react";
 import { useUsersCtx } from "../context/usersContext";
 import { useAuth } from "../context/AuthContext";
 import { Hearts } from "react-loader-spinner";
+import PostingForm from "../components/AuthenticatedUserProfile/postingForm";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
 import styles from "../style-modules/style.module.css";
 
 export default function Homepage() {
   const { currentUser } = useAuth();
-  const { usersData, likesData } = useUsersCtx();
+  const { usersData, likesData, currentUserData } = useUsersCtx();
   const [usersPostsArray, setUsersPostsArray] = React.useState([]);
   const [numPosts, setNumPosts] = React.useState(14);
   const [disable, setDisable] = React.useState(false);
@@ -17,7 +18,7 @@ export default function Homepage() {
   const title = React.useRef();
 
   React.useEffect(() => {
-    if (usersData && likesData) {
+    if (usersData) {
       const usersPosts = Object.values(usersData)
         .flatMap((user) =>
           user.posts?.map((post) => {
@@ -34,19 +35,8 @@ export default function Homepage() {
         .filter((n) => n)
         .sort((a, b) => b.post.date - a.post.date);
       setUsersPostsArray(usersPosts);
-
-      Array.from(welcome.current.children).forEach((child, index) => {
-        setTimeout(() => {
-          child.style.opacity = 1;
-        }, 220 * (index + 1));
-      });
-      Array.from(title.current.children).forEach((child, index) => {
-        setTimeout(() => {
-          child.style.display = "inline-block";
-        }, 200 * (index + 8));
-      });
     }
-  }, [usersData, likesData]);
+  }, [usersData]);
 
   React.useEffect(() => {
     if (usersData && usersPostsArray) {
@@ -58,9 +48,24 @@ export default function Homepage() {
     }
   }, [numPosts, usersData, usersPostsArray]);
 
+  React.useEffect(() => {
+    if (usersData && likesData && currentUserData) {
+      Array.from(welcome.current.children).forEach((child, index) => {
+        setTimeout(() => {
+          child.style.opacity = 1;
+        }, 220 * (index + 1));
+      });
+      Array.from(title.current.children).forEach((child, index) => {
+        setTimeout(() => {
+          child.style.display = "inline-block";
+        }, 200 * (index + 8));
+      });
+    }
+  }, [usersData, likesData, currentUserData]);
+
   return (
     <>
-      {usersData && likesData ? (
+      {usersData && likesData && currentUserData ? (
         <>
           <div className={styles.heroBanner}>
             <div ref={welcome} className={styles.welcomeText}>
@@ -102,6 +107,7 @@ export default function Homepage() {
               <span>✧</span>
               <div className={styles.cursor}></div>
             </div>
+            <PostingForm />
             {usersPostsArray.length ? (
               usersPostsArray.map((post, index) => {
                 if (index <= numPosts) {

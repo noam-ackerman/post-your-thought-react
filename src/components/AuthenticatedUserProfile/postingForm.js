@@ -1,9 +1,22 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { uid } from "uid";
 import styles from "../../style-modules/style.module.css";
+import { useUsersCtx } from "../../context/usersContext";
 
-export default function PostingForm(props) {
+export default function PostingForm() {
+  const { updateUserDatabase, currentUserData } = useUsersCtx();
   const textArea = useRef();
+  const [error, setError] = useState(null);
+
+  async function addingPostFromForm(newPostData) {
+    let posts = currentUserData.posts ? currentUserData.posts : [];
+    try {
+      await updateUserDatabase({ posts: [newPostData, ...posts] });
+      textArea.current.value = "";
+    } catch {
+      setError("Something went wrong!");
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -12,8 +25,7 @@ export default function PostingForm(props) {
       content: textArea.current.value,
       date: Date.now(),
     };
-    props.addingPostFromForm(newPostData);
-    textArea.current.value = "";
+    addingPostFromForm(newPostData);
   }
   return (
     <div className={styles.postingFormWrraper}>
@@ -28,9 +40,12 @@ export default function PostingForm(props) {
           ref={textArea}
           placeholder="Post your thought here..."
         />
-        <button className={styles.postSubmitbutton} type="submit">
-          Post
-        </button>
+        <div className={styles.postFormActionWrapper}>
+          {error && <div className={styles.postFormError}>{error}</div>}
+          <button className={styles.postSubmitbutton} type="submit">
+            Post
+          </button>
+        </div>
       </form>
     </div>
   );

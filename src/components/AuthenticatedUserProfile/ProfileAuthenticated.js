@@ -6,7 +6,7 @@ import PostBlockAuthenticated from "./postBlockAuthenticated";
 import { useUsersCtx } from "../../context/usersContext";
 
 export default function ProfileAuthenticated() {
-  const { updateUserDatabase, currentUserData } = useUsersCtx();
+  const { currentUserData } = useUsersCtx();
   const [numPosts, setNumPosts] = React.useState(14);
   const [disable, setDisable] = React.useState(false);
 
@@ -22,20 +22,11 @@ export default function ProfileAuthenticated() {
     }
   }, [numPosts, currentUserData]);
 
-  async function addingPostFromForm(newPostData) {
-    let posts = currentUserData.posts ? currentUserData.posts : [];
-    try {
-      await updateUserDatabase({ posts: [newPostData, ...posts] });
-    } catch {
-      alert("Something went wrong!");
-    }
-  }
-
   return (
     <div className={styles.profileContainerContent}>
       <ProfileBlockAuthenticated />
       <div className={styles.postingSectionWrapper}>
-        <PostingForm addingPostFromForm={addingPostFromForm} />
+        <PostingForm />
         {!currentUserData.posts && (
           <div
             className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
