@@ -89,7 +89,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border: 3px solid #fff;
   width: 100%;
-  padding: 1.2rem 2.2rem 1.8rem;
+  padding: 1.2rem 2.2rem 1.9rem;
   border-radius: 5px;
 }
 .postBlockWrraper {
@@ -332,7 +332,7 @@
     padding: 3.2rem 1.1rem 5rem;
   }
   .postingFormWrraper {
-    padding: 1rem 2rem 1.6rem;
+    padding: 0.7rem 1.8rem 1.5rem;
   }
   .footer {
     font-size: 9px;
