@@ -21,18 +21,14 @@ export default function PostBlockUnauthenticated(props) {
   let postLikes = postLikesObj ? postLikesObj.likes : [];
   let postIsLikedByCurrentUser = postLikes.includes(currentUser.uid);
 
-  async function handleLike(postId, likes) {
-    try {
-      if (heart.current.getAttribute("action") === "like") {
-        let data = [...likes, currentUser.uid];
-        await updatePostsLikes(postId, data);
-      } else if (heart.current.getAttribute("action") === "unlike") {
-        let data = likes.filter((x) => x !== currentUser.uid);
-        await updatePostsLikes(postId, data);
-      }
-    } catch {
-      alert("Something went wrong!");
+  function handleLike(postId, likes) {
+    let data;
+    if (heart.current.getAttribute("action") === "like") {
+      data = [...likes, currentUser.uid];
+    } else if (heart.current.getAttribute("action") === "unlike") {
+      data = likes.filter((x) => x !== currentUser.uid);
     }
+    updatePostsLikes(postId, data).catch(() => alert("Something went wrong!"));
   }
 
   function ShowMore() {

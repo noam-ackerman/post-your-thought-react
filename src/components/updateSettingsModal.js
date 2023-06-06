@@ -114,12 +114,12 @@ export default function UpdateSettingsModal(props) {
           await reAuthenticateUser(oldPasswordInput.current.value);
           try {
             setDeleting(true);
-            currentUserData.posts?.forEach(async (post) => {
-              await removePostsLikes(post.id);
-            });
-            await deleteStorageUser();
-            await deleteUserDatabase();
             await DeleteUser();
+            currentUserData.posts?.forEach((post) => {
+              removePostsLikes(post.id);
+            });
+            deleteStorageUser();
+            deleteUserDatabase();
             document.querySelector("body").classList.remove("modal-open");
             navigate("/login");
           } catch {

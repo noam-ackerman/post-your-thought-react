@@ -26,24 +26,19 @@ export default function PostBlockAuthenticated(props) {
   const [longPost, setLongPost] = useState(false);
   const [showMorePost, setShowMorePost] = useState(false);
   const deletePostBtn = useRef();
-  const editPostBtn = useRef();
 
   let postLikesObj = likesData[props.post.id] ? likesData[props.post.id] : null;
   let postLikes = postLikesObj ? postLikesObj.likes : [];
   let postIsLikedByCurrentUser = postLikes.includes(currentUser.uid);
 
-  async function handleLike(postId, likes) {
-    try {
-      if (heart.current.getAttribute("action") === "like") {
-        let data = [...likes, currentUser.uid];
-        await updatePostsLikes(postId, data);
-      } else if (heart.current.getAttribute("action") === "unlike") {
-        let data = likes.filter((x) => x !== currentUser.uid);
-        await updatePostsLikes(postId, data);
-      }
-    } catch {
-      alert("Something went wrong!");
+  function handleLike(postId, likes) {
+    let data;
+    if (heart.current.getAttribute("action") === "like") {
+      data = [...likes, currentUser.uid];
+    } else if (heart.current.getAttribute("action") === "unlike") {
+      data = likes.filter((x) => x !== currentUser.uid);
     }
+    updatePostsLikes(postId, data).catch(() => alert("Something went wrong!"));
   }
 
   async function handleDeletePost(postId) {
@@ -56,26 +51,11 @@ export default function PostBlockAuthenticated(props) {
           (x) => x.id !== postId
         );
         await updateUserDatabase({ posts: newPostsArray });
-        await removePostsLikes(postId);
+        removePostsLikes(postId);
       } catch {
         alert("Something went wrong!");
       }
       setClickedOnce(false);
-    }
-  }
-
-  async function editPost(post, newContent) {
-    try {
-      let newPostsArray = currentUserData.posts?.map((x) => {
-        if (x.id === post.id) {
-          return { ...x, content: newContent };
-        } else {
-          return x;
-        }
-      });
-      await updateUserDatabase({ posts: newPostsArray });
-    } catch {
-      alert("Something went wrong!");
     }
   }
 
@@ -85,14 +65,22 @@ export default function PostBlockAuthenticated(props) {
       if (showMorePost) {
         setShowMorePost(false);
       }
-    }
-    if (editMode) {
+    } else if (editMode) {
       let newContent = textAreaEdit.current.value;
       if (textAreaEdit.current.value.trim() === "") {
         return;
       } else {
         setEditMode(false);
-        editPost(props.post, newContent);
+        let newPostsArray = currentUserData.posts?.map((x) => {
+          if (x.id === props.post.id) {
+            return { ...x, content: newContent };
+          } else {
+            return x;
+          }
+        });
+        updateUserDatabase({ posts: newPostsArray }).catch(() => {
+          alert("Something went wrong!");
+        });
       }
     }
   }
@@ -195,11 +183,7 @@ export default function PostBlockAuthenticated(props) {
           </div>
           <span>{postLikes.length}</span>
         </div>
-        <button
-          ref={editPostBtn}
-          className={styles.actionButtonPrimary}
-          onClick={handleEditPost}
-        >
+        <button className={styles.actionButtonPrimary} onClick={handleEditPost}>
           {editMode ? "Save" : "Edit"}
         </button>{" "}
         <button

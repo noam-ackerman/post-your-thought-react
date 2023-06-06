@@ -8,16 +8,6 @@ export default function PostingForm() {
   const textArea = useRef();
   const [error, setError] = useState(null);
 
-  async function addingPostFromForm(newPostData) {
-    let posts = currentUserData.posts ? currentUserData.posts : [];
-    try {
-      await updateUserDatabase({ posts: [newPostData, ...posts] });
-      textArea.current.value = "";
-    } catch {
-      setError("Something went wrong!");
-    }
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     let newPostData = {
@@ -25,8 +15,16 @@ export default function PostingForm() {
       content: textArea.current.value,
       date: Date.now(),
     };
-    addingPostFromForm(newPostData);
+    let posts = currentUserData.posts ? currentUserData.posts : [];
+    updateUserDatabase({ posts: [newPostData, ...posts] })
+      .then(() => {
+        textArea.current.value = "";
+      })
+      .catch(() => {
+        setError("Something went wrong!");
+      });
   }
+
   return (
     <div className={styles.postingFormWrraper}>
       <form
