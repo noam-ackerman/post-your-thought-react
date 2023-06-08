@@ -85,7 +85,7 @@ function App() {
           />
           <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
-        {currentUser && <Footer />}
+        <Footer />
       </Router>
     </>
   );

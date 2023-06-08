@@ -1,3 +1,12 @@
+/* css categories : 
+ - containers
+ - forms
+ - actions
+ - images
+ - titles and texts
+ - spacing and decoration
+*/
+
 /*containers */
 
 .AuthContainer {
@@ -321,6 +330,9 @@
 }
 
 @media (max-width: 649px) {
+  .AuthContainer {
+    padding-bottom: 10%;
+  }
   .navContainer {
     gap: 5px;
   }
