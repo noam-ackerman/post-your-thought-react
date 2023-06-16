@@ -275,7 +275,7 @@
   border-radius: 5px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-  padding: 0.6rem 0.7rem;
+  padding: 0.7rem;
   display: flex;
   align-items: center;
 }
@@ -364,6 +364,9 @@
   .modalCard {
     overflow-y: scroll;
     padding: 2rem 2rem;
+  }
+  .modalCardKaomojies {
+    padding: 2.5rem 1.1rem;
   }
   .kaomojiesContent {
     height: 100%;
@@ -732,6 +735,7 @@
 .copyButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  height: 100%;
 }
 
 @media (max-width: 767px) {
