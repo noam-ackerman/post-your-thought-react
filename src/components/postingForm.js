@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { uid } from "uid";
 import styles from "../style-modules/style.module.css";
 import { useUsersCtx } from "../context/usersContext";
-import KaomojiesModal from "./KaomojiesModal";
+import KaomojiesModal from "./modals/KaomojiesModal";
 
 export default function PostingForm() {
   const { updateUserDatabase, currentUserData } = useUsersCtx();

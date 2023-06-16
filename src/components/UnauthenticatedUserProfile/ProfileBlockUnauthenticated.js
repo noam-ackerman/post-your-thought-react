@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Oval } from "react-loader-spinner";
-import ProfileImage from "../profileImage";
+import ProfileImage from "../modals/profileImage";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileBlockUnauthenticated(props) {

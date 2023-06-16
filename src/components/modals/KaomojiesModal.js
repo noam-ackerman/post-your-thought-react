@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { useQuery } from "react-query";
-import { ExitSVG, CopySvg } from "./resources/logos";
+import { ExitSVG, CopySvg } from "../resources/logos";
 import { Oval } from "react-loader-spinner";
-import styles from "../style-modules/style.module.css";
+import styles from "../../style-modules/style.module.css";
 
 const fetchKaomojies = async () => {
   const res = await fetch(

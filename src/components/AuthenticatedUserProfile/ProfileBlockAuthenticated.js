@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Oval } from "react-loader-spinner";
-import EditProfileModal from "./editProfileModal";
+import EditProfileModal from "../modals/editProfileModal";
 import { useUsersCtx } from "../../context/usersContext";
-import ProfileImage from "../profileImage";
+import ProfileImage from "../modals/profileImage";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileBlockAuthenticated() {

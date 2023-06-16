@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "../style-modules/style.module.css";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import UpdateSettingsModal from "./updateSettingsModal";
+import UpdateSettingsModal from "./modals/updateSettingsModal";
 import { useUsersCtx } from "../context/usersContext";
 import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "./resources/logos";
 
