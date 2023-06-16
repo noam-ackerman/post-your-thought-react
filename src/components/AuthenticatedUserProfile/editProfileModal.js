@@ -3,7 +3,7 @@ import styles from "../../style-modules/style.module.css";
 import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
 import { Oval } from "react-loader-spinner";
-import { ExitSVG } from "../logos";
+import { ExitSVG } from "../resources/logos";
 
 export default function EditProfileModal(props) {
   const { UpdateProfile } = useAuth();
@@ -106,7 +106,7 @@ export default function EditProfileModal(props) {
                   width={138}
                   color="#B5A1FF"
                   wrapperStyle={{}}
-                  wrapperClass={styles.oval}
+                  wrapperClass={styles.ovalThumbnail}
                   visible={true}
                   ariaLabel="oval-loading"
                   secondaryColor="#B5A1FF"

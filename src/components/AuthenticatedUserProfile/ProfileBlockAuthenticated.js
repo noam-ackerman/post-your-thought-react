@@ -35,7 +35,7 @@ export default function ProfileBlockAuthenticated() {
             width={138}
             color="#B5A1FF"
             wrapperStyle={{}}
-            wrapperClass={styles.ovalProfileImage}
+            wrapperClass={styles.ovalContainer}
             visible={true}
             ariaLabel="oval-loading"
             secondaryColor="#B5A1FF"

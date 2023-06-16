@@ -118,26 +118,37 @@
   margin: 0.5rem 0;
 }
 
-.postFormActionWrapper {
+.postFormActionWrapper,
+.buttonsFlex {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.postFormActionWrapper {
   width: 100%;
 }
 
-.modalCard {
+.modalCard,
+.modalCardKaomojies {
   position: fixed;
-  width: min(400px, 88%);
   background: #eed5c2;
-  padding: 1.6rem 2rem;
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   transform: translate(50%, 50%);
   bottom: 50%;
   right: 50%;
   z-index: 3;
+}
+.modalCard {
+  width: min(450px, 88%);
+  padding: 1.6rem 2rem;
+}
+.modalCardKaomojies {
+  width: min(650px, 88%);
+  padding: 2.5rem 1.3rem;
 }
 
 .modalOverlay {
@@ -241,6 +252,33 @@
   right: 50%;
   transform: translate(50%, 50%);
 }
+
+.kaomojiesContent {
+  height: 475px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  overflow-y: scroll;
+}
+.kaomojiCopyWrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  border-radius: 5px;
+}
+.kaomojiWrapper {
+  font-size: 0.8rem;
+  background: #fff;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding: 0.6rem 0.7rem;
+  display: flex;
+  align-items: center;
+}
 .footer {
   background-color: #eed5c2;
   width: 100%;
@@ -312,7 +350,8 @@
     gap: 0.82rem;
     justify-content: flex-start;
   }
-  .modalCard {
+  .modalCard,
+  .modalCardKaomojies {
     transform: none;
     right: 0;
     top: 0;
@@ -321,8 +360,13 @@
     width: 100vw;
     height: 100vh;
     height: 100svh;
+  }
+  .modalCard {
     overflow-y: scroll;
     padding: 2rem 2rem;
+  }
+  .kaomojiesContent {
+    height: 100%;
   }
   .modalOverlay {
     display: none;
@@ -380,8 +424,15 @@
   .footer a {
     font-size: 5px;
   }
-  .actionWrapper {
+  .actionWrapper,
+  .buttonsFlex {
     gap: 0.5rem;
+  }
+  .modalCardKaomojies {
+    padding: 2.5rem 1rem;
+  }
+  .kaomojiWrapper {
+    font-size: 0.7rem;
   }
 }
 
@@ -611,12 +662,12 @@
   z-index: 1;
 }
 
-.oval {
+.ovalThumbnail {
   position: absolute;
   top: -12px;
   left: -12px;
 }
-.ovalProfileImage {
+.ovalContainer {
   display: block;
   margin: auto;
   height: 100%;
@@ -631,7 +682,7 @@
   transform: translate(50%, 50%);
 }
 
-.ovalProfileImage svg {
+.ovalContainer svg {
   margin: auto;
   display: block;
 }
@@ -678,6 +729,11 @@
   cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;
 }
 
+.copyButton {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 @media (max-width: 767px) {
   .actionButtonPrimary {
     padding: 8px 12px;
@@ -695,7 +751,11 @@
   .footer a {
     font-size: 5px;
   }
-  .actionButtonPrimary {
+  .submitButton,
+  .deleteAccountBtn,
+  .selectImageButton,
+  .actionButtonPrimary,
+  .postSubmitbutton {
     font-size: 0.85rem;
   }
 }
@@ -933,6 +993,7 @@
   line-height: 2.5rem;
   font-weight: 400;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 .errorPageMessage a {

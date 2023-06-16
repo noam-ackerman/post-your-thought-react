@@ -4,7 +4,7 @@ import { useUsersCtx } from "../context/usersContext";
 import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import styles from "../style-modules/style.module.css";
-import { ExitSVG } from "./logos";
+import { ExitSVG } from "./resources/logos";
 
 export default function UpdateSettingsModal(props) {
   const {

@@ -2,7 +2,7 @@ import React from "react";
 import { useUsersCtx } from "../context/usersContext";
 import { useAuth } from "../context/AuthContext";
 import { Hearts } from "react-loader-spinner";
-import PostingForm from "../components/AuthenticatedUserProfile/postingForm";
+import PostingForm from "../components/postingForm";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
 import styles from "../style-modules/style.module.css";

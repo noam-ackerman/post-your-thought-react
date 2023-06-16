@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import UpdateSettingsModal from "./updateSettingsModal";
 import { useUsersCtx } from "../context/usersContext";
-import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "./logos";
+import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "./resources/logos";
 
 export default function Navbar() {
   const navigate = useNavigate();

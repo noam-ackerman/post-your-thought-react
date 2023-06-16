@@ -1,12 +1,15 @@
 import React, { useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import { uid } from "uid";
-import styles from "../../style-modules/style.module.css";
-import { useUsersCtx } from "../../context/usersContext";
+import styles from "../style-modules/style.module.css";
+import { useUsersCtx } from "../context/usersContext";
+import KaomojiesModal from "./KaomojiesModal";
 
 export default function PostingForm() {
   const { updateUserDatabase, currentUserData } = useUsersCtx();
   const textArea = useRef();
   const [error, setError] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,6 +28,16 @@ export default function PostingForm() {
       });
   }
 
+  function ToggleKaomojiesModal() {
+    setModalOpen(!modalOpen);
+  }
+
+  React.useEffect(() => {
+    modalOpen
+      ? document.querySelector("body").classList.add("modal-open")
+      : document.querySelector("body").classList.remove("modal-open");
+  }, [modalOpen]);
+
   return (
     <div className={styles.postingFormWrraper}>
       <form
@@ -40,11 +53,26 @@ export default function PostingForm() {
         />
         <div className={styles.postFormActionWrapper}>
           {error && <div className={styles.postFormError}>{error}</div>}
-          <button className={styles.postSubmitbutton} type="submit">
-            Post
-          </button>
+          <div className={styles.buttonsFlex}>
+            <button
+              className={styles.postSubmitbutton}
+              type="button"
+              onClick={ToggleKaomojiesModal}
+              style={{ backgroundColor: "#8cb4fe" }}
+            >
+              Kaomojies
+            </button>
+            <button className={styles.postSubmitbutton} type="submit">
+              Post
+            </button>
+          </div>
         </div>
       </form>
+      {modalOpen &&
+        ReactDOM.createPortal(
+          <KaomojiesModal toggleModal={ToggleKaomojiesModal} />,
+          document.getElementById("modal-root")
+        )}
     </div>
   );
 }

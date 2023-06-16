@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../style-modules/style.module.css";
-import { ExitSVG } from "./logos";
+import { ExitSVG } from "./resources/logos";
 import { Oval } from "react-loader-spinner";
 
 export default function ProfileImage(props) {
@@ -22,7 +22,7 @@ export default function ProfileImage(props) {
           width={138}
           color="#B5A1FF"
           wrapperStyle={{}}
-          wrapperClass={styles.ovalProfileImage}
+          wrapperClass={styles.ovalContainer}
           visible={true}
           ariaLabel="oval-loading"
           secondaryColor="#B5A1FF"

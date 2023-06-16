@@ -1,7 +1,7 @@
 import React from "react";
 import ProfileBlockAuthenticated from "./ProfileBlockAuthenticated";
 import styles from "../../style-modules/style.module.css";
-import PostingForm from "./postingForm";
+import PostingForm from "../postingForm";
 import PostBlockAuthenticated from "./postBlockAuthenticated";
 import { useUsersCtx } from "../../context/usersContext";
 
