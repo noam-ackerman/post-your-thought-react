@@ -22,8 +22,8 @@ export default function ProfileBlockAuthenticated() {
 
   React.useEffect(() => {
     updateModalOpen || modalImageOpen
-      ? document.querySelector("html").classList.add("modal-open")
-      : document.querySelector("html").classList.remove("modal-open");
+      ? document.querySelector("body").classList.add("modal-open")
+      : document.querySelector("body").classList.remove("modal-open");
   }, [updateModalOpen, modalImageOpen]);
 
   return (

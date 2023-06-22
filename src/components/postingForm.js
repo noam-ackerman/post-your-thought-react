@@ -34,8 +34,8 @@ export default function PostingForm() {
 
   React.useEffect(() => {
     modalOpen
-      ? document.querySelector("html").classList.add("modal-open")
-      : document.querySelector("html").classList.remove("modal-open");
+      ? document.querySelector("body").classList.add("modal-open")
+      : document.querySelector("body").classList.remove("modal-open");
   }, [modalOpen]);
 
   return (

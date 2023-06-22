@@ -1,11 +1,6 @@
 html {
   overflow-x: hidden;
 }
-
-html.modal-open {
-  overflow: hidden;
-}
-
 *,
 *:before,
 *:after {
@@ -36,6 +31,13 @@ textarea {
 
 button[disabled] {
   cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto !important;
+}
+
+body.modal-open {
+  position: fixed;
+  overflow: hidden;
+  height: 100vh;
+  height: 100svh;
 }
 
 code {
