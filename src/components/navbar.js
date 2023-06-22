@@ -17,8 +17,8 @@ export default function Navbar() {
 
   React.useEffect(() => {
     updateModalOpen
-      ? document.querySelector("body").classList.add("modal-open")
-      : document.querySelector("body").classList.remove("modal-open");
+      ? document.querySelector("html").classList.add("modal-open")
+      : document.querySelector("html").classList.remove("modal-open");
   }, [updateModalOpen]);
 
   function toggleModalOpen() {
