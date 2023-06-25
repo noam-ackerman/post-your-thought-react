@@ -5,23 +5,28 @@ import PostBlockUnauthenticated from "./postBlockUnauthenticated";
 
 export default function ProfileUnauthenticated(props) {
   const user = props.user;
-  const [numPosts, setNumPosts] = React.useState(14);
-  const [disable, setDisable] = React.useState(false);
+  const [numDisplayedPosts, setNumDisplayedPosts] = React.useState(14);
+  const postsWrapper = React.useRef();
+
+  const renderMorePosts = React.useCallback(() => {
+    let elementBottom = postsWrapper.current.lastChild.offsetTop - 600;
+    let lastPositionY = window.scrollY;
+    if (lastPositionY > elementBottom) {
+      setNumDisplayedPosts(numDisplayedPosts + 15);
+    }
+  }, [numDisplayedPosts]);
 
   React.useEffect(() => {
-    if (user.posts) {
-      if (numPosts >= user.posts.length - 1) {
-        setDisable(true);
-      } else {
-        setDisable(false);
-      }
+    if (user.posts && user.posts.length - 1 > numDisplayedPosts) {
+      document.addEventListener("scroll", renderMorePosts);
     }
-  }, [numPosts, user]);
+    return () => document.removeEventListener("scroll", renderMorePosts);
+  }, [user.posts, numDisplayedPosts, renderMorePosts]);
 
   return (
     <div className={styles.profileContainerContent}>
       <ProfileBlockUnauthenticated user={user} />
-      <div className={styles.postingSectionWrapper}>
+      <div ref={postsWrapper} className={styles.postingSectionWrapper}>
         {!user.posts && (
           <div
             className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
@@ -30,7 +35,7 @@ export default function ProfileUnauthenticated(props) {
           </div>
         )}
         {user.posts?.map((post, index) => {
-          if (index <= numPosts) {
+          if (index <= numDisplayedPosts) {
             return (
               <PostBlockUnauthenticated key={post.id} user={user} post={post} />
             );
@@ -38,14 +43,6 @@ export default function ProfileUnauthenticated(props) {
             return null;
           }
         })}
-        {!disable && user.posts && (
-          <button
-            className={styles.actionButtonPrimary}
-            onClick={() => setNumPosts(numPosts + 15)}
-          >
-            Load More Posts
-          </button>
-        )}
       </div>
     </div>
   );

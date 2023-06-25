@@ -7,25 +7,31 @@ import { useUsersCtx } from "../../context/usersContext";
 
 export default function ProfileAuthenticated() {
   const { currentUserData } = useUsersCtx();
-  const [numPosts, setNumPosts] = React.useState(14);
-  const [disable, setDisable] = React.useState(false);
+  const [numDisplayedPosts, setNumDisplayedPosts] = React.useState(14);
+  const postsWrapper = React.useRef();
+
+  const renderMorePosts = React.useCallback(() => {
+    let elementBottom = postsWrapper.current.lastChild.offsetTop - 600;
+    let lastPositionY = window.scrollY;
+    if (lastPositionY > elementBottom) {
+      setNumDisplayedPosts(numDisplayedPosts + 15);
+    }
+  }, [numDisplayedPosts]);
 
   React.useEffect(() => {
-    if (currentUserData.posts) {
-      if (numPosts >= currentUserData.posts.length - 1) {
-        setDisable(true);
-      } else {
-        setDisable(false);
-      }
-    } else {
-      setDisable(true);
+    if (
+      currentUserData &&
+      currentUserData.posts.length - 1 > numDisplayedPosts
+    ) {
+      document.addEventListener("scroll", renderMorePosts);
     }
-  }, [numPosts, currentUserData]);
+    return () => document.removeEventListener("scroll", renderMorePosts);
+  }, [currentUserData, numDisplayedPosts, renderMorePosts]);
 
   return (
     <div className={styles.profileContainerContent}>
       <ProfileBlockAuthenticated />
-      <div className={styles.postingSectionWrapper}>
+      <div ref={postsWrapper} className={styles.postingSectionWrapper}>
         <PostingForm />
         {!currentUserData.posts && (
           <div
@@ -35,20 +41,12 @@ export default function ProfileAuthenticated() {
           </div>
         )}
         {currentUserData.posts?.map((post, index) => {
-          if (index <= numPosts) {
+          if (index <= numDisplayedPosts) {
             return <PostBlockAuthenticated key={post.id} post={post} />;
           } else {
             return null;
           }
         })}
-        {!disable && (
-          <button
-            className={styles.actionButtonPrimary}
-            onClick={() => setNumPosts(numPosts + 15)}
-          >
-            Load More Posts
-          </button>
-        )}
       </div>
     </div>
   );

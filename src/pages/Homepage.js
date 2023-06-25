@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useUsersCtx } from "../context/usersContext";
 import { useAuth } from "../context/AuthContext";
 import { Hearts } from "react-loader-spinner";
@@ -10,12 +10,13 @@ import styles from "../style-modules/style.module.css";
 export default function Homepage() {
   const { currentUser } = useAuth();
   const { usersData, likesData, currentUserData } = useUsersCtx();
-  const [usersPostsArray, setUsersPostsArray] = React.useState([]);
-  const [numPosts, setNumPosts] = React.useState(14);
-  const [disable, setDisable] = React.useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [usersPostsArray, setUsersPostsArray] = useState([]);
+  const [numDisplayedPosts, setNumDisplayedPosts] = useState(14);
 
   const welcome = React.useRef();
   const title = React.useRef();
+  const postsWrapper = React.useRef();
 
   React.useEffect(() => {
     if (usersData) {
@@ -39,17 +40,13 @@ export default function Homepage() {
   }, [usersData]);
 
   React.useEffect(() => {
-    if (usersData && usersPostsArray) {
-      if (numPosts >= usersPostsArray.length - 1) {
-        setDisable(true);
-      } else {
-        setDisable(false);
-      }
+    if (!dataLoaded && usersData && likesData && currentUserData) {
+      setDataLoaded(true);
     }
-  }, [numPosts, usersData, usersPostsArray]);
+  }, [dataLoaded, usersData, likesData, currentUserData]);
 
   React.useEffect(() => {
-    if (usersData && likesData && currentUserData) {
+    if (dataLoaded) {
       Array.from(welcome.current.children).forEach((child, index) => {
         setTimeout(() => {
           child.style.opacity = 1;
@@ -61,11 +58,27 @@ export default function Homepage() {
         }, 200 * (index + 8));
       });
     }
-  }, [usersData, likesData, currentUserData]);
+  }, [dataLoaded]);
+
+  const renderMorePosts = useCallback(() => {
+    let elementBottom = postsWrapper.current.lastChild.offsetTop - 600;
+    let lastPositionY = window.scrollY;
+    console.log(lastPositionY, elementBottom);
+    if (lastPositionY > elementBottom) {
+      setNumDisplayedPosts(numDisplayedPosts + 15);
+    }
+  }, [numDisplayedPosts]);
+
+  React.useEffect(() => {
+    if (dataLoaded && usersPostsArray.length - 1 > numDisplayedPosts) {
+      document.addEventListener("scroll", renderMorePosts);
+    }
+    return () => document.removeEventListener("scroll", renderMorePosts);
+  }, [dataLoaded, numDisplayedPosts, usersPostsArray, renderMorePosts]);
 
   return (
     <>
-      {usersData && likesData && currentUserData ? (
+      {dataLoaded ? (
         <>
           <div className={styles.heroBanner}>
             <div ref={welcome} className={styles.welcomeText}>
@@ -78,7 +91,10 @@ export default function Homepage() {
               <span style={{ color: "#ccbfff" }}>E</span>
             </div>
           </div>
-          <div className={`${styles.hpPostsWrapper} ${styles.marginAuto}`}>
+          <div
+            ref={postsWrapper}
+            className={`${styles.hpPostsWrapper} ${styles.marginAuto}`}
+          >
             <div ref={title} className={styles.titleHpText}>
               <span>U</span>
               <span>s</span>
@@ -110,7 +126,7 @@ export default function Homepage() {
             <PostingForm />
             {usersPostsArray.length ? (
               usersPostsArray.map((post, index) => {
-                if (index <= numPosts) {
+                if (index <= numDisplayedPosts) {
                   if (post.user.userId === currentUser.uid) {
                     return (
                       <PostBlockAuthenticated
@@ -137,14 +153,6 @@ export default function Homepage() {
               >
                 No Posts Yet
               </div>
-            )}
-            {!disable && (
-              <button
-                className={styles.actionButtonPrimary}
-                onClick={() => setNumPosts(numPosts + 15)}
-              >
-                Load More Posts
-              </button>
             )}
           </div>
         </>
