@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { useUsersCtx } from "../../context/usersContext";
-import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../resources/logos";
 import FormatDate from "../resources/formatDate";
@@ -8,27 +7,30 @@ import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockUnauthenticated(props) {
   const user = props.user;
-  let time = FormatDate(props.post.date);
+  const post = props.post;
+  const time = FormatDate(post.date);
+  const { updatePost, currentUserData } = useUsersCtx();
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { likesData, updatePostsLikes } = useUsersCtx();
-  const { currentUser } = useAuth();
+  const [longPost, setLongPost] = useState(false);
+  const [showMorePost, setShowMorePost] = useState(false);
+
   const heart = useRef();
   const postContentWrapper = useRef();
   const postContent = useRef();
-  const [longPost, setLongPost] = useState(false);
-  const [showMorePost, setShowMorePost] = useState(false);
-  let postLikesObj = likesData[props.post.id] ? likesData[props.post.id] : null;
-  let postLikes = postLikesObj ? postLikesObj.likes : [];
-  let postIsLikedByCurrentUser = postLikes.includes(currentUser.uid);
 
-  function handleLike(postId, likes) {
+  const postLikes = post.likes ? post.likes : [];
+  const postIsLikedByCurrentUser = postLikes.includes(currentUserData.userId);
+
+  function handleLike() {
     let data;
     if (heart.current.getAttribute("action") === "like") {
-      data = [...likes, currentUser.uid];
+      data = [...postLikes, currentUserData.userId];
     } else if (heart.current.getAttribute("action") === "unlike") {
-      data = likes.filter((x) => x !== currentUser.uid);
+      data = postLikes.filter((x) => x !== currentUserData.userId);
     }
-    updatePostsLikes(postId, data).catch(() => alert("Something went wrong!"));
+    updatePost(post.postId, { likes: data }).catch(() =>
+      alert("Something went wrong!")
+    );
   }
 
   function ShowMore() {
@@ -44,7 +46,7 @@ export default function PostBlockUnauthenticated(props) {
     } else {
       setLongPost(false);
     }
-  }, [props.post.content]);
+  }, [post.content]);
 
   return (
     <div className={styles.postBlockWrraper}>
@@ -75,7 +77,7 @@ export default function PostBlockUnauthenticated(props) {
           className={styles.postContent}
           style={{ maxHeight: longPost && showMorePost && "max-content" }}
         >
-          <div ref={postContent}>{props.post.content}</div>
+          <div ref={postContent}>{post.content}</div>
         </div>
         {longPost && !showMorePost && (
           <div style={{ color: "#7c606b" }}>...</div>
@@ -90,7 +92,7 @@ export default function PostBlockUnauthenticated(props) {
         <div className={styles.likeWrapper}>
           <div
             ref={heart}
-            onClick={(e) => handleLike(props.post.id, postLikes)}
+            onClick={handleLike}
             action={postIsLikedByCurrentUser ? "unlike" : "like"}
             style={{
               cursor:

@@ -6,9 +6,21 @@ import PostBlockAuthenticated from "./postBlockAuthenticated";
 import { useUsersCtx } from "../../context/usersContext";
 
 export default function ProfileAuthenticated() {
-  const { currentUserData } = useUsersCtx();
+  const { currentUserData, postsData } = useUsersCtx();
   const [numDisplayedPosts, setNumDisplayedPosts] = React.useState(14);
   const postsWrapper = React.useRef();
+  const [currentUserPosts, setCurrentUserPosts] = React.useState(null);
+
+  React.useEffect(() => {
+    if (postsData) {
+      let filteredPosts = Object.values(postsData)
+        .filter((post) => post.userId === currentUserData.userId)
+        .sort((a, b) => b.date - a.date);
+      filteredPosts.length
+        ? setCurrentUserPosts(filteredPosts)
+        : setCurrentUserPosts([]);
+    }
+  }, [postsData, currentUserData]);
 
   const renderMorePosts = React.useCallback(() => {
     let elementBottom = postsWrapper.current.lastChild.offsetTop - 600;
@@ -19,30 +31,27 @@ export default function ProfileAuthenticated() {
   }, [numDisplayedPosts]);
 
   React.useEffect(() => {
-    if (
-      currentUserData &&
-      currentUserData.posts.length - 1 > numDisplayedPosts
-    ) {
+    if (currentUserPosts && currentUserPosts.length - 1 > numDisplayedPosts) {
       document.addEventListener("scroll", renderMorePosts);
     }
     return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [currentUserData, numDisplayedPosts, renderMorePosts]);
+  }, [currentUserPosts, numDisplayedPosts, renderMorePosts]);
 
   return (
     <div className={styles.profileContainerContent}>
       <ProfileBlockAuthenticated />
       <div ref={postsWrapper} className={styles.postingSectionWrapper}>
         <PostingForm />
-        {!currentUserData.posts && (
+        {!currentUserPosts?.length && (
           <div
             className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
           >
             No Posts Yet
           </div>
         )}
-        {currentUserData.posts?.map((post, index) => {
+        {currentUserPosts?.map((post, index) => {
           if (index <= numDisplayedPosts) {
-            return <PostBlockAuthenticated key={post.id} post={post} />;
+            return <PostBlockAuthenticated key={post.postId} post={post} />;
           } else {
             return null;
           }

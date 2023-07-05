@@ -6,7 +6,7 @@ import { useUsersCtx } from "../context/usersContext";
 import KaomojiesModal from "./modals/KaomojiesModal";
 
 export default function PostingForm() {
-  const { updateUserDatabase, currentUserData } = useUsersCtx();
+  const { updatePost, currentUserData } = useUsersCtx();
   const textArea = useRef();
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -14,12 +14,12 @@ export default function PostingForm() {
   function handleSubmit(e) {
     e.preventDefault();
     let newPostData = {
-      id: uid(32),
+      postId: uid(32),
       content: textArea.current.value,
       date: Date.now(),
+      userId: currentUserData.userId,
     };
-    let posts = currentUserData.posts ? currentUserData.posts : [];
-    updateUserDatabase({ posts: [newPostData, ...posts] })
+    updatePost(newPostData.postId, newPostData)
       .then(() => {
         textArea.current.value = "";
       })

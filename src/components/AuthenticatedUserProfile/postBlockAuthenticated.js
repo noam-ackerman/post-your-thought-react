@@ -1,60 +1,47 @@
 import React, { useRef, useState } from "react";
 import { useUsersCtx } from "../../context/usersContext";
-import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../resources/logos";
 import FormatDate from "../resources/formatDate";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockAuthenticated(props) {
-  const textAreaEdit = useRef();
+  const post = props.post;
+  const time = FormatDate(post.date);
+  const { updatePost, removePost, currentUserData } = useUsersCtx();
   const [editMode, setEditMode] = useState(false);
-  let time = FormatDate(props.post.date);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [clickedOnce, setClickedOnce] = useState(false);
-  const {
-    likesData,
-    updatePostsLikes,
-    removePostsLikes,
-    currentUserData,
-    updateUserDatabase,
-  } = useUsersCtx();
-  const { currentUser } = useAuth();
+  const [longPost, setLongPost] = useState(false);
+  const [showMorePost, setShowMorePost] = useState(false);
+
   const heart = useRef();
   const postContentWrapper = useRef();
   const postContent = useRef();
-  const [longPost, setLongPost] = useState(false);
-  const [showMorePost, setShowMorePost] = useState(false);
   const deletePostBtn = useRef();
+  const textAreaEdit = useRef();
 
-  let postLikesObj = likesData[props.post.id] ? likesData[props.post.id] : null;
-  let postLikes = postLikesObj ? postLikesObj.likes : [];
-  let postIsLikedByCurrentUser = postLikes.includes(currentUser.uid);
+  const postLikes = post.likes ? post.likes : [];
+  const postIsLikedByCurrentUser = postLikes.includes(currentUserData.userId);
 
-  function handleLike(postId, likes) {
+  function handleLike() {
     let data;
     if (heart.current.getAttribute("action") === "like") {
-      data = [...likes, currentUser.uid];
+      data = [...postLikes, currentUserData.userId];
     } else if (heart.current.getAttribute("action") === "unlike") {
-      data = likes.filter((x) => x !== currentUser.uid);
+      data = postLikes.filter((x) => x !== currentUserData.userId);
     }
-    updatePostsLikes(postId, data).catch(() => alert("Something went wrong!"));
+    updatePost(post.postId, { likes: data }).catch(() =>
+      alert("Something went wrong!")
+    );
   }
 
-  async function handleDeletePost(postId) {
+  async function handleDeletePost() {
     if (!clickedOnce) {
       setClickedOnce(true);
       return;
     } else if (clickedOnce) {
-      try {
-        let newPostsArray = currentUserData.posts?.filter(
-          (x) => x.id !== postId
-        );
-        await updateUserDatabase({ posts: newPostsArray });
-        removePostsLikes(postId);
-      } catch {
-        alert("Something went wrong!");
-      }
+      removePost(post.postId).catch(() => alert("Something went wrong!"));
       setClickedOnce(false);
     }
   }
@@ -70,17 +57,10 @@ export default function PostBlockAuthenticated(props) {
       if (textAreaEdit.current.value.trim() === "") {
         return;
       } else {
+        updatePost(post.postId, { content: newContent }).catch(() =>
+          alert("Something went wrong!")
+        );
         setEditMode(false);
-        let newPostsArray = currentUserData.posts?.map((x) => {
-          if (x.id === props.post.id) {
-            return { ...x, content: newContent };
-          } else {
-            return x;
-          }
-        });
-        updateUserDatabase({ posts: newPostsArray }).catch(() => {
-          alert("Something went wrong!");
-        });
       }
     }
   }
@@ -100,7 +80,7 @@ export default function PostBlockAuthenticated(props) {
         setLongPost(false);
       }
     }
-  }, [editMode, props.post.content]);
+  }, [editMode, post.content]);
 
   const handleDocumentClick = React.useCallback(
     (e) => {
@@ -121,7 +101,7 @@ export default function PostBlockAuthenticated(props) {
       <div className={styles.postInfoLineWrapper}>
         <div className={styles.userInfo}>
           <Link
-            to={`/${currentUser.uid}`}
+            to={`/${currentUserData?.userId}`}
             className={styles.profileImgThumbnailWrapper}
           >
             <img
@@ -132,7 +112,10 @@ export default function PostBlockAuthenticated(props) {
               onLoad={() => setImageLoaded(true)}
             />
           </Link>
-          <Link to={`/${currentUser.uid}`} className={styles.usernamePost}>
+          <Link
+            to={`/${currentUserData?.userId}`}
+            className={styles.usernamePost}
+          >
             {currentUserData?.displayName}
           </Link>
         </div>
@@ -143,7 +126,7 @@ export default function PostBlockAuthenticated(props) {
           className={`${styles.textArea} ${styles.marginTopBottom1}`}
           required
           ref={textAreaEdit}
-          defaultValue={props.post.content}
+          defaultValue={post.content}
         />
       ) : (
         <div className={styles.postWrapper}>
@@ -152,7 +135,7 @@ export default function PostBlockAuthenticated(props) {
             className={styles.postContent}
             style={{ maxHeight: longPost && showMorePost && "max-content" }}
           >
-            <div ref={postContent}>{props.post.content}</div>
+            <div ref={postContent}>{post.content}</div>
           </div>
           {longPost && !showMorePost && (
             <div style={{ color: "#7c606b" }}>...</div>
@@ -168,7 +151,7 @@ export default function PostBlockAuthenticated(props) {
         <div className={styles.likeWrapper}>
           <div
             ref={heart}
-            onClick={(e) => handleLike(props.post.id, postLikes)}
+            onClick={handleLike}
             action={postIsLikedByCurrentUser ? "unlike" : "like"}
             style={{
               cursor:
@@ -189,7 +172,7 @@ export default function PostBlockAuthenticated(props) {
         <button
           className={styles.actionButtonPrimary}
           ref={deletePostBtn}
-          onClick={(e) => handleDeletePost(props.post.id)}
+          onClick={handleDeletePost}
         >
           {clickedOnce ? "Sure? 'Y'" : "Delete"}
         </button>{" "}

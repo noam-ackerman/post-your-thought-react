@@ -9,13 +9,13 @@ import styles from "../style-modules/style.module.css";
 
 export default function Profile() {
   const { currentUser } = useAuth();
-  const { usersData, likesData, currentUserData } = useUsersCtx();
+  const { usersData, postsData, currentUserData } = useUsersCtx();
   const { userId } = useParams();
   const userCurrentlyAuthenticated = userId === currentUser.uid;
 
-  if (userCurrentlyAuthenticated && likesData && currentUserData) {
+  if (userCurrentlyAuthenticated && postsData && currentUserData) {
     return <ProfileAuthenticated />;
-  } else if (!userCurrentlyAuthenticated && usersData && likesData) {
+  } else if (!userCurrentlyAuthenticated && usersData && postsData) {
     const userExist = Object.keys(usersData).includes(userId);
     return (
       <>

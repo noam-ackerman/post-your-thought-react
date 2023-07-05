@@ -9,9 +9,9 @@ import styles from "../style-modules/style.module.css";
 
 export default function Homepage() {
   const { currentUser } = useAuth();
-  const { usersData, likesData, currentUserData } = useUsersCtx();
+  const { usersData, postsData, currentUserData } = useUsersCtx();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [usersPostsArray, setUsersPostsArray] = useState([]);
+  const [postsArray, setPostsArray] = useState(null);
   const [numDisplayedPosts, setNumDisplayedPosts] = useState(14);
 
   const welcome = React.useRef();
@@ -19,31 +19,21 @@ export default function Homepage() {
   const postsWrapper = React.useRef();
 
   React.useEffect(() => {
-    if (usersData) {
-      const usersPosts = Object.values(usersData)
-        .flatMap((user) =>
-          user.posts?.map((post) => {
-            return {
-              post: { ...post },
-              user: {
-                displayName: user.displayName,
-                photoURL: user.photoURL,
-                userId: user.userId,
-              },
-            };
-          })
-        )
-        .filter((n) => n)
-        .sort((a, b) => b.post.date - a.post.date);
-      setUsersPostsArray(usersPosts);
+    if (postsData) {
+      const usersPosts = Object.values(postsData).sort(
+        (a, b) => b.date - a.date
+      );
+      setPostsArray(usersPosts);
+    } else {
+      setPostsArray([]);
     }
-  }, [usersData]);
+  }, [postsData]);
 
   React.useEffect(() => {
-    if (!dataLoaded && usersData && likesData && currentUserData) {
+    if (!dataLoaded && usersData && postsArray && currentUserData) {
       setDataLoaded(true);
     }
-  }, [dataLoaded, usersData, likesData, currentUserData]);
+  }, [dataLoaded, usersData, postsArray, currentUserData]);
 
   React.useEffect(() => {
     if (dataLoaded) {
@@ -63,18 +53,17 @@ export default function Homepage() {
   const renderMorePosts = useCallback(() => {
     let elementBottom = postsWrapper.current.lastChild.offsetTop - 600;
     let lastPositionY = window.scrollY;
-    console.log(lastPositionY, elementBottom);
     if (lastPositionY > elementBottom) {
       setNumDisplayedPosts(numDisplayedPosts + 15);
     }
   }, [numDisplayedPosts]);
 
   React.useEffect(() => {
-    if (dataLoaded && usersPostsArray.length - 1 > numDisplayedPosts) {
+    if (dataLoaded && postsArray.length - 1 > numDisplayedPosts) {
       document.addEventListener("scroll", renderMorePosts);
     }
     return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [dataLoaded, numDisplayedPosts, usersPostsArray, renderMorePosts]);
+  }, [dataLoaded, numDisplayedPosts, postsArray, renderMorePosts]);
 
   return (
     <>
@@ -124,22 +113,20 @@ export default function Homepage() {
               <div className={styles.cursor}></div>
             </div>
             <PostingForm />
-            {usersPostsArray.length ? (
-              usersPostsArray.map((post, index) => {
+            {postsArray.length ? (
+              postsArray.map((post, index) => {
                 if (index <= numDisplayedPosts) {
-                  if (post.user.userId === currentUser.uid) {
+                  if (post.userId === currentUser.uid) {
                     return (
-                      <PostBlockAuthenticated
-                        key={post.post.id}
-                        post={post.post}
-                      />
+                      <PostBlockAuthenticated key={post.postId} post={post} />
                     );
                   } else {
+                    let user = usersData[post.userId];
                     return (
                       <PostBlockUnauthenticated
-                        key={post.post.id}
-                        user={post.user}
-                        post={post.post}
+                        key={post.postId}
+                        user={user}
+                        post={post}
                       />
                     );
                   }

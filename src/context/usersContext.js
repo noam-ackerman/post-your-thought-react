@@ -31,7 +31,7 @@ const useUsersCtx = () => {
 const UsersContextProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [usersData, setUsersData] = useState();
-  const [likesData, setLikesData] = useState();
+  const [postsData, setPostsData] = useState();
   const [currentUserData, setCurrentUserData] = useState();
 
   // storage
@@ -74,13 +74,13 @@ const UsersContextProvider = ({ children }) => {
     return remove(userRef);
   }
 
-  function updatePostsLikes(postId, data) {
-    const postRef = databaseRef(database, "likes/" + postId);
-    return update(postRef, { likes: data });
+  function updatePost(postId, data) {
+    const postRef = databaseRef(database, "posts/" + postId);
+    return update(postRef, data);
   }
 
-  function removePostsLikes(postId) {
-    const postRef = databaseRef(database, "likes/" + postId);
+  function removePost(postId) {
+    const postRef = databaseRef(database, "posts/" + postId);
     return remove(postRef);
   }
 
@@ -124,33 +124,31 @@ const UsersContextProvider = ({ children }) => {
         }
       });
 
-      // likes data
-      const likesRef = databaseRef(database, "likes");
-      onValue(likesRef, (snapshot) => {
+      // all posts data
+      const postsRef = databaseRef(database, "posts");
+      onValue(postsRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          setLikesData(data);
+          setPostsData(data);
         } else {
-          setLikesData({});
+          setPostsData({});
         }
       });
     } else if (!currentUser) {
       setCurrentUserData();
       setUsersData();
-      setLikesData();
+      setPostsData();
     }
   }, [currentUser]);
-
-  //
 
   let ContextValue = {
     updateUserDatabase,
     usersData,
     setUsersData,
     deleteUserDatabase,
-    likesData,
-    updatePostsLikes,
-    removePostsLikes,
+    postsData,
+    updatePost,
+    removePost,
     currentUserData,
     UploadImageToStorageAndGetUrl,
     deleteStorageUser,

@@ -18,7 +18,8 @@ export default function UpdateSettingsModal(props) {
     currentUserData,
     deleteUserDatabase,
     deleteStorageUser,
-    removePostsLikes,
+    postsData,
+    removePost,
   } = useUsersCtx();
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -114,13 +115,16 @@ export default function UpdateSettingsModal(props) {
           await reAuthenticateUser(oldPasswordInput.current.value);
           try {
             setDeleting(true);
-            await DeleteUser();
-            currentUserData.posts?.forEach((post) => {
-              removePostsLikes(post.id);
-            });
-            deleteStorageUser();
-            deleteUserDatabase();
             document.querySelector("body").classList.remove("modal-open");
+            const userPosts = Object.values(postsData).filter(
+              (post) => post.userId === currentUserData.userId
+            );
+            userPosts.forEach((post) => {
+              removePost(post.id);
+            });
+            await deleteUserDatabase();
+            await deleteStorageUser();
+            await DeleteUser();
             navigate("/login");
           } catch {
             setError("Failed to delete account!");
