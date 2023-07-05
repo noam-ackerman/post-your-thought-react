@@ -120,7 +120,7 @@ export default function UpdateSettingsModal(props) {
               (post) => post.userId === currentUserData.userId
             );
             userPosts.forEach((post) => {
-              removePost(post.id);
+              removePost(post.postId);
             });
             await deleteUserDatabase();
             await deleteStorageUser();
