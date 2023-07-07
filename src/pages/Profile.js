@@ -10,12 +10,19 @@ import styles from "../style-modules/style.module.css";
 export default function Profile() {
   const { currentUser } = useAuth();
   const { usersData, postsData, currentUserData } = useUsersCtx();
+  const [dataLoaded, setDataLoaded] = React.useState(false);
   const { userId } = useParams();
   const userCurrentlyAuthenticated = userId === currentUser.uid;
 
-  if (userCurrentlyAuthenticated && postsData && currentUserData) {
+  React.useLayoutEffect(() => {
+    if (!dataLoaded && usersData && postsData && currentUserData) {
+      setDataLoaded(true);
+    }
+  }, [dataLoaded, usersData, postsData, currentUserData]);
+
+  if (userCurrentlyAuthenticated && dataLoaded) {
     return <ProfileAuthenticated />;
-  } else if (!userCurrentlyAuthenticated && usersData && postsData) {
+  } else if (!userCurrentlyAuthenticated && dataLoaded) {
     const userExist = Object.keys(usersData).includes(userId);
     return (
       <>

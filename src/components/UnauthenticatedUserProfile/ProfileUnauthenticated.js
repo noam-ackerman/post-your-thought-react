@@ -11,13 +11,11 @@ export default function ProfileUnauthenticated(props) {
   const [userPosts, setUserPosts] = React.useState(null);
   const postsWrapper = React.useRef();
 
-  React.useEffect(() => {
-    if (postsData) {
-      let filteredPosts = Object.values(postsData)
-        .filter((post) => post.userId === user.userId)
-        .sort((a, b) => b.date - a.date);
-      filteredPosts.length ? setUserPosts(filteredPosts) : setUserPosts([]);
-    }
+  React.useLayoutEffect(() => {
+    const filteredPosts = postsData.filter(
+      (post) => post.userId === user.userId
+    );
+    filteredPosts.length ? setUserPosts(filteredPosts) : setUserPosts([]);
   }, [postsData, user]);
 
   const renderMorePosts = React.useCallback(() => {
@@ -39,26 +37,27 @@ export default function ProfileUnauthenticated(props) {
     <div className={styles.profileContainerContent}>
       <ProfileBlockUnauthenticated user={user} />
       <div ref={postsWrapper} className={styles.postingSectionWrapper}>
-        {!userPosts?.length && (
+        {userPosts && !userPosts.length && (
           <div
             className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
           >
             No Posts Yet
           </div>
         )}
-        {userPosts?.map((post, index) => {
-          if (index <= numDisplayedPosts) {
-            return (
-              <PostBlockUnauthenticated
-                key={post.postId}
-                user={user}
-                post={post}
-              />
-            );
-          } else {
-            return null;
-          }
-        })}
+        {userPosts &&
+          userPosts.map((post, index) => {
+            if (index <= numDisplayedPosts) {
+              return (
+                <PostBlockUnauthenticated
+                  key={post.postId}
+                  user={user}
+                  post={post}
+                />
+              );
+            } else {
+              return null;
+            }
+          })}
       </div>
     </div>
   );

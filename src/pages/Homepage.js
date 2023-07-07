@@ -11,29 +11,17 @@ export default function Homepage() {
   const { currentUser } = useAuth();
   const { usersData, postsData, currentUserData } = useUsersCtx();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [postsArray, setPostsArray] = useState(null);
   const [numDisplayedPosts, setNumDisplayedPosts] = useState(14);
 
   const welcome = React.useRef();
   const title = React.useRef();
   const postsWrapper = React.useRef();
 
-  React.useEffect(() => {
-    if (postsData) {
-      const usersPosts = Object.values(postsData).sort(
-        (a, b) => b.date - a.date
-      );
-      setPostsArray(usersPosts);
-    } else {
-      setPostsArray([]);
-    }
-  }, [postsData]);
-
-  React.useEffect(() => {
-    if (!dataLoaded && usersData && postsArray && currentUserData) {
+  React.useLayoutEffect(() => {
+    if (!dataLoaded && usersData && postsData && currentUserData) {
       setDataLoaded(true);
     }
-  }, [dataLoaded, usersData, postsArray, currentUserData]);
+  }, [dataLoaded, usersData, postsData, currentUserData]);
 
   React.useEffect(() => {
     if (dataLoaded) {
@@ -59,11 +47,11 @@ export default function Homepage() {
   }, [numDisplayedPosts]);
 
   React.useEffect(() => {
-    if (dataLoaded && postsArray.length - 1 > numDisplayedPosts) {
+    if (dataLoaded && postsData.length - 1 > numDisplayedPosts) {
       document.addEventListener("scroll", renderMorePosts);
     }
     return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [dataLoaded, numDisplayedPosts, postsArray, renderMorePosts]);
+  }, [dataLoaded, numDisplayedPosts, postsData, renderMorePosts]);
 
   return (
     <>
@@ -113,8 +101,8 @@ export default function Homepage() {
               <div className={styles.cursor}></div>
             </div>
             <PostingForm />
-            {postsArray.length ? (
-              postsArray.map((post, index) => {
+            {postsData.length ? (
+              postsData.map((post, index) => {
                 if (index <= numDisplayedPosts) {
                   if (post.userId === currentUser.uid) {
                     return (

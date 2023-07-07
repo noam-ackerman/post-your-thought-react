@@ -8,18 +8,16 @@ import { useUsersCtx } from "../../context/usersContext";
 export default function ProfileAuthenticated() {
   const { currentUserData, postsData } = useUsersCtx();
   const [numDisplayedPosts, setNumDisplayedPosts] = React.useState(14);
-  const postsWrapper = React.useRef();
   const [currentUserPosts, setCurrentUserPosts] = React.useState(null);
+  const postsWrapper = React.useRef();
 
-  React.useEffect(() => {
-    if (postsData) {
-      let filteredPosts = Object.values(postsData)
-        .filter((post) => post.userId === currentUserData.userId)
-        .sort((a, b) => b.date - a.date);
-      filteredPosts.length
-        ? setCurrentUserPosts(filteredPosts)
-        : setCurrentUserPosts([]);
-    }
+  React.useLayoutEffect(() => {
+    const filteredPosts = postsData.filter(
+      (post) => post.userId === currentUserData.userId
+    );
+    filteredPosts.length
+      ? setCurrentUserPosts(filteredPosts)
+      : setCurrentUserPosts([]);
   }, [postsData, currentUserData]);
 
   const renderMorePosts = React.useCallback(() => {
@@ -42,20 +40,21 @@ export default function ProfileAuthenticated() {
       <ProfileBlockAuthenticated />
       <div ref={postsWrapper} className={styles.postingSectionWrapper}>
         <PostingForm />
-        {!currentUserPosts?.length && (
+        {currentUserPosts && !currentUserPosts.length && (
           <div
             className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
           >
             No Posts Yet
           </div>
         )}
-        {currentUserPosts?.map((post, index) => {
-          if (index <= numDisplayedPosts) {
-            return <PostBlockAuthenticated key={post.postId} post={post} />;
-          } else {
-            return null;
-          }
-        })}
+        {currentUserPosts &&
+          currentUserPosts.map((post, index) => {
+            if (index <= numDisplayedPosts) {
+              return <PostBlockAuthenticated key={post.postId} post={post} />;
+            } else {
+              return null;
+            }
+          })}
       </div>
     </div>
   );

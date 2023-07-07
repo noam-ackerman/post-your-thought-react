@@ -88,16 +88,6 @@ const UsersContextProvider = ({ children }) => {
 
   React.useEffect(() => {
     if (currentUser) {
-      // current user data
-      const userRef = databaseRef(database, "users/" + currentUser.uid);
-      onValue(userRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          setCurrentUserData(data);
-        } else {
-          setCurrentUserData({});
-        }
-      });
       //setting current user in database on first signup
       get(child(databaseRef(database), "users/" + currentUser.uid)).then(
         (snapshot) => {
@@ -112,6 +102,16 @@ const UsersContextProvider = ({ children }) => {
           }
         }
       );
+      // current user data
+      const userRef = databaseRef(database, "users/" + currentUser.uid);
+      onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setCurrentUserData(data);
+        } else {
+          setCurrentUserData({});
+        }
+      });
 
       // all users data
       const usersRef = databaseRef(database, "users");
@@ -129,9 +129,12 @@ const UsersContextProvider = ({ children }) => {
       onValue(postsRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          setPostsData(data);
+          const sortedPosts = Object.values(data).sort(
+            (a, b) => b.date - a.date
+          );
+          setPostsData(sortedPosts);
         } else {
-          setPostsData({});
+          setPostsData([]);
         }
       });
     } else if (!currentUser) {
