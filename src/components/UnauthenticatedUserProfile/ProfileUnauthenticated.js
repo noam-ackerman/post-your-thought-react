@@ -2,7 +2,6 @@ import React from "react";
 import ProfileBlockUnauthenticated from "./ProfileBlockUnauthenticated";
 import PostBlockUnauthenticated from "./postBlockUnauthenticated";
 import { useUsersCtx } from "../../context/usersContext";
-import ScrollToTop from "../resources/scrollToTop";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileUnauthenticated(props) {
@@ -36,7 +35,6 @@ export default function ProfileUnauthenticated(props) {
 
   return (
     <div className={styles.profileContainerContent}>
-      <ScrollToTop posts={userPosts} />
       <ProfileBlockUnauthenticated user={user} />
       <div ref={postsWrapper} className={styles.postingSectionWrapper}>
         {userPosts && !userPosts.length && (

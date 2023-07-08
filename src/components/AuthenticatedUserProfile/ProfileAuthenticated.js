@@ -3,7 +3,6 @@ import ProfileBlockAuthenticated from "./ProfileBlockAuthenticated";
 import PostingForm from "../postingForm";
 import PostBlockAuthenticated from "./postBlockAuthenticated";
 import { useUsersCtx } from "../../context/usersContext";
-import ScrollToTop from "../resources/scrollToTop";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileAuthenticated() {
@@ -38,7 +37,6 @@ export default function ProfileAuthenticated() {
 
   return (
     <div className={styles.profileContainerContent}>
-      <ScrollToTop posts={currentUserPosts} />
       <ProfileBlockAuthenticated />
       <div ref={postsWrapper} className={styles.postingSectionWrapper}>
         <PostingForm />

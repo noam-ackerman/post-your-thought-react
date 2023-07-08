@@ -10,6 +10,7 @@ import Homepage from "./pages/Homepage";
 import Search from "./pages/searchPage";
 import ForgotPassword from "./pages/forgotPassword";
 import { useAuth } from "./context/AuthContext";
+import ScrollToTop from "./components/resources/scrollToTop";
 import {
   BrowserRouter as Router,
   Routes,
@@ -26,6 +27,7 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <Router>
+          <ScrollToTop />
           {currentUser && <Navbar />}
           <Routes>
             <Route
