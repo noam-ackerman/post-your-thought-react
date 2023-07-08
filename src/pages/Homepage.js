@@ -5,6 +5,7 @@ import { Hearts } from "react-loader-spinner";
 import PostingForm from "../components/postingForm";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
+import ScrollToTop from "../components/resources/scrollToTop";
 import styles from "../style-modules/style.module.css";
 
 export default function Homepage() {
@@ -57,6 +58,7 @@ export default function Homepage() {
     <>
       {dataLoaded ? (
         <>
+          <ScrollToTop posts={postsData} />
           <div className={styles.heroBanner}>
             <div ref={welcome} className={styles.welcomeText}>
               <span style={{ color: "#eed5c2" }}>W</span>

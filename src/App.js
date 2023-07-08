@@ -9,7 +9,6 @@ import PublicAuthenticateRoute from "./components/PublicAuthenticateRoute";
 import Homepage from "./pages/Homepage";
 import Search from "./pages/searchPage";
 import ForgotPassword from "./pages/forgotPassword";
-import ScrollToTop from "./components/resources/scrollToTop";
 import { useAuth } from "./context/AuthContext";
 import {
   BrowserRouter as Router,
@@ -27,7 +26,6 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <Router>
-          <ScrollToTop />
           {currentUser && <Navbar />}
           <Routes>
             <Route
