@@ -1,3 +1,11 @@
+import { useAuth } from "./context/AuthContext";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Signup from "./pages/signup";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
@@ -9,15 +17,7 @@ import PublicAuthenticateRoute from "./components/PublicAuthenticateRoute";
 import Homepage from "./pages/Homepage";
 import Search from "./pages/searchPage";
 import ForgotPassword from "./pages/forgotPassword";
-import { useAuth } from "./context/AuthContext";
 import ScrollToTop from "./components/resources/scrollToTop";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 

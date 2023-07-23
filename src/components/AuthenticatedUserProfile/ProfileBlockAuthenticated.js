@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Oval } from "react-loader-spinner";
-import EditProfileModal from "../modals/editProfileModal";
 import { useUsersCtx } from "../../context/usersContext";
+import EditProfileModal from "../modals/editProfileModal";
 import ProfileImage from "../modals/profileImage";
 import styles from "../../style-modules/style.module.css";
 

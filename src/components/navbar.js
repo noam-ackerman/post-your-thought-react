@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-import styles from "../style-modules/style.module.css";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import UpdateSettingsModal from "./modals/updateSettingsModal";
 import { useUsersCtx } from "../context/usersContext";
 import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "./resources/logos";
+import UpdateSettingsModal from "./modals/updateSettingsModal";
+import styles from "../style-modules/style.module.css";
 
 export default function Navbar() {
   const navigate = useNavigate();

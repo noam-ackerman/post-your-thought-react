@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
-import styles from "../../style-modules/style.module.css";
 import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
 import { Oval } from "react-loader-spinner";
 import { ExitSVG } from "../resources/logos";
+import styles from "../../style-modules/style.module.css";
 
 export default function EditProfileModal(props) {
   const { UpdateProfile } = useAuth();

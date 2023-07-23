@@ -1,4 +1,4 @@
-export default function FormatDate(date) {
+export default function formatDate(date) {
   let newDate = new Date(date);
   let year = newDate.getFullYear(),
     month = ("0" + (newDate.getMonth() + 1)).slice(-2),

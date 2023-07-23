@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useUsersCtx } from "../context/usersContext";
-import styles from "../style-modules/style.module.css";
 import { Link } from "react-router-dom";
+import styles from "../style-modules/style.module.css";
 
 export default function Search() {
   const { usersData } = useUsersCtx();

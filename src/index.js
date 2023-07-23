@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/AuthContext";
 import { UsersContextProvider } from "./context/usersContext";
 import { ErrorBoundary } from "react-error-boundary";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import ErrorPage from "./pages/ErrorPage";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -2,12 +2,12 @@ import React, { useRef, useState } from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../resources/logos";
-import FormatDate from "../resources/formatDate";
+import formatDate from "../resources/formatDate";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockAuthenticated(props) {
   const post = props.post;
-  const time = FormatDate(post.date);
+  const time = formatDate(post.date);
   const { updatePost, removePost, currentUserData } = useUsersCtx();
   const [editMode, setEditMode] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);

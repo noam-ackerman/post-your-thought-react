@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { uid } from "uid";
-import styles from "../style-modules/style.module.css";
 import { useUsersCtx } from "../context/usersContext";
 import KaomojiesModal from "./modals/KaomojiesModal";
+import styles from "../style-modules/style.module.css";
 
 export default function PostingForm() {
   const { updatePost, currentUserData } = useUsersCtx();

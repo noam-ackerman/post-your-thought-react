@@ -1,7 +1,7 @@
 import React from "react";
+import { useUsersCtx } from "../../context/usersContext";
 import ProfileBlockUnauthenticated from "./ProfileBlockUnauthenticated";
 import PostBlockUnauthenticated from "./postBlockUnauthenticated";
-import { useUsersCtx } from "../../context/usersContext";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileUnauthenticated(props) {

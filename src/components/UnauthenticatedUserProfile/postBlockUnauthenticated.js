@@ -2,13 +2,13 @@ import React, { useState, useRef } from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../resources/logos";
-import FormatDate from "../resources/formatDate";
+import formatDate from "../resources/formatDate";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockUnauthenticated(props) {
   const user = props.user;
   const post = props.post;
-  const time = FormatDate(post.date);
+  const time = formatDate(post.date);
   const { updatePost, currentUserData } = useUsersCtx();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [longPost, setLongPost] = useState(false);

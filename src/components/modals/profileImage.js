@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styles from "../../style-modules/style.module.css";
 import { ExitSVG } from "../resources/logos";
 import { Oval } from "react-loader-spinner";
+import styles from "../../style-modules/style.module.css";
 
 export default function ProfileImage(props) {
   const [imageLoaded, setImageLoaded] = useState(false);

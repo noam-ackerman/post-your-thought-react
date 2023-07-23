@@ -1,8 +1,8 @@
 import React from "react";
+import { useUsersCtx } from "../../context/usersContext";
 import ProfileBlockAuthenticated from "./ProfileBlockAuthenticated";
 import PostingForm from "../postingForm";
 import PostBlockAuthenticated from "./postBlockAuthenticated";
-import { useUsersCtx } from "../../context/usersContext";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileAuthenticated() {
