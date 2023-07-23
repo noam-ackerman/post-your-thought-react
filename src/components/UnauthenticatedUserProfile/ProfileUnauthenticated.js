@@ -37,14 +37,7 @@ export default function ProfileUnauthenticated(props) {
     <div className={styles.profileContainerContent}>
       <ProfileBlockUnauthenticated user={user} />
       <div ref={postsWrapper} className={styles.postingSectionWrapper}>
-        {userPosts && !userPosts.length && (
-          <div
-            className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
-          >
-            No Posts Yet
-          </div>
-        )}
-        {userPosts &&
+        {userPosts?.length ? (
           userPosts.map((post, index) => {
             if (index <= numDisplayedPosts) {
               return (
@@ -57,7 +50,14 @@ export default function ProfileUnauthenticated(props) {
             } else {
               return null;
             }
-          })}
+          })
+        ) : (
+          <div
+            className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
+          >
+            No Posts Yet
+          </div>
+        )}
       </div>
     </div>
   );

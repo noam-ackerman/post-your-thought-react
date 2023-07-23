@@ -35,17 +35,15 @@ export default function Profile() {
     );
   } else {
     return (
-      <>
-        <Hearts
-          height="200"
-          width="200"
-          color="#B5A1FF"
-          ariaLabel="hearts-loading"
-          wrapperStyle={{}}
-          wrapperClass={styles.heartsPageLoader}
-          visible={true}
-        />
-      </>
+      <Hearts
+        height="200"
+        width="200"
+        color="#B5A1FF"
+        ariaLabel="hearts-loading"
+        wrapperStyle={{}}
+        wrapperClass={styles.heartsPageLoader}
+        visible={true}
+      />
     );
   }
 }

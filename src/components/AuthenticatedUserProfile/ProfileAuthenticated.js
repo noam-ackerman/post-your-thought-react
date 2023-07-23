@@ -40,21 +40,21 @@ export default function ProfileAuthenticated() {
       <ProfileBlockAuthenticated />
       <div ref={postsWrapper} className={styles.postingSectionWrapper}>
         <PostingForm />
-        {currentUserPosts && !currentUserPosts.length && (
-          <div
-            className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
-          >
-            No Posts Yet
-          </div>
-        )}
-        {currentUserPosts &&
+        {currentUserPosts?.length ? (
           currentUserPosts.map((post, index) => {
             if (index <= numDisplayedPosts) {
               return <PostBlockAuthenticated key={post.postId} post={post} />;
             } else {
               return null;
             }
-          })}
+          })
+        ) : (
+          <div
+            className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
+          >
+            No Posts Yet
+          </div>
+        )}
       </div>
     </div>
   );
