@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { ExitSVG, CopySvg } from "../resources/logos";
 import { Oval } from "react-loader-spinner";
 import styles from "../../style-modules/style.module.css";
@@ -19,7 +19,7 @@ const fetchKaomojies = async () => {
 };
 
 export default function KaomojiesModal(props) {
-  const { status, data } = useQuery("kaomojies", fetchKaomojies);
+  const { status, data } = useQuery(["kaomojies"], fetchKaomojies);
   const modal = useRef();
 
   function handleOverlayClick(event) {
