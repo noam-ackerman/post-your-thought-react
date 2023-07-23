@@ -58,29 +58,29 @@ export default function KaomojiesModal(props) {
           <ExitSVG color="#7c606b" height="15px" width="15px" />
         </button>
         <div className={styles.kaomojiesContent}>
-          {status === "success" && data.record?.kaomojies
-            ? data.record.kaomojies.map((item) => (
-                <div className={styles.kaomojiCopyWrapper} key={item.id}>
-                  <div className={styles.kaomojiWrapper}>{item.kaomoji}</div>
-                  <button
-                    className={`${styles.postSubmitbutton} ${styles.copyButton}`}
-                    onClick={(e) => {
-                      const self = e.currentTarget;
-                      self.style.backgroundColor = "#c1f7dc";
-                      navigator.clipboard.writeText(item.kaomoji);
-                      setTimeout(() => {
-                        self.style.backgroundColor = "#eda4bd";
-                      }, 1000);
-                    }}
-                  >
-                    <CopySvg color="#fff" height="16px" width="16px" />
-                  </button>
-                </div>
-              ))
-            : status === "success" && !data.record?.kaomojies
-            ? ErrorDisplay
-            : null}
-          {status === "loading" && (
+          {status === "success" && data.record?.kaomojies ? (
+            data.record.kaomojies.map((item) => (
+              <div className={styles.kaomojiCopyWrapper} key={item.id}>
+                <div className={styles.kaomojiWrapper}>{item.kaomoji}</div>
+                <button
+                  className={`${styles.postSubmitbutton} ${styles.copyButton}`}
+                  onClick={(e) => {
+                    const self = e.currentTarget;
+                    self.style.backgroundColor = "#c1f7dc";
+                    navigator.clipboard.writeText(item.kaomoji);
+                    setTimeout(() => {
+                      self.style.backgroundColor = "#eda4bd";
+                    }, 1000);
+                  }}
+                >
+                  <CopySvg color="#fff" height="16px" width="16px" />
+                </button>
+              </div>
+            ))
+          ) : (status === "success" && !data.record?.kaomojies) ||
+            status === "error" ? (
+            ErrorDisplay
+          ) : status === "loading" ? (
             <Oval
               height={138}
               width={138}
@@ -93,8 +93,7 @@ export default function KaomojiesModal(props) {
               strokeWidth={2}
               strokeWidthSecondary={2}
             />
-          )}
-          {status === "error" && ErrorDisplay}
+          ) : null}
         </div>
       </div>
     </>
