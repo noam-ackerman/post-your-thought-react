@@ -23,9 +23,7 @@ export default function KaomojiesModal(props) {
   const modal = useRef();
 
   function handleOverlayClick(event) {
-    if (event.target !== modal.current) {
-      props.toggleModal();
-    }
+    if (event.target !== modal.current) props.toggleModal();
   }
 
   const ErrorDisplay = (

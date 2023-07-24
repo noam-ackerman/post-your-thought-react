@@ -1,4 +1,4 @@
-export default function formatDate(date) {
+const formatDate = (date) => {
   let newDate = new Date(date);
   let year = newDate.getFullYear(),
     month = ("0" + (newDate.getMonth() + 1)).slice(-2),
@@ -7,4 +7,6 @@ export default function formatDate(date) {
     minutes = ("0" + newDate.getMinutes()).slice(-2);
   let time = `${day}/${month}/${year} ${hour}:${minutes}`;
   return time;
-}
+};
+
+export { formatDate };

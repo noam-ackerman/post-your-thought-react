@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../resources/logos";
-import formatDate from "../resources/formatDate";
+import { formatDate } from "../resources/actions";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockAuthenticated(props) {
@@ -40,7 +40,7 @@ export default function PostBlockAuthenticated(props) {
     if (!clickedOnce) {
       setClickedOnce(true);
       return;
-    } else if (clickedOnce) {
+    } else {
       removePost(post.postId).catch(() => alert("Something went wrong!"));
       setClickedOnce(false);
     }
@@ -49,36 +49,27 @@ export default function PostBlockAuthenticated(props) {
   function handleEditPost() {
     if (!editMode) {
       setEditMode(true);
-      if (showMorePost) {
-        setShowMorePost(false);
-      }
-    } else if (editMode) {
+      if (showMorePost) setShowMorePost(false);
+    } else {
       let newContent = textAreaEdit.current.value;
-      if (textAreaEdit.current.value.trim() === "") {
-        return;
-      } else {
-        updatePost(post.postId, { content: newContent }).catch(() =>
-          alert("Something went wrong!")
-        );
-        setEditMode(false);
-      }
+      if (textAreaEdit.current.value.trim() === "") return;
+      updatePost(post.postId, { content: newContent }).catch(() =>
+        alert("Something went wrong!")
+      );
+      setEditMode(false);
     }
   }
 
-  function ShowMore() {
+  function showMore() {
     setShowMorePost(!showMorePost);
   }
 
   React.useEffect(() => {
     if (!editMode) {
-      if (
-        postContent?.current.clientHeight >
-        postContentWrapper?.current.clientHeight
-      ) {
-        setLongPost(true);
-      } else {
-        setLongPost(false);
-      }
+      postContent?.current.clientHeight >
+      postContentWrapper?.current.clientHeight
+        ? setLongPost(true)
+        : setLongPost(false);
     }
   }, [editMode, post.content]);
 
@@ -141,7 +132,7 @@ export default function PostBlockAuthenticated(props) {
             <div style={{ color: "#7c606b" }}>...</div>
           )}
           {longPost && (
-            <div className={styles.showMoreBtn} onClick={ShowMore}>
+            <div className={styles.showMoreBtn} onClick={showMore}>
               {showMorePost ? "Show less" : "Show more"}
             </div>
           )}

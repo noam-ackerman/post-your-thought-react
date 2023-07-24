@@ -6,12 +6,12 @@ import styles from "../style-modules/style.module.css";
 
 export default function Signup() {
   const { SignupUser } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState("");
   const navigate = useNavigate();
   const emailInput = useRef();
   const passwordInput = useRef();
   const passwordConfirmInput = useRef();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();

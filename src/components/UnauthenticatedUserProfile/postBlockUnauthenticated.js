@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../resources/logos";
-import formatDate from "../resources/formatDate";
+import { formatDate } from "../resources/actions";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockUnauthenticated(props) {
@@ -33,19 +33,14 @@ export default function PostBlockUnauthenticated(props) {
     );
   }
 
-  function ShowMore() {
+  function showMore() {
     setShowMorePost(!showMorePost);
   }
 
   React.useEffect(() => {
-    if (
-      postContent?.current.clientHeight >
-      postContentWrapper?.current.clientHeight
-    ) {
-      setLongPost(true);
-    } else {
-      setLongPost(false);
-    }
+    postContent?.current.clientHeight > postContentWrapper?.current.clientHeight
+      ? setLongPost(true)
+      : setLongPost(false);
   }, [post.content]);
 
   return (
@@ -83,7 +78,7 @@ export default function PostBlockUnauthenticated(props) {
           <div style={{ color: "#7c606b" }}>...</div>
         )}
         {longPost && (
-          <div className={styles.showMoreBtn} onClick={ShowMore}>
+          <div className={styles.showMoreBtn} onClick={showMore}>
             {showMorePost ? "Show less" : "Show more"}
           </div>
         )}

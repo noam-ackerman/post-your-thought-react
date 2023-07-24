@@ -7,7 +7,7 @@ import styles from "../../style-modules/style.module.css";
 
 export default function EditProfileModal(props) {
   const { UpdateProfile } = useAuth();
-  const { updateUserDatabase, currentUserData, UploadImageToStorageAndGetUrl } =
+  const { updateUserDatabase, currentUserData, uploadImageToStorageAndGetUrl } =
     useUsersCtx();
   const [error, setError] = useState("");
   const [imgUrl, setImgUrl] = useState("");
@@ -18,9 +18,7 @@ export default function EditProfileModal(props) {
   const bioInput = useRef();
 
   function handleOverlayClick(event) {
-    if (event.target !== modal.current) {
-      props.toggleModalOpen();
-    }
+    if (event.target !== modal.current) props.toggleModalOpen();
   }
   function cancelEdit() {
     props.toggleModalOpen();
@@ -33,7 +31,7 @@ export default function EditProfileModal(props) {
     if (file) {
       if (file.size <= 3145728) {
         try {
-          const imageURL = await UploadImageToStorageAndGetUrl(file);
+          const imageURL = await uploadImageToStorageAndGetUrl(file);
           setImgUrl(imageURL);
         } catch {
           setError("Failed to upload Image!");

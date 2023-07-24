@@ -28,7 +28,7 @@ export default function PostingForm() {
       });
   }
 
-  function ToggleKaomojiesModal() {
+  function toggleKaomojiesModal() {
     setModalOpen(!modalOpen);
   }
 
@@ -57,7 +57,7 @@ export default function PostingForm() {
             <button
               className={styles.postSubmitbutton}
               type="button"
-              onClick={ToggleKaomojiesModal}
+              onClick={toggleKaomojiesModal}
               style={{ backgroundColor: "#8cb4fe" }}
             >
               Kaomojies
@@ -70,7 +70,7 @@ export default function PostingForm() {
       </form>
       {modalOpen &&
         ReactDOM.createPortal(
-          <KaomojiesModal toggleModal={ToggleKaomojiesModal} />,
+          <KaomojiesModal toggleModal={toggleKaomojiesModal} />,
           document.getElementById("modal-root")
         )}
     </div>

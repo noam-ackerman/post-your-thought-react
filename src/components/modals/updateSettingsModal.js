@@ -50,9 +50,7 @@ export default function UpdateSettingsModal(props) {
   );
 
   function handleOverlayClick(event) {
-    if (event.target !== modal.current) {
-      props.toggleModalOpen();
-    }
+    if (event.target !== modal.current) props.toggleModalOpen();
   }
   function cancelEdit() {
     props.toggleModalOpen();

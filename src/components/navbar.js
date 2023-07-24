@@ -25,7 +25,7 @@ export default function Navbar() {
     setUpdateModalOpen(!updateModalOpen);
   }
 
-  async function HandleLogout() {
+  async function handleLogout() {
     try {
       await LogoutUser();
       navigate("/login");
@@ -76,7 +76,7 @@ export default function Navbar() {
         </button>
         <button
           title="Log Out"
-          onClick={HandleLogout}
+          onClick={handleLogout}
           className={styles.actionButtonPrimary}
         >
           <LogoutSVG color="#fff" height="20px" width="20px" />

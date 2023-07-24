@@ -5,9 +5,11 @@ import styles from "../../style-modules/style.module.css";
 
 export default function ProfileImage(props) {
   const [imageLoaded, setImageLoaded] = useState(false);
+
   function toggleImageModal() {
     props.toggleImageModal();
   }
+
   return (
     <div className={styles.profileImageModal}>
       <button

@@ -8,7 +8,7 @@ import styles from "../../style-modules/style.module.css";
 
 export default function ProfileBlockAuthenticated() {
   const { currentUserData } = useUsersCtx();
-  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [editProfileModalOpen, setEditProfileModalOpen] = useState(false);
   const [modalImageOpen, setModalImageOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -16,15 +16,15 @@ export default function ProfileBlockAuthenticated() {
     setModalImageOpen(!modalImageOpen);
   }
 
-  function toggleModalOpen() {
-    setUpdateModalOpen(!updateModalOpen);
+  function toggleEditProfileModalOpen() {
+    setEditProfileModalOpen(!editProfileModalOpen);
   }
 
   React.useEffect(() => {
-    updateModalOpen || modalImageOpen
+    editProfileModalOpen || modalImageOpen
       ? document.querySelector("body").classList.add("modal-open")
       : document.querySelector("body").classList.remove("modal-open");
-  }, [updateModalOpen, modalImageOpen]);
+  }, [editProfileModalOpen, modalImageOpen]);
 
   return (
     <div className={styles.profileBlockWrapper}>
@@ -65,15 +65,15 @@ export default function ProfileBlockAuthenticated() {
           </div>
         )}
         <button
-          onClick={toggleModalOpen}
+          onClick={toggleEditProfileModalOpen}
           className={`${styles.actionButtonPrimary} ${styles.marginTopBottom1}`}
         >
           Edit Profile
         </button>
       </div>
-      {updateModalOpen &&
+      {editProfileModalOpen &&
         ReactDOM.createPortal(
-          <EditProfileModal toggleModalOpen={toggleModalOpen} />,
+          <EditProfileModal toggleModalOpen={toggleEditProfileModalOpen} />,
           document.getElementById("modal-root")
         )}
       {modalImageOpen &&

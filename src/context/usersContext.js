@@ -36,7 +36,7 @@ const UsersContextProvider = ({ children }) => {
 
   // storage
 
-  async function UploadImageToStorageAndGetUrl(imgFile) {
+  async function uploadImageToStorageAndGetUrl(imgFile) {
     const fileRef = ref(
       storage,
       "images/" + currentUser.uid + "/" + imgFile.name
@@ -106,22 +106,16 @@ const UsersContextProvider = ({ children }) => {
       const userRef = databaseRef(database, "users/" + currentUser.uid);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        if (data) {
-          setCurrentUserData(data);
-        } else {
-          setCurrentUserData({});
-        }
+        if (data) setCurrentUserData(data);
+        else setCurrentUserData({});
       });
 
       // all users data
       const usersRef = databaseRef(database, "users");
       onValue(usersRef, (snapshot) => {
         const data = snapshot.val();
-        if (data) {
-          setUsersData(data);
-        } else {
-          setUsersData({});
-        }
+        if (data) setUsersData(data);
+        else setUsersData({});
       });
 
       // all posts data
@@ -153,7 +147,7 @@ const UsersContextProvider = ({ children }) => {
     updatePost,
     removePost,
     currentUserData,
-    UploadImageToStorageAndGetUrl,
+    uploadImageToStorageAndGetUrl,
     deleteStorageUser,
   };
 
