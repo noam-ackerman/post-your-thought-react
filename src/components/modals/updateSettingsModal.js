@@ -104,37 +104,36 @@ export default function UpdateSettingsModal(props) {
     if (!oldPasswordInput.current.checkValidity()) {
       oldPasswordInput.current.reportValidity();
       return;
+    }
+    if (!deleteClick) {
+      setDeleteClick(true);
     } else {
-      if (!deleteClick) {
-        setDeleteClick(true);
-      } else {
-        setLoading(true);
+      setLoading(true);
+      try {
+        await reAuthenticateUser(oldPasswordInput.current.value);
         try {
-          await reAuthenticateUser(oldPasswordInput.current.value);
-          try {
-            setDeleting(true);
-            document.querySelector("body").classList.remove("modal-open");
-            const userPosts = Object.values(postsData).filter(
-              (post) => post.userId === currentUserData.userId
-            );
-            userPosts.forEach((post) => {
-              removePost(post.postId);
-            });
-            await deleteUserDatabase();
-            await deleteStorageUser();
-            await DeleteUser();
-            navigate("/login");
-          } catch {
-            setError("Failed to delete account!");
-            setDeleting(false);
-            setDeleteClick(false);
-          }
+          setDeleting(true);
+          document.querySelector("body").classList.remove("modal-open");
+          const userPosts = Object.values(postsData).filter(
+            (post) => post.userId === currentUserData.userId
+          );
+          userPosts.forEach((post) => {
+            removePost(post.postId);
+          });
+          await deleteUserDatabase();
+          await deleteStorageUser();
+          await DeleteUser();
+          navigate("/login");
         } catch {
-          setError("Failed! Incorrent password");
+          setError("Failed to delete account!");
+          setDeleting(false);
           setDeleteClick(false);
         }
-        setLoading(false);
+      } catch {
+        setError("Failed! Incorrent password");
+        setDeleteClick(false);
       }
+      setLoading(false);
     }
   }
 

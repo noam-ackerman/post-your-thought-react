@@ -27,11 +27,11 @@ export default function ProfileUnauthenticated(props) {
   }, [numDisplayedPosts]);
 
   React.useEffect(() => {
-    if (userPosts && userPosts.length - 1 > numDisplayedPosts) {
+    if (userPosts?.length - 1 > numDisplayedPosts) {
       document.addEventListener("scroll", renderMorePosts);
     }
     return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [userPosts, numDisplayedPosts, renderMorePosts]);
+  }, [userPosts?.length, numDisplayedPosts, renderMorePosts]);
 
   return (
     <div className={styles.profileContainerContent}>

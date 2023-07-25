@@ -51,7 +51,7 @@ export default function Homepage() {
       document.addEventListener("scroll", renderMorePosts);
     }
     return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [dataLoaded, numDisplayedPosts, postsData, renderMorePosts]);
+  }, [dataLoaded, numDisplayedPosts, postsData?.length, renderMorePosts]);
 
   return (
     <>

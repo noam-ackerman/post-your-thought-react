@@ -18,7 +18,7 @@ export default function ProfileAuthenticated() {
     filteredPosts.length
       ? setCurrentUserPosts(filteredPosts)
       : setCurrentUserPosts([]);
-  }, [postsData, currentUserData]);
+  }, [postsData, currentUserData.userId]);
 
   const renderMorePosts = React.useCallback(() => {
     let elementBottom = postsWrapper.current.lastChild.offsetTop - 600;
@@ -29,11 +29,11 @@ export default function ProfileAuthenticated() {
   }, [numDisplayedPosts]);
 
   React.useEffect(() => {
-    if (currentUserPosts && currentUserPosts.length - 1 > numDisplayedPosts) {
+    if (currentUserPosts?.length - 1 > numDisplayedPosts) {
       document.addEventListener("scroll", renderMorePosts);
     }
     return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [currentUserPosts, numDisplayedPosts, renderMorePosts]);
+  }, [currentUserPosts?.length, numDisplayedPosts, renderMorePosts]);
 
   return (
     <div className={styles.profileContainerContent}>

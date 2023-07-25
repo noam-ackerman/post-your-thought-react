@@ -12,8 +12,8 @@ import Footer from "./components/footer";
 import Login from "./pages/login";
 import Profile from "./pages/Profile";
 import NavigateToProfile from "./components/AuthenticatedUserProfile/NavigateToProfile";
-import ProtectedRoute from "./components/ProtectedRoute";
-import PublicAuthenticateRoute from "./components/PublicAuthenticateRoute";
+import ProtectedRoute from "./components/routesWrappers/ProtectedRoute";
+import PublicAuthRoute from "./components/routesWrappers/PublicAuthRoute";
 import Homepage from "./pages/Homepage";
 import Search from "./pages/searchPage";
 import ForgotPassword from "./pages/forgotPassword";
@@ -66,25 +66,25 @@ function App() {
             <Route
               path="/signup"
               element={
-                <PublicAuthenticateRoute>
+                <PublicAuthRoute>
                   <Signup />
-                </PublicAuthenticateRoute>
+                </PublicAuthRoute>
               }
             />
             <Route
               path="/login"
               element={
-                <PublicAuthenticateRoute>
+                <PublicAuthRoute>
                   <Login />
-                </PublicAuthenticateRoute>
+                </PublicAuthRoute>
               }
             />
             <Route
               path="/resetpassword"
               element={
-                <PublicAuthenticateRoute>
+                <PublicAuthRoute>
                   <ForgotPassword />
-                </PublicAuthenticateRoute>
+                </PublicAuthRoute>
               }
             />
             <Route path="/*" element={<Navigate to="/" />} />
