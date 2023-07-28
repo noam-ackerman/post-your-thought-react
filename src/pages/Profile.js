@@ -1,33 +1,36 @@
 import React from "react";
-import ProfileAuthenticated from "../components/AuthenticatedUserProfile/ProfileAuthenticated";
-import ProfileUnauthenticated from "../components/UnauthenticatedUserProfile/ProfileUnauthenticated";
 import { useParams, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useUsersCtx } from "../context/usersContext";
 import { Hearts } from "react-loader-spinner";
+import ProfileBlockAuthenticated from "../components/AuthenticatedUserProfile/ProfileBlockAuthenticated";
+import PostsSectionAuthenticated from "../components/AuthenticatedUserProfile/PostsSectionAuthenticated";
+import ProfileBlockUnauthenticated from "../components/UnauthenticatedUserProfile/ProfileBlockUnauthenticated";
+import PostsSectionUnauthenticated from "../components/UnauthenticatedUserProfile/PostsSectionUnauthenticated";
 import styles from "../style-modules/style.module.css";
 
 export default function Profile() {
   const { currentUser } = useAuth();
   const { usersData, postsData, currentUserData } = useUsersCtx();
-  const [dataLoaded, setDataLoaded] = React.useState(false);
   const { userId } = useParams();
   const userCurrentlyAuthenticated = userId === currentUser.uid;
 
-  React.useLayoutEffect(() => {
-    if (!dataLoaded && usersData && postsData && currentUserData) {
-      setDataLoaded(true);
-    }
-  }, [dataLoaded, usersData, postsData, currentUserData]);
-
-  if (userCurrentlyAuthenticated && dataLoaded) {
-    return <ProfileAuthenticated />;
-  } else if (!userCurrentlyAuthenticated && dataLoaded) {
+  if (userCurrentlyAuthenticated && postsData && currentUserData) {
+    return (
+      <div className={styles.profileContainerContent}>
+        <ProfileBlockAuthenticated />
+        <PostsSectionAuthenticated />
+      </div>
+    );
+  } else if (!userCurrentlyAuthenticated && postsData && usersData) {
     const userExist = Object.keys(usersData).includes(userId);
     return (
       <>
         {userExist ? (
-          <ProfileUnauthenticated user={usersData[userId]} />
+          <div className={styles.profileContainerContent}>
+            <ProfileBlockUnauthenticated user={usersData[userId]} />
+            <PostsSectionUnauthenticated user={usersData[userId]} />
+          </div>
         ) : (
           <Navigate to="/" />
         )}

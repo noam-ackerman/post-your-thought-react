@@ -1,10 +1,9 @@
 import React from "react";
 import { useUsersCtx } from "../../context/usersContext";
-import ProfileBlockUnauthenticated from "./ProfileBlockUnauthenticated";
 import PostBlockUnauthenticated from "./postBlockUnauthenticated";
 import styles from "../../style-modules/style.module.css";
 
-export default function ProfileUnauthenticated(props) {
+export default function PostsSectionUnauthenticated(props) {
   const user = props.user;
   const { postsData } = useUsersCtx();
   const [numDisplayedPosts, setNumDisplayedPosts] = React.useState(14);
@@ -34,31 +33,26 @@ export default function ProfileUnauthenticated(props) {
   }, [userPosts?.length, numDisplayedPosts, renderMorePosts]);
 
   return (
-    <div className={styles.profileContainerContent}>
-      <ProfileBlockUnauthenticated user={user} />
-      <div ref={postsWrapper} className={styles.postingSectionWrapper}>
-        {userPosts?.length ? (
-          userPosts.map((post, index) => {
-            if (index <= numDisplayedPosts) {
-              return (
-                <PostBlockUnauthenticated
-                  key={post.postId}
-                  user={user}
-                  post={post}
-                />
-              );
-            } else {
-              return null;
-            }
-          })
-        ) : (
-          <div
-            className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
-          >
-            No Posts Yet
-          </div>
-        )}
-      </div>
+    <div ref={postsWrapper} className={styles.postingSectionWrapper}>
+      {userPosts?.length ? (
+        userPosts.map((post, index) => {
+          if (index <= numDisplayedPosts) {
+            return (
+              <PostBlockUnauthenticated
+                key={post.postId}
+                user={user}
+                post={post}
+              />
+            );
+          } else {
+            return null;
+          }
+        })
+      ) : (
+        <div className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}>
+          No Posts Yet
+        </div>
+      )}
     </div>
   );
 }

@@ -1,11 +1,10 @@
 import React from "react";
 import { useUsersCtx } from "../../context/usersContext";
-import ProfileBlockAuthenticated from "./ProfileBlockAuthenticated";
 import PostingForm from "../postingForm";
 import PostBlockAuthenticated from "./postBlockAuthenticated";
 import styles from "../../style-modules/style.module.css";
 
-export default function ProfileAuthenticated() {
+export default function PostsSectionAuthenticated() {
   const { currentUserData, postsData } = useUsersCtx();
   const [numDisplayedPosts, setNumDisplayedPosts] = React.useState(14);
   const [currentUserPosts, setCurrentUserPosts] = React.useState(null);
@@ -36,26 +35,21 @@ export default function ProfileAuthenticated() {
   }, [currentUserPosts?.length, numDisplayedPosts, renderMorePosts]);
 
   return (
-    <div className={styles.profileContainerContent}>
-      <ProfileBlockAuthenticated />
-      <div ref={postsWrapper} className={styles.postingSectionWrapper}>
-        <PostingForm />
-        {currentUserPosts?.length ? (
-          currentUserPosts.map((post, index) => {
-            if (index <= numDisplayedPosts) {
-              return <PostBlockAuthenticated key={post.postId} post={post} />;
-            } else {
-              return null;
-            }
-          })
-        ) : (
-          <div
-            className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
-          >
-            No Posts Yet
-          </div>
-        )}
-      </div>
+    <div ref={postsWrapper} className={styles.postingSectionWrapper}>
+      <PostingForm />
+      {currentUserPosts?.length ? (
+        currentUserPosts.map((post, index) => {
+          if (index <= numDisplayedPosts) {
+            return <PostBlockAuthenticated key={post.postId} post={post} />;
+          } else {
+            return null;
+          }
+        })
+      ) : (
+        <div className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}>
+          No Posts Yet
+        </div>
+      )}
     </div>
   );
 }
