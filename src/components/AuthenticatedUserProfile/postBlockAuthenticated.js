@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import { Link } from "react-router-dom";
-import { EmptyHeartSVG, FullHeartSVG } from "../resources/logos";
-import { formatDate } from "../resources/actions";
+import { EmptyHeartSVG, FullHeartSVG } from "../utilities/logos";
+import { formatDate } from "../utilities/actions";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockAuthenticated(props) {

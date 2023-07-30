@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ExitSVG } from "../resources/logos";
+import { ExitSVG } from "../utilities/logos";
 import { Oval } from "react-loader-spinner";
 import styles from "../../style-modules/style.module.css";
 

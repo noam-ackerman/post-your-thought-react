@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
 import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
-import { ExitSVG } from "../resources/logos";
+import { ExitSVG } from "../utilities/logos";
 import styles from "../../style-modules/style.module.css";
 
 export default function UpdateSettingsModal(props) {

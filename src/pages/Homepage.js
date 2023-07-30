@@ -1,21 +1,23 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useUsersCtx } from "../context/usersContext";
 import { useAuth } from "../context/AuthContext";
 import { Hearts } from "react-loader-spinner";
 import PostingForm from "../components/postingForm";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
+import useRenderMorePosts from "../components/utilities/useRenderMorePosts";
 import styles from "../style-modules/style.module.css";
 
 export default function Homepage() {
   const { currentUser } = useAuth();
   const { usersData, postsData, currentUserData } = useUsersCtx();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [numDisplayedPosts, setNumDisplayedPosts] = useState(14);
-
   const welcome = React.useRef();
   const title = React.useRef();
   const postsWrapper = React.useRef();
+  const [numDisplayedPosts, renderMorePosts] = useRenderMorePosts({
+    ref: postsWrapper,
+  });
 
   React.useLayoutEffect(() => {
     if (!dataLoaded && usersData && postsData && currentUserData) {
@@ -37,14 +39,6 @@ export default function Homepage() {
       });
     }
   }, [dataLoaded]);
-
-  const renderMorePosts = useCallback(() => {
-    let elementBottom = postsWrapper.current.lastChild.offsetTop - 600;
-    let lastPositionY = window.scrollY;
-    if (lastPositionY > elementBottom) {
-      setNumDisplayedPosts(numDisplayedPosts + 15);
-    }
-  }, [numDisplayedPosts]);
 
   React.useEffect(() => {
     if (dataLoaded && postsData.length - 1 > numDisplayedPosts) {

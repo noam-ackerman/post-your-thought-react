@@ -17,7 +17,7 @@ import PublicAuthRoute from "./components/routesWrappers/PublicAuthRoute";
 import Homepage from "./pages/Homepage";
 import Search from "./pages/searchPage";
 import ForgotPassword from "./pages/forgotPassword";
-import ScrollToTop from "./components/resources/scrollToTop";
+import ScrollToTop from "./components/utilities/scrollToTop";
 
 const queryClient = new QueryClient();
 

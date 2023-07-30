@@ -1,14 +1,17 @@
 import React from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import PostBlockUnauthenticated from "./postBlockUnauthenticated";
+import useRenderMorePosts from "../utilities/useRenderMorePosts";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostsSectionUnauthenticated(props) {
   const user = props.user;
   const { postsData } = useUsersCtx();
-  const [numDisplayedPosts, setNumDisplayedPosts] = React.useState(14);
   const [userPosts, setUserPosts] = React.useState(null);
   const postsWrapper = React.useRef();
+  const [numDisplayedPosts, renderMorePosts] = useRenderMorePosts({
+    ref: postsWrapper,
+  });
 
   React.useLayoutEffect(() => {
     const filteredPosts = postsData.filter(
@@ -16,14 +19,6 @@ export default function PostsSectionUnauthenticated(props) {
     );
     filteredPosts.length ? setUserPosts(filteredPosts) : setUserPosts([]);
   }, [postsData, user]);
-
-  const renderMorePosts = React.useCallback(() => {
-    let elementBottom = postsWrapper.current.lastChild.offsetTop - 600;
-    let lastPositionY = window.scrollY;
-    if (lastPositionY > elementBottom) {
-      setNumDisplayedPosts(numDisplayedPosts + 15);
-    }
-  }, [numDisplayedPosts]);
 
   React.useEffect(() => {
     if (userPosts?.length - 1 > numDisplayedPosts) {
