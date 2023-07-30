@@ -9,8 +9,9 @@ export default function PostsSectionUnauthenticated(props) {
   const { postsData } = useUsersCtx();
   const [userPosts, setUserPosts] = React.useState(null);
   const postsWrapper = React.useRef();
-  const [numDisplayedPosts, renderMorePosts] = useRenderMorePosts({
+  const [numDisplayedPosts] = useRenderMorePosts({
     ref: postsWrapper,
+    postsLength: userPosts?.length,
   });
 
   React.useLayoutEffect(() => {
@@ -19,13 +20,6 @@ export default function PostsSectionUnauthenticated(props) {
     );
     filteredPosts.length ? setUserPosts(filteredPosts) : setUserPosts([]);
   }, [postsData, user]);
-
-  React.useEffect(() => {
-    if (userPosts?.length - 1 > numDisplayedPosts) {
-      document.addEventListener("scroll", renderMorePosts);
-    }
-    return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [userPosts?.length, numDisplayedPosts, renderMorePosts]);
 
   return (
     <div ref={postsWrapper} className={styles.postingSectionWrapper}>

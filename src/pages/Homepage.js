@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useUsersCtx } from "../context/usersContext";
 import { useAuth } from "../context/AuthContext";
 import { Hearts } from "react-loader-spinner";
@@ -11,19 +11,18 @@ import styles from "../style-modules/style.module.css";
 export default function Homepage() {
   const { currentUser } = useAuth();
   const { usersData, postsData, currentUserData } = useUsersCtx();
-  const [dataLoaded, setDataLoaded] = useState(false);
   const welcome = React.useRef();
   const title = React.useRef();
   const postsWrapper = React.useRef();
-  const [numDisplayedPosts, renderMorePosts] = useRenderMorePosts({
+  const [numDisplayedPosts] = useRenderMorePosts({
     ref: postsWrapper,
+    postsLength: postsData?.length,
   });
 
-  React.useLayoutEffect(() => {
-    if (!dataLoaded && usersData && postsData && currentUserData) {
-      setDataLoaded(true);
-    }
-  }, [dataLoaded, usersData, postsData, currentUserData]);
+  const dataLoaded =
+    usersData !== undefined &&
+    postsData !== undefined &&
+    currentUserData !== undefined;
 
   React.useEffect(() => {
     if (dataLoaded) {
@@ -39,13 +38,6 @@ export default function Homepage() {
       });
     }
   }, [dataLoaded]);
-
-  React.useEffect(() => {
-    if (dataLoaded && postsData.length - 1 > numDisplayedPosts) {
-      document.addEventListener("scroll", renderMorePosts);
-    }
-    return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [dataLoaded, numDisplayedPosts, postsData?.length, renderMorePosts]);
 
   return (
     <>
