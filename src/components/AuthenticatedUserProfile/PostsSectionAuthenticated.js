@@ -7,21 +7,17 @@ import styles from "../../style-modules/style.module.css";
 
 export default function PostsSectionAuthenticated() {
   const { currentUserData, postsData } = useUsersCtx();
-  const [currentUserPosts, setCurrentUserPosts] = React.useState(null);
   const postsWrapper = React.useRef();
+
+  const currentUserPosts = React.useMemo(
+    () => postsData.filter((post) => post.userId === currentUserData.userId),
+    [postsData, currentUserData.userId]
+  );
+
   const [numDisplayedPosts] = useRenderMorePosts({
     ref: postsWrapper,
     postsLength: currentUserPosts?.length,
   });
-
-  React.useLayoutEffect(() => {
-    const filteredPosts = postsData.filter(
-      (post) => post.userId === currentUserData.userId
-    );
-    filteredPosts.length
-      ? setCurrentUserPosts(filteredPosts)
-      : setCurrentUserPosts([]);
-  }, [postsData, currentUserData.userId]);
 
   return (
     <div ref={postsWrapper} className={styles.postingSectionWrapper}>

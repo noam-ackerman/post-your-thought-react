@@ -7,19 +7,17 @@ import styles from "../../style-modules/style.module.css";
 export default function PostsSectionUnauthenticated(props) {
   const user = props.user;
   const { postsData } = useUsersCtx();
-  const [userPosts, setUserPosts] = React.useState(null);
   const postsWrapper = React.useRef();
+
+  const userPosts = React.useMemo(
+    () => postsData.filter((post) => post.userId === user.userId),
+    [postsData, user.userId]
+  );
+
   const [numDisplayedPosts] = useRenderMorePosts({
     ref: postsWrapper,
     postsLength: userPosts?.length,
   });
-
-  React.useLayoutEffect(() => {
-    const filteredPosts = postsData.filter(
-      (post) => post.userId === user.userId
-    );
-    filteredPosts.length ? setUserPosts(filteredPosts) : setUserPosts([]);
-  }, [postsData, user]);
 
   return (
     <div ref={postsWrapper} className={styles.postingSectionWrapper}>
