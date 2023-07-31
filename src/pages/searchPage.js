@@ -20,8 +20,6 @@ export default function Search() {
     );
   }, [usersData, searchQuery]);
 
-  console.log(scoredUsers);
-
   function handleChange(e) {
     setsearchQuery(searchInput.current.value);
   }
