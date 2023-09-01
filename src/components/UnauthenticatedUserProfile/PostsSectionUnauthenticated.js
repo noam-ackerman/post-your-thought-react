@@ -1,7 +1,7 @@
 import React from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import PostBlockUnauthenticated from "./postBlockUnauthenticated";
-import useRenderMorePosts from "../utilities/useRenderMorePosts";
+import useRenderMorePosts from "../../utilities/customHooks/useRenderMorePosts";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostsSectionUnauthenticated(props) {
@@ -14,10 +14,10 @@ export default function PostsSectionUnauthenticated(props) {
     [postsData, user.userId]
   );
 
-  const [numDisplayedPosts] = useRenderMorePosts({
-    ref: postsWrapper,
-    postsLength: userPosts?.length,
-  });
+  const [numDisplayedPosts] = useRenderMorePosts(
+    postsWrapper,
+    userPosts?.length
+  );
 
   return (
     <div ref={postsWrapper} className={styles.postingSectionWrapper}>

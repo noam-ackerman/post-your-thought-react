@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 
-export default function useRenderMorePosts({ ref, postsLength }) {
+export default function useRenderMorePosts(postsWrapperRef, postsLength) {
   const [numDisplayedPosts, setNumDisplayedPosts] = useState(14);
 
   const renderMorePosts = useCallback(() => {
-    let elementBottom = ref.current.lastChild.offsetTop - 600;
+    let elementBottom = postsWrapperRef.current?.lastChild.offsetTop - 600;
     let lastPositionY = window.scrollY;
     if (lastPositionY > elementBottom) {
       setNumDisplayedPosts((currentNum) => currentNum + 15);
     }
-  }, [ref]);
+  }, [postsWrapperRef]);
 
   useEffect(() => {
     if (postsLength - 1 > numDisplayedPosts) {

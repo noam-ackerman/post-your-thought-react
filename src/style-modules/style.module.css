@@ -1167,3 +1167,9 @@
 .maxWidth1200 {
   max-width: 1200px;
 }
+
+.preventHighlightSelect {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

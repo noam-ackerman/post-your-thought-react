@@ -5,7 +5,7 @@ import { Hearts } from "react-loader-spinner";
 import PostingForm from "../components/postingForm";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
-import useRenderMorePosts from "../components/utilities/useRenderMorePosts";
+import useRenderMorePosts from "../utilities/customHooks/useRenderMorePosts";
 import styles from "../style-modules/style.module.css";
 
 export default function Homepage() {
@@ -14,10 +14,10 @@ export default function Homepage() {
   const welcome = React.useRef();
   const title = React.useRef();
   const postsWrapper = React.useRef();
-  const [numDisplayedPosts] = useRenderMorePosts({
-    ref: postsWrapper,
-    postsLength: postsData?.length,
-  });
+  const [numDisplayedPosts] = useRenderMorePosts(
+    postsWrapper,
+    postsData?.length
+  );
 
   const dataLoaded =
     usersData !== undefined &&

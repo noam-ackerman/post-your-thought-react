@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
 import { Oval } from "react-loader-spinner";
-import { ExitSVG } from "../utilities/logos";
+import { ExitSVG } from "../../utilities/logos";
 import styles from "../../style-modules/style.module.css";
 
 export default function EditProfileModal(props) {

@@ -19,6 +19,15 @@ body {
 a,
 button {
   cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+image {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 input,

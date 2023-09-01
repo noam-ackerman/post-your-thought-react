@@ -16,7 +16,7 @@ import PublicAuthRoute from "./components/routesWrappers/PublicAuthRoute";
 import Homepage from "./pages/Homepage";
 import Search from "./pages/searchPage";
 import ForgotPassword from "./pages/forgotPassword";
-import ScrollToTop from "./components/utilities/scrollToTop";
+import ScrollToTop from "./utilities/scrollToTop";
 
 function App() {
   const { currentUser } = useAuth();

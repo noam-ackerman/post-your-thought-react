@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import { Link } from "react-router-dom";
-import { EmptyHeartSVG, FullHeartSVG } from "../utilities/logos";
-import { formatDate } from "../utilities/actions";
+import { EmptyHeartSVG, FullHeartSVG } from "../../utilities/logos";
+import { formatDate, handleLike } from "../../utilities/actions";
+import useLongPost from "../../utilities/customHooks/useLongPost";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockUnauthenticated(props) {
@@ -11,37 +12,21 @@ export default function PostBlockUnauthenticated(props) {
   const time = formatDate(post.date);
   const { updatePost, currentUserData } = useUsersCtx();
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [longPost, setLongPost] = useState(false);
-  const [showMorePost, setShowMorePost] = useState(false);
 
   const heart = useRef();
   const postContentWrapper = useRef();
   const postContent = useRef();
 
+  const editMode = false;
+  const [longPost, showMorePost, , handleShowMore] = useLongPost(
+    editMode,
+    post.content,
+    postContent,
+    postContentWrapper
+  );
+
   const postLikes = post.likes ? post.likes : [];
   const postIsLikedByCurrentUser = postLikes.includes(currentUserData.userId);
-
-  function handleLike() {
-    let data;
-    if (heart.current.getAttribute("action") === "like") {
-      data = [...postLikes, currentUserData.userId];
-    } else if (heart.current.getAttribute("action") === "unlike") {
-      data = postLikes.filter((x) => x !== currentUserData.userId);
-    }
-    updatePost(post.postId, { likes: data }).catch(() =>
-      alert("Something went wrong!")
-    );
-  }
-
-  function showMore() {
-    setShowMorePost(!showMorePost);
-  }
-
-  React.useEffect(() => {
-    postContent?.current.clientHeight > postContentWrapper?.current.clientHeight
-      ? setLongPost(true)
-      : setLongPost(false);
-  }, [post.content]);
 
   return (
     <div className={styles.postBlockWrraper}>
@@ -74,20 +59,28 @@ export default function PostBlockUnauthenticated(props) {
         >
           <div ref={postContent}>{post.content}</div>
         </div>
-        {longPost && !showMorePost && (
-          <div style={{ color: "#7c606b" }}>...</div>
-        )}
         {longPost && (
-          <div className={styles.showMoreBtn} onClick={showMore}>
-            {showMorePost ? "Show less" : "Show more"}
-          </div>
+          <>
+            {!showMorePost && <div style={{ color: "#7c606b" }}>...</div>}
+            <div className={styles.showMoreBtn} onClick={handleShowMore}>
+              {showMorePost ? "Show less" : "Show more"}
+            </div>
+          </>
         )}
       </div>
       <div className={styles.actionWrapper}>
         <div className={styles.likeWrapper}>
           <div
             ref={heart}
-            onClick={handleLike}
+            onClick={() =>
+              handleLike(
+                heart,
+                postLikes,
+                currentUserData.userId,
+                post.postId,
+                updatePost
+              )
+            }
             action={postIsLikedByCurrentUser ? "unlike" : "like"}
             style={{
               cursor:
@@ -100,7 +93,9 @@ export default function PostBlockUnauthenticated(props) {
               <EmptyHeartSVG color="#000" height="24px" width="24px" />
             )}
           </div>
-          <span>{postLikes.length}</span>
+          <span className={styles.preventHighlightSelect}>
+            {postLikes.length}
+          </span>
         </div>
       </div>
     </div>
