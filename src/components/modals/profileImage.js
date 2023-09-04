@@ -3,12 +3,8 @@ import { ExitSVG } from "../../utilities/logos";
 import { Oval } from "react-loader-spinner";
 import styles from "../../style-modules/style.module.css";
 
-export default function ProfileImage(props) {
+export default function ProfileImage({ toggleImageModal, username, img }) {
   const [imageLoaded, setImageLoaded] = useState(false);
-
-  function toggleImageModal() {
-    props.toggleImageModal();
-  }
 
   return (
     <div className={styles.profileImageModal}>
@@ -33,8 +29,8 @@ export default function ProfileImage(props) {
         />
       )}
       <img
-        src={props.img}
-        alt={props.username}
+        src={img}
+        alt={username}
         className={styles.profileImageElement}
         style={{ display: imageLoaded ? "block" : "none" }}
         onLoad={() => setImageLoaded(true)}

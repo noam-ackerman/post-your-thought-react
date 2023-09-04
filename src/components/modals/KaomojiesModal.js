@@ -18,12 +18,12 @@ const fetchKaomojies = async () => {
   return res.json();
 };
 
-export default function KaomojiesModal(props) {
+export default function KaomojiesModal({ toggleModal }) {
   const { status, data } = useQuery(["kaomojies"], fetchKaomojies);
   const modal = useRef();
 
   function handleOverlayClick(event) {
-    if (event.target !== modal.current) props.toggleModal();
+    if (event.target !== modal.current) toggleModal();
   }
 
   const ErrorDisplay = (
@@ -47,12 +47,7 @@ export default function KaomojiesModal(props) {
     <>
       <div className={styles.modalOverlay} onClick={handleOverlayClick}></div>
       <div ref={modal} className={styles.modalCardKaomojies}>
-        <button
-          className={styles.exitBtn}
-          onClick={() => {
-            props.toggleModal();
-          }}
-        >
+        <button className={styles.exitBtn} onClick={toggleModal}>
           <ExitSVG color="#7c606b" height="15px" width="15px" />
         </button>
         <div className={styles.kaomojiesContent}>

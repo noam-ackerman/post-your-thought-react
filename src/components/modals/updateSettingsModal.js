@@ -6,7 +6,7 @@ import { Oval } from "react-loader-spinner";
 import { ExitSVG } from "../../utilities/logos";
 import styles from "../../style-modules/style.module.css";
 
-export default function UpdateSettingsModal(props) {
+export default function UpdateSettingsModal({ toggleModalOpen }) {
   const {
     currentUser,
     UpdateEmail,
@@ -50,10 +50,7 @@ export default function UpdateSettingsModal(props) {
   );
 
   function handleOverlayClick(event) {
-    if (event.target !== modal.current) props.toggleModalOpen();
-  }
-  function cancelEdit() {
-    props.toggleModalOpen();
+    if (event.target !== modal.current) toggleModalOpen();
   }
 
   async function handleSubmit(e) {
@@ -148,7 +145,7 @@ export default function UpdateSettingsModal(props) {
         }}
       ></div>
       <div ref={modal} className={styles.modalCard}>
-        <button className={styles.exitBtn} onClick={cancelEdit}>
+        <button className={styles.exitBtn} onClick={toggleModalOpen}>
           <ExitSVG color="#7c606b" height="15px" width="15px" />
         </button>
         <div className={styles.SecondaryTitle}>Update Settings</div>

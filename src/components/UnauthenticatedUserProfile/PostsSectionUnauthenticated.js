@@ -4,8 +4,7 @@ import PostBlockUnauthenticated from "./postBlockUnauthenticated";
 import useRenderMorePosts from "../../utilities/customHooks/useRenderMorePosts";
 import styles from "../../style-modules/style.module.css";
 
-export default function PostsSectionUnauthenticated(props) {
-  const user = props.user;
+export default function PostsSectionUnauthenticated({ user }) {
   const { postsData } = useUsersCtx();
   const postsWrapper = React.useRef();
 

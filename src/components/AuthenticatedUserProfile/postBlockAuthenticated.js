@@ -6,8 +6,7 @@ import { formatDate, handleLike } from "../../utilities/actions";
 import useLongPost from "../../utilities/customHooks/useLongPost";
 import styles from "../../style-modules/style.module.css";
 
-export default function PostBlockAuthenticated(props) {
-  const post = props.post;
+export default function PostBlockAuthenticated({ post }) {
   const time = formatDate(post.date);
   const { updatePost, removePost, currentUserData } = useUsersCtx();
   const [editMode, setEditMode] = useState(false);

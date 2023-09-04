@@ -6,9 +6,7 @@ import { formatDate, handleLike } from "../../utilities/actions";
 import useLongPost from "../../utilities/customHooks/useLongPost";
 import styles from "../../style-modules/style.module.css";
 
-export default function PostBlockUnauthenticated(props) {
-  const user = props.user;
-  const post = props.post;
+export default function PostBlockUnauthenticated({ user, post }) {
   const time = formatDate(post.date);
   const { updatePost, currentUserData } = useUsersCtx();
   const [imageLoaded, setImageLoaded] = useState(false);

@@ -4,8 +4,7 @@ import { Oval } from "react-loader-spinner";
 import ProfileImage from "../modals/profileImage";
 import styles from "../../style-modules/style.module.css";
 
-export default function ProfileBlockUnauthenticated(props) {
-  const user = props.user;
+export default function ProfileBlockUnauthenticated({ user }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [modalImageOpen, setModalImageOpen] = useState(false);
 
