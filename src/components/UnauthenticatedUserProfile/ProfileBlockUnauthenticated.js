@@ -2,25 +2,16 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Oval } from "react-loader-spinner";
 import ProfileImage from "../modals/profileImage";
+import useToggleModal from "../../utilities/customHooks/useToggleModal";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileBlockUnauthenticated({ user }) {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [modalImageOpen, setModalImageOpen] = useState(false);
-
-  function toggleImageModal() {
-    setModalImageOpen(!modalImageOpen);
-  }
-
-  React.useEffect(() => {
-    modalImageOpen
-      ? document.querySelector("body").classList.add("modal-open")
-      : document.querySelector("body").classList.remove("modal-open");
-  }, [modalImageOpen]);
+  const [modalOpen, toggleModal] = useToggleModal();
 
   return (
     <div className={styles.profileBlockWrapper}>
-      <div className={styles.profileImageWrapper} onClick={toggleImageModal}>
+      <div className={styles.profileImageWrapper} onClick={toggleModal}>
         {!imageLoaded && (
           <Oval
             height={138}
@@ -55,10 +46,10 @@ export default function ProfileBlockUnauthenticated({ user }) {
           </div>
         )}
       </div>
-      {modalImageOpen &&
+      {modalOpen &&
         ReactDOM.createPortal(
           <ProfileImage
-            toggleImageModal={toggleImageModal}
+            toggleModal={toggleModal}
             username={user.displayName}
             img={user.photoURL}
           />,

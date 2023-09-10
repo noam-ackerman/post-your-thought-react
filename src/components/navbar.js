@@ -6,24 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { useUsersCtx } from "../context/usersContext";
 import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "../utilities/logos";
 import UpdateSettingsModal from "./modals/updateSettingsModal";
+import useToggleModal from "../utilities/customHooks/useToggleModal";
 import styles from "../style-modules/style.module.css";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { currentUser, LogoutUser } = useAuth();
-  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [modalOpen, toggleModal] = useToggleModal();
   const [imageLoaded, setImageLoaded] = useState(false);
   const { currentUserData } = useUsersCtx();
-
-  React.useEffect(() => {
-    updateModalOpen
-      ? document.querySelector("body").classList.add("modal-open")
-      : document.querySelector("body").classList.remove("modal-open");
-  }, [updateModalOpen]);
-
-  function toggleModalOpen() {
-    setUpdateModalOpen(!updateModalOpen);
-  }
 
   async function handleLogout() {
     try {
@@ -68,7 +59,7 @@ export default function Navbar() {
           <SearchSVG color="#fff" height="23px" width="23px" />
         </Link>
         <button
-          onClick={toggleModalOpen}
+          onClick={toggleModal}
           className={styles.actionButtonPrimary}
           title="Settings"
         >
@@ -82,9 +73,9 @@ export default function Navbar() {
           <LogoutSVG color="#fff" height="20px" width="20px" />
         </button>
       </div>
-      {updateModalOpen &&
+      {modalOpen &&
         ReactDOM.createPortal(
-          <UpdateSettingsModal toggleModalOpen={toggleModalOpen} />,
+          <UpdateSettingsModal toggleModal={toggleModal} />,
           document.getElementById("modal-root")
         )}
     </div>

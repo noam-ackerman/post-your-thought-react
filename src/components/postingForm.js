@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { uid } from "uid";
 import { useUsersCtx } from "../context/usersContext";
+import useToggleModal from "../utilities/customHooks/useToggleModal";
 import KaomojiesModal from "./modals/KaomojiesModal";
 import styles from "../style-modules/style.module.css";
 
@@ -9,7 +10,7 @@ export default function PostingForm() {
   const { updatePost, currentUserData } = useUsersCtx();
   const textArea = useRef();
   const [error, setError] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, toggleModal] = useToggleModal();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -27,16 +28,6 @@ export default function PostingForm() {
         setError("Something went wrong!");
       });
   }
-
-  function toggleKaomojiesModal() {
-    setModalOpen(!modalOpen);
-  }
-
-  React.useEffect(() => {
-    modalOpen
-      ? document.querySelector("body").classList.add("modal-open")
-      : document.querySelector("body").classList.remove("modal-open");
-  }, [modalOpen]);
 
   return (
     <div className={styles.postingFormWrraper}>
@@ -57,7 +48,7 @@ export default function PostingForm() {
             <button
               className={styles.postSubmitbutton}
               type="button"
-              onClick={toggleKaomojiesModal}
+              onClick={toggleModal}
               style={{ backgroundColor: "#8cb4fe" }}
             >
               Kaomojies
@@ -70,7 +61,7 @@ export default function PostingForm() {
       </form>
       {modalOpen &&
         ReactDOM.createPortal(
-          <KaomojiesModal toggleModal={toggleKaomojiesModal} />,
+          <KaomojiesModal toggleModal={toggleModal} />,
           document.getElementById("modal-root")
         )}
     </div>

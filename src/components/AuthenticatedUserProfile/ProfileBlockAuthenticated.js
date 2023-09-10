@@ -4,31 +4,18 @@ import { Oval } from "react-loader-spinner";
 import { useUsersCtx } from "../../context/usersContext";
 import EditProfileModal from "../modals/editProfileModal";
 import ProfileImage from "../modals/profileImage";
+import useToggleModal from "../../utilities/customHooks/useToggleModal";
 import styles from "../../style-modules/style.module.css";
 
 export default function ProfileBlockAuthenticated() {
   const { currentUserData } = useUsersCtx();
-  const [editProfileModalOpen, setEditProfileModalOpen] = useState(false);
-  const [modalImageOpen, setModalImageOpen] = useState(false);
+  const [modalOpen1, toggleModal1] = useToggleModal();
+  const [modalOpen2, toggleModal2] = useToggleModal();
   const [imageLoaded, setImageLoaded] = useState(false);
-
-  function toggleImageModal() {
-    setModalImageOpen(!modalImageOpen);
-  }
-
-  function toggleEditProfileModalOpen() {
-    setEditProfileModalOpen(!editProfileModalOpen);
-  }
-
-  React.useEffect(() => {
-    editProfileModalOpen || modalImageOpen
-      ? document.querySelector("body").classList.add("modal-open")
-      : document.querySelector("body").classList.remove("modal-open");
-  }, [editProfileModalOpen, modalImageOpen]);
 
   return (
     <div className={styles.profileBlockWrapper}>
-      <div className={styles.profileImageWrapper} onClick={toggleImageModal}>
+      <div className={styles.profileImageWrapper} onClick={toggleModal1}>
         {!imageLoaded && (
           <Oval
             height={138}
@@ -65,24 +52,24 @@ export default function ProfileBlockAuthenticated() {
           </div>
         )}
         <button
-          onClick={toggleEditProfileModalOpen}
+          onClick={toggleModal2}
           className={`${styles.actionButtonPrimary} ${styles.marginTopBottom1}`}
         >
           Edit Profile
         </button>
       </div>
-      {editProfileModalOpen &&
-        ReactDOM.createPortal(
-          <EditProfileModal toggleModalOpen={toggleEditProfileModalOpen} />,
-          document.getElementById("modal-root")
-        )}
-      {modalImageOpen &&
+      {modalOpen1 &&
         ReactDOM.createPortal(
           <ProfileImage
-            toggleImageModal={toggleImageModal}
+            toggleModal={toggleModal1}
             username={currentUserData.displayName}
             img={currentUserData.photoURL}
           />,
+          document.getElementById("modal-root")
+        )}
+      {modalOpen2 &&
+        ReactDOM.createPortal(
+          <EditProfileModal toggleModal={toggleModal2} />,
           document.getElementById("modal-root")
         )}
     </div>

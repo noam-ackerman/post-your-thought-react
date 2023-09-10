@@ -5,7 +5,7 @@ import { Oval } from "react-loader-spinner";
 import { ExitSVG } from "../../utilities/logos";
 import styles from "../../style-modules/style.module.css";
 
-export default function EditProfileModal({ toggleModalOpen }) {
+export default function EditProfileModal({ toggleModal }) {
   const { UpdateProfile } = useAuth();
   const { updateUserDatabase, currentUserData, uploadImageToStorageAndGetUrl } =
     useUsersCtx();
@@ -18,7 +18,7 @@ export default function EditProfileModal({ toggleModalOpen }) {
   const bioInput = useRef();
 
   function handleOverlayClick(event) {
-    if (event.target !== modal.current) toggleModalOpen();
+    if (event.target !== modal.current) toggleModal();
   }
 
   async function handleImageUpload(e) {
@@ -71,7 +71,7 @@ export default function EditProfileModal({ toggleModalOpen }) {
           bio: bioInput.current.value,
         });
       }
-      toggleModalOpen();
+      toggleModal();
     } catch {
       setError("Something went wrong!");
     } finally {
@@ -87,7 +87,7 @@ export default function EditProfileModal({ toggleModalOpen }) {
     <>
       <div className={styles.modalOverlay} onClick={handleOverlayClick}></div>
       <div ref={modal} className={styles.modalCard}>
-        <button className={styles.exitBtn} onClick={toggleModalOpen}>
+        <button className={styles.exitBtn} onClick={toggleModal}>
           <ExitSVG color="#7c606b" height="15px" width="15px" />
         </button>
         <div className={styles.SecondaryTitle}>Update Profile</div>

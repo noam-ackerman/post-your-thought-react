@@ -3,14 +3,14 @@ import { ExitSVG } from "../../utilities/logos";
 import { Oval } from "react-loader-spinner";
 import styles from "../../style-modules/style.module.css";
 
-export default function ProfileImage({ toggleImageModal, username, img }) {
+export default function ProfileImage({ toggleModal, username, img }) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <div className={styles.profileImageModal}>
       <button
         className={`${styles.exitBtn} ${styles.exitBtnBackground}`}
-        onClick={toggleImageModal}
+        onClick={toggleModal}
       >
         <ExitSVG color="#7c606b" height="23px" width="23px" />
       </button>
