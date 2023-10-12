@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ExitSVG, CopySvg } from "../../utilities/logos";
-import { Oval } from "react-loader-spinner";
+import { OvalContainer } from "../../utilities/spinners";
 import styles from "../../style-modules/style.module.css";
 
 const fetchKaomojies = async () => {
@@ -74,18 +74,7 @@ export default function KaomojiesModal({ toggleModal }) {
             status === "error" ? (
             ErrorDisplay
           ) : status === "loading" ? (
-            <Oval
-              height={138}
-              width={138}
-              color="#B5A1FF"
-              wrapperStyle={{}}
-              wrapperClass={styles.ovalContainer}
-              visible={true}
-              ariaLabel="oval-loading"
-              secondaryColor="#B5A1FF"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
+            <OvalContainer />
           ) : null}
         </div>
       </div>

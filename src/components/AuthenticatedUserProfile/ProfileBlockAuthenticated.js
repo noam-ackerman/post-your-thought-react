@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { Oval } from "react-loader-spinner";
+import { OvalContainer } from "../../utilities/spinners";
 import { useUsersCtx } from "../../context/usersContext";
 import EditProfileModal from "../modals/editProfileModal";
 import ProfileImage from "../modals/profileImage";
@@ -16,20 +16,7 @@ export default function ProfileBlockAuthenticated() {
   return (
     <div className={styles.profileBlockWrapper}>
       <div className={styles.profileImageWrapper} onClick={toggleModal1}>
-        {!imageLoaded && (
-          <Oval
-            height={138}
-            width={138}
-            color="#B5A1FF"
-            wrapperStyle={{}}
-            wrapperClass={styles.ovalContainer}
-            visible={true}
-            ariaLabel="oval-loading"
-            secondaryColor="#B5A1FF"
-            strokeWidth={2}
-            strokeWidthSecondary={2}
-          />
-        )}
+        {!imageLoaded && <OvalContainer />}
         <img
           style={{ display: imageLoaded ? "block" : "none" }}
           src={currentUserData.photoURL}

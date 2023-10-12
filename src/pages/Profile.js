@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useUsersCtx } from "../context/usersContext";
-import { Hearts } from "react-loader-spinner";
+import { HeartsPageLoader } from "../utilities/spinners";
 import ProfileBlockAuthenticated from "../components/AuthenticatedUserProfile/ProfileBlockAuthenticated";
 import PostsSectionAuthenticated from "../components/AuthenticatedUserProfile/PostsSectionAuthenticated";
 import ProfileBlockUnauthenticated from "../components/UnauthenticatedUserProfile/ProfileBlockUnauthenticated";
@@ -37,16 +37,6 @@ export default function Profile() {
       </>
     );
   } else {
-    return (
-      <Hearts
-        height="200"
-        width="200"
-        color="#B5A1FF"
-        ariaLabel="hearts-loading"
-        wrapperStyle={{}}
-        wrapperClass={styles.heartsPageLoader}
-        visible={true}
-      />
-    );
+    return <HeartsPageLoader />;
   }
 }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
-import { Oval } from "react-loader-spinner";
+import { OvalLargeThumbnail } from "../../utilities/spinners";
 import { ExitSVG } from "../../utilities/logos";
 import styles from "../../style-modules/style.module.css";
 
@@ -95,20 +95,7 @@ export default function EditProfileModal({ toggleModal }) {
           {error && <div className={styles.formError}>{error}</div>}
           <div className={styles.inputGroup}>
             <div className={styles.profileImgModalWrapper}>
-              {loading && (
-                <Oval
-                  height={138}
-                  width={138}
-                  color="#B5A1FF"
-                  wrapperStyle={{}}
-                  wrapperClass={styles.ovalThumbnail}
-                  visible={true}
-                  ariaLabel="oval-loading"
-                  secondaryColor="#B5A1FF"
-                  strokeWidth={2}
-                  strokeWidthSecondary={2}
-                />
-              )}
+              {loading && <OvalLargeThumbnail />}
               <img
                 className={styles.profileImgModal}
                 src={imgUrl}

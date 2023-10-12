@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useUsersCtx } from "../context/usersContext";
 import { Link } from "react-router-dom";
-import { Hearts } from "react-loader-spinner";
+import { HeartsPageLoader } from "../utilities/spinners";
 import styles from "../style-modules/style.module.css";
 
 export default function Search() {
@@ -62,15 +62,7 @@ export default function Search() {
           </div>
         </div>
       ) : (
-        <Hearts
-          height="200"
-          width="200"
-          color="#B5A1FF"
-          ariaLabel="hearts-loading"
-          wrapperStyle={{}}
-          wrapperClass={styles.heartsPageLoader}
-          visible={true}
-        />
+        <HeartsPageLoader />
       )}
     </>
   );

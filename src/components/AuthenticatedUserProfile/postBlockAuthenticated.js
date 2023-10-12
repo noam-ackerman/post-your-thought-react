@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../../utilities/logos";
 import { formatDate, handleLike } from "../../utilities/actions";
 import useLongPost from "../../utilities/customHooks/useLongPost";
+import useToggleBtnClick from "../../utilities/customHooks/useToggleButtonClick";
 import styles from "../../style-modules/style.module.css";
 
 export default function PostBlockAuthenticated({ post }) {
@@ -11,14 +12,15 @@ export default function PostBlockAuthenticated({ post }) {
   const { updatePost, removePost, currentUserData } = useUsersCtx();
   const [editMode, setEditMode] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [clickedOnce, setClickedOnce] = useState(false);
-
   const heart = useRef();
   const postContentWrapper = useRef();
   const postContent = useRef();
   const deletePostBtn = useRef();
   const textAreaEdit = useRef();
 
+  const [btnClickedOnce, setBtnClickedOnce] = useToggleBtnClick(
+    deletePostBtn?.current
+  );
   const [longPost, showMorePost, setShowMorePost, handleShowMore] = useLongPost(
     editMode,
     post.content,
@@ -30,12 +32,12 @@ export default function PostBlockAuthenticated({ post }) {
   const postIsLikedByCurrentUser = postLikes.includes(currentUserData.userId);
 
   async function handleDeletePost() {
-    if (!clickedOnce) {
-      setClickedOnce(true);
+    if (!btnClickedOnce) {
+      setBtnClickedOnce(true);
       return;
     } else {
       removePost(post.postId).catch(() => alert("Something went wrong!"));
-      setClickedOnce(false);
+      setBtnClickedOnce(false);
     }
   }
 
@@ -52,20 +54,6 @@ export default function PostBlockAuthenticated({ post }) {
       setEditMode(false);
     }
   }
-
-  const handleDocumentClick = React.useCallback(
-    (e) => {
-      if (clickedOnce && e.target !== deletePostBtn.current) {
-        setClickedOnce(false);
-      }
-    },
-    [clickedOnce]
-  );
-
-  React.useEffect(() => {
-    document.addEventListener("click", handleDocumentClick);
-    return () => document.removeEventListener("click", handleDocumentClick);
-  }, [handleDocumentClick]);
 
   return (
     <div className={styles.postBlockWrraper}>
@@ -155,7 +143,7 @@ export default function PostBlockAuthenticated({ post }) {
           ref={deletePostBtn}
           onClick={handleDeletePost}
         >
-          {clickedOnce ? "Sure? 'Y'" : "Delete"}
+          {btnClickedOnce ? "Sure? 'Y'" : "Delete"}
         </button>{" "}
       </div>
     </div>

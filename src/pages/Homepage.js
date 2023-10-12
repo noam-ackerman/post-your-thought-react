@@ -1,7 +1,7 @@
 import React from "react";
 import { useUsersCtx } from "../context/usersContext";
 import { useAuth } from "../context/AuthContext";
-import { Hearts } from "react-loader-spinner";
+import { HeartsPageLoader } from "../utilities/spinners";
 import PostingForm from "../components/postingForm";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
@@ -118,15 +118,7 @@ export default function Homepage() {
           </div>
         </>
       ) : (
-        <Hearts
-          height="200"
-          width="200"
-          color="#B5A1FF"
-          ariaLabel="hearts-loading"
-          wrapperStyle={{}}
-          wrapperClass={styles.heartsPageLoader}
-          visible={true}
-        />
+        <HeartsPageLoader />
       )}
     </>
   );
