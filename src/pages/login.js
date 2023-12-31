@@ -20,10 +20,11 @@ export default function Login() {
       await LoginUser(emailInput.current.value, passwordInput.current.value);
       navigate("/");
     } catch (err) {
-      if (err.code === "auth/user-not-found") {
-        setError("Failed to Login! User not Found.");
-      } else if (err.code === "auth/wrong-password") {
-        setError("Failed to Login! Wrong password.");
+      if (
+        err.code === "auth/user-not-found" ||
+        err.code === "auth/wrong-password"
+      ) {
+        setError("Email/Password are incorrect.");
       } else if (err.code === "auth/too-many-requests") {
         setError("Too Many Failed Logins! try again later.");
       } else {
