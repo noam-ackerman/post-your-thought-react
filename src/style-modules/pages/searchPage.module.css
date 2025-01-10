@@ -1,0 +1,106 @@
+.containter {
+  padding: 3.5rem 1.8rem 4rem;
+}
+
+.title {
+  color: #ccbfff;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #7c606b;
+  font-size: 2.5rem;
+  font-weight: 700;
+  padding: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+}
+
+.input {
+  width: min(600px, 100%);
+  font-family: "Cutive Mono", monospace;
+  display: block;
+  padding: 20px 15px;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: none;
+  font-size: 1rem;
+  letter-spacing: -0.5px;
+  font-weight: 500;
+  margin: 1.5rem auto 2.5rem;
+}
+
+.wrapper {
+  width: min(600px, 100%);
+  margin: 1rem auto 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.7rem;
+}
+
+.card {
+  width: 100%;
+  background-color: rgb(187, 233, 255);
+  border: 3px solid #fff;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  text-decoration: none;
+  transition: all 50ms ease-in-out;
+}
+
+.card:hover {
+  border-color: #ccbfff;
+}
+
+.username {
+  font-family: "Sigmar", cursive;
+  color: #eda4bd;
+  font-weight: 500;
+  font-size: 1.2rem;
+  word-break: break-word;
+}
+
+.userImgThumbnailWrapper {
+  width: 75px;
+  height: 75px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.userImgThumbnail {
+  border-radius: 999px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 550px) {
+  .card {
+    padding: 2rem 1.15rem;
+    gap: 0.8rem;
+  }
+  .title {
+    font-size: 2.1rem;
+  }
+  .username {
+    font-size: 0.9rem;
+  }
+  .userImgThumbnailWrapper {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+@media (max-width: 350px) {
+  .username {
+    font-size: 0.7rem;
+  }
+  .userImgThumbnailWrapper {
+    width: 45px;
+    height: 45px;
+  }
+}

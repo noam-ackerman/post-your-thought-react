@@ -1,0 +1,51 @@
+.footer {
+  background-color: #eed5c2;
+  width: 100%;
+  padding: 1rem 0.2rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 10px 10px;
+  text-align: center;
+  margin-top: auto;
+  color: #7c606b;
+  font-family: "Cutive Mono", monospace;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.6rem;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+}
+
+.footer a {
+  font-family: "Sigmar", cursive;
+  font-size: 11px;
+  color: #7c606b;
+  letter-spacing: 0.5px;
+  transition: all 150ms ease;
+  text-decoration: none;
+  background-color: rgb(187, 233, 255, 0.8);
+  padding: 0 4px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 649px) {
+  .footer {
+    font-size: 9px;
+    padding: 0.6rem 0.2rem;
+  }
+  .footer a {
+    font-size: 6.5px;
+  }
+}
+
+@media (max-width: 350px) {
+  .footer {
+    font-size: 8px;
+  }
+  .footer a {
+    font-size: 5px;
+  }
+}

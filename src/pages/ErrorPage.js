@@ -1,12 +1,13 @@
 import React from "react";
-import styles from "../style-modules/style.module.css";
+import styles from "../style-modules/global.module.css";
+import errorPageStyles from "../style-modules/pages/errorPage.module.css";
 
 export default function ErrorPage() {
   return (
     <>
-      <div className={styles.ErrorContainer}>
+      <div className={errorPageStyles.container}>
         <div className={styles.MainTitle}>Something Went Wrong :(</div>
-        <div className={styles.errorPageMessage}>
+        <div className={errorPageStyles.text}>
           Try to refresh the page or return later.
           <br />
           If this error still occurs,

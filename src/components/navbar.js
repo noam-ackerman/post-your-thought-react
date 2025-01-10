@@ -7,7 +7,8 @@ import { useUsersCtx } from "../context/usersContext";
 import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "../utilities/logos";
 import UpdateSettingsModal from "./modals/updateSettingsModal";
 import useToggleModal from "../utilities/customHooks/useToggleModal";
-import styles from "../style-modules/style.module.css";
+import navbarStyles from "../style-modules/components/navbar.modules.css";
+import styles from "../style-modules/global.module.css";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -26,19 +27,19 @@ export default function Navbar() {
   }
 
   return (
-    <div className={styles.navContainer}>
-      <div className={styles.MainTitleNav}>
+    <div className={navbarStyles.navContainer}>
+      <div className={navbarStyles.MainTitleNav}>
         <Link to="/">Post Your Thought.</Link>
       </div>
       <div className={styles.actionWrapper}>
-        <div className={styles.usernameNav}>
+        <div className={navbarStyles.usernameNav}>
           Hi {currentUserData?.displayName || currentUser?.displayName}{" "}
           <span>(✧ω✧)☆</span>
         </div>
         <Link
           to={`/${currentUserData?.userId}`}
           title="My Profile"
-          className={`${styles.profileImgThumbnailWrapper} ${styles.profileImageNav}`}
+          className={`${styles.profileImgThumbnailWrapper} ${navbarStyles.profileImageNav}`}
         >
           <img
             className={styles.profileImgThumbnail}

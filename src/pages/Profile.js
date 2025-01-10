@@ -7,7 +7,7 @@ import ProfileBlockAuthenticated from "../components/AuthenticatedUserProfile/Pr
 import PostsSectionAuthenticated from "../components/AuthenticatedUserProfile/PostsSectionAuthenticated";
 import ProfileBlockUnauthenticated from "../components/UnauthenticatedUserProfile/ProfileBlockUnauthenticated";
 import PostsSectionUnauthenticated from "../components/UnauthenticatedUserProfile/PostsSectionUnauthenticated";
-import styles from "../style-modules/style.module.css";
+import profileStyles from "../style-modules/pages/profile.module.css";
 
 export default function Profile() {
   const { currentUser } = useAuth();
@@ -17,7 +17,7 @@ export default function Profile() {
 
   if (userCurrentlyAuthenticated && postsData && currentUserData) {
     return (
-      <div className={styles.profileContainerContent}>
+      <div className={profileStyles.container}>
         <ProfileBlockAuthenticated />
         <PostsSectionAuthenticated />
       </div>
@@ -27,7 +27,7 @@ export default function Profile() {
     return (
       <>
         {userExist ? (
-          <div className={styles.profileContainerContent}>
+          <div className={profileStyles.container}>
             <ProfileBlockUnauthenticated user={usersData[userId]} />
             <PostsSectionUnauthenticated user={usersData[userId]} />
           </div>

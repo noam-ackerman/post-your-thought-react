@@ -1,15 +1,15 @@
 import React from "react";
-import styles from "../style-modules/style.module.css";
+import footerStyles from "../style-modules/components/footer.modules.css";
 
 export default function Footer() {
   return (
-    <div className={styles.footer}>
+    <div className={footerStyles.footer}>
       This site is an{" "}
       <a
         href="https://github.com/noam-ackerman/post-your-thought-react"
         target="_blank"
         rel="noreferrer"
-        className={styles.codeLink}
+        className={footerStyles.codeLink}
       >
         open-source code
       </a>{" "}
@@ -18,7 +18,7 @@ export default function Footer() {
         href="https://www.linkedin.com/in/noam-ackerman/"
         target="_blank"
         rel="noreferrer"
-        className={styles.codeLink}
+        className={footerStyles.codeLink}
       >
         Noam Ackerman
       </a>

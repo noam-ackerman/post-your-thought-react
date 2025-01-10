@@ -2,7 +2,8 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { OvalBtn } from "../utilities/spinners";
-import styles from "../style-modules/style.module.css";
+import styles from "../style-modules/global.module.css";
+import authStyles from "../style-modules/pages/authPage.module.css";
 
 export default function Signup() {
   const { SignupUser } = useAuth();
@@ -39,16 +40,16 @@ export default function Signup() {
   }
 
   return (
-    <div className={styles.AuthContainer}>
+    <div className={authStyles.container}>
       <div className={styles.MainTitle}>Post Your Thought.</div>
-      <div className={styles.cardPrimary}>
+      <div className={authStyles.card}>
         <div className={styles.SecondaryTitle}>Sign Up</div>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          {error && <div className={styles.formError}>{error}</div>}
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Email</label>
+        <form className={authStyles.form} onSubmit={handleSubmit}>
+          {error && <div className={authStyles.error}>{error}</div>}
+          <div className={authStyles.inputGroup}>
+            <label className={authStyles.inputLabel}>Email</label>
             <input
-              className={styles.input}
+              className={authStyles.input}
               type="email"
               ref={emailInput}
               name="email"
@@ -57,10 +58,10 @@ export default function Signup() {
               required
             />
           </div>
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Password</label>
+          <div className={authStyles.inputGroup}>
+            <label className={authStyles.inputLabel}>Password</label>
             <input
-              className={styles.input}
+              className={authStyles.input}
               type="password"
               ref={passwordInput}
               name="password"
@@ -69,10 +70,12 @@ export default function Signup() {
               required
             />
           </div>
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Password Confirmation</label>
+          <div className={authStyles.inputGroup}>
+            <label className={authStyles.inputLabel}>
+              Password Confirmation
+            </label>
             <input
-              className={styles.input}
+              className={authStyles.input}
               type="password"
               ref={passwordConfirmInput}
               name="password-confirmation"
@@ -82,7 +85,7 @@ export default function Signup() {
             />
           </div>
           <button
-            className={styles.submitButton}
+            className={authStyles.submitButton}
             type="submit"
             disabled={loading}
           >
@@ -91,7 +94,7 @@ export default function Signup() {
           </button>
         </form>
       </div>
-      <div className={styles.linkText}>
+      <div className={authStyles.linkText}>
         Already have an account? <Link to="/login">Login</Link>
       </div>
     </div>

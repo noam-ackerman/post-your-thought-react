@@ -6,16 +6,16 @@ import PostingForm from "../components/postingForm";
 import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
 import useRenderMorePosts from "../utilities/customHooks/useRenderMorePosts";
-import styles from "../style-modules/style.module.css";
+import styles from "../style-modules/global.module.css";
 
 export default function Homepage() {
   const { currentUser } = useAuth();
   const { usersData, postsData, currentUserData } = useUsersCtx();
   const welcome = React.useRef();
   const title = React.useRef();
-  const postsWrapper = React.useRef();
+  const feedsWrapper = React.useRef();
   const [numDisplayedPosts] = useRenderMorePosts(
-    postsWrapper,
+    feedsWrapper,
     postsData?.length
   );
 
@@ -44,7 +44,7 @@ export default function Homepage() {
       {dataLoaded ? (
         <>
           <div className={styles.heroBanner}>
-            <div ref={welcome} className={styles.welcomeText}>
+            <div ref={welcome} className={styles.heroBannerText}>
               <span style={{ color: "#eed5c2" }}>W</span>
               <span style={{ color: "#ccbfff" }}>E</span>
               <span style={{ color: "#c1f7dc" }}>L</span>
@@ -55,10 +55,10 @@ export default function Homepage() {
             </div>
           </div>
           <div
-            ref={postsWrapper}
-            className={`${styles.hpPostsWrapper} ${styles.marginAuto}`}
+            ref={feedsWrapper}
+            className={`${styles.feedsWrapper} ${styles.marginAuto}`}
           >
-            <div ref={title} className={styles.titleHpText}>
+            <div ref={title} className={styles.homepageTitle}>
               <span>U</span>
               <span>s</span>
               <span>e</span>

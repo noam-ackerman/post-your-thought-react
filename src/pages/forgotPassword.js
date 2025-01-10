@@ -2,7 +2,8 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { OvalBtn } from "../utilities/spinners";
-import styles from "../style-modules/style.module.css";
+import styles from "../style-modules/global.module.css";
+import authStyles from "../style-modules/pages/authPage.module.css";
 
 export default function ForgotPassword() {
   const { resetPassword } = useAuth();
@@ -26,17 +27,17 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className={styles.AuthContainer}>
+    <div className={authStyles.container}>
       <div className={styles.MainTitle}>Post Your Thought.</div>
-      <div className={styles.cardPrimary}>
+      <div className={authStyles.card}>
         <div className={styles.SecondaryTitle}>Reset Password</div>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          {error && <div className={styles.formError}>{error}</div>}
-          {message && <div className={styles.formMessage}>{message}</div>}
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Email</label>
+        <form className={authStyles.form} onSubmit={handleSubmit}>
+          {error && <div className={authStyles.error}>{error}</div>}
+          {message && <div className={authStyles.message}>{message}</div>}
+          <div className={authStyles.inputGroup}>
+            <label className={authStyles.inputLabel}>Email</label>
             <input
-              className={styles.input}
+              className={authStyles.input}
               type="email"
               ref={emailInput}
               name="email"
@@ -46,7 +47,7 @@ export default function ForgotPassword() {
             />
           </div>
           <button
-            className={styles.submitButton}
+            className={authStyles.submitButton}
             type="submit"
             disabled={loading}
           >
@@ -54,7 +55,7 @@ export default function ForgotPassword() {
             <span style={{ opacity: loading && "0" }}>Reset Password</span>
           </button>
         </form>
-        <div className={styles.linkText}>
+        <div className={authStyles.linkText}>
           <Link to="/login">Log in</Link>
         </div>
       </div>

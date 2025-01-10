@@ -4,7 +4,8 @@ import { uid } from "uid";
 import { useUsersCtx } from "../context/usersContext";
 import useToggleModal from "../utilities/customHooks/useToggleModal";
 import KaomojiesModal from "./modals/KaomojiesModal";
-import styles from "../style-modules/style.module.css";
+import styles from "../style-modules/global.module.css";
+import postsStyles from "../style-modules/components/posts.module.css";
 
 export default function PostingForm() {
   const { updatePost, currentUserData } = useUsersCtx();
@@ -30,30 +31,30 @@ export default function PostingForm() {
   }
 
   return (
-    <div className={styles.postingFormWrraper}>
+    <div className={postsStyles.formWrapper}>
       <form
         className={styles.form}
         onSubmit={handleSubmit}
         style={{ gap: "1.6rem" }}
       >
         <textarea
-          className={styles.textArea}
+          className={postsStyles.textArea}
           required
           ref={textArea}
           placeholder="Post your thought here..."
         />
-        <div className={styles.postFormActionWrapper}>
-          {error && <div className={styles.postFormError}>{error}</div>}
-          <div className={styles.buttonsFlex}>
+        <div className={postsStyles.actionsWrapper} style={{ width: "100%" }}>
+          {error && <div className={postsStyles.error}>{error}</div>}
+          <div className={postsStyles.actionsWrapper}>
             <button
-              className={styles.postSubmitbutton}
+              className={postsStyles.submitButton}
               type="button"
               onClick={toggleModal}
               style={{ backgroundColor: "#8cb4fe" }}
             >
               Kaomojies
             </button>
-            <button className={styles.postSubmitbutton} type="submit">
+            <button className={postsStyles.submitButton} type="submit">
               Post
             </button>
           </div>

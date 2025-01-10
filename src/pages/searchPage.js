@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useUsersCtx } from "../context/usersContext";
 import { Link } from "react-router-dom";
 import { HeartsPageLoader } from "../utilities/spinners";
-import styles from "../style-modules/style.module.css";
+import searchPageStyles from "../style-modules/pages/searchPage.module.css";
 
 export default function Search() {
   const { usersData } = useUsersCtx();
@@ -27,33 +27,33 @@ export default function Search() {
   return (
     <>
       {usersData ? (
-        <div className={styles.SearchPageContainter}>
-          <div className={styles.SearchTitle}>Search Users</div>
+        <div className={searchPageStyles.containter}>
+          <div className={searchPageStyles.title}>Search Users</div>
           <input
-            className={styles.searchInput}
+            className={searchPageStyles.input}
             type="text"
             ref={searchInput}
             name="search"
             placeholder="Search username/email"
             onChange={handleChange}
           />
-          <div className={styles.searchResultsWrapper}>
+          <div className={searchPageStyles.wrapper}>
             {scoredUsers.length > 0 &&
               scoredUsers.map((user, index) => {
                 return (
                   <Link
                     to={`/${user.userId}`}
                     key={index}
-                    className={styles.userCard}
+                    className={searchPageStyles.card}
                   >
-                    <div className={styles.profileImgLargerThumbnailWrapper}>
+                    <div className={searchPageStyles.userImgThumbnailWrapper}>
                       <img
-                        className={styles.profileImgThumbnail}
+                        className={searchPageStyles.userImgThumbnail}
                         src={user.photoURL}
                         alt={user.email}
                       />
                     </div>
-                    <div className={styles.usernameResult}>
+                    <div className={searchPageStyles.username}>
                       {user.displayName}
                     </div>
                   </Link>
