@@ -4,7 +4,8 @@ import { useUsersCtx } from "../../context/usersContext";
 import { useNavigate } from "react-router-dom";
 import { OvalBtn } from "../../utilities/spinners";
 import { ExitSVG } from "../../utilities/logos";
-import styles from "../../style-modules/style.module.css";
+import styles from "../../style-modules/global.module.css";
+import modalStyles from "../../style-modules/components/modals.module.css";
 
 export default function UpdateSettingsModal({ toggleModal }) {
   const {
@@ -122,25 +123,25 @@ export default function UpdateSettingsModal({ toggleModal }) {
   return (
     <>
       <div
-        className={styles.modalOverlay}
+        className={modalStyles.modalOverlay}
         onClick={handleOverlayClick}
         style={{
           backgroundColor: deleting && "#c1f7dc",
           opacity: deleting && "1",
         }}
       ></div>
-      <div ref={modal} className={styles.modalCard}>
-        <button className={styles.exitBtn} onClick={toggleModal}>
+      <div ref={modal} className={modalStyles.modalCard}>
+        <button className={modalStyles.exitBtn} onClick={toggleModal}>
           <ExitSVG color="#7c606b" height="15px" width="15px" />
         </button>
         <div className={styles.SecondaryTitle}>Update Settings</div>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          {error && <div className={styles.formError}>{error}</div>}
-          {message && <div className={styles.formMessage}>{message}</div>}
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Email</label>
+        <form className={modalStyles.form} onSubmit={handleSubmit}>
+          {error && <div className={modalStyles.formError}>{error}</div>}
+          {message && <div className={modalStyles.formMessage}>{message}</div>}
+          <div className={modalStyles.inputGroup}>
+            <label className={modalStyles.inputLabel}>Email</label>
             <input
-              className={styles.input}
+              className={modalStyles.input}
               type="email"
               ref={emailInput}
               name="email"
@@ -149,10 +150,10 @@ export default function UpdateSettingsModal({ toggleModal }) {
               required
             />
           </div>
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Old Password</label>
+          <div className={modalStyles.inputGroup}>
+            <label className={modalStyles.inputLabel}>Old Password</label>
             <input
-              className={styles.input}
+              className={modalStyles.input}
               type="password"
               ref={oldPasswordInput}
               name="old-password"
@@ -161,10 +162,10 @@ export default function UpdateSettingsModal({ toggleModal }) {
               required
             />
           </div>
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>New Password</label>
+          <div className={modalStyles.inputGroup}>
+            <label className={modalStyles.inputLabel}>New Password</label>
             <input
-              className={styles.input}
+              className={modalStyles.input}
               type="password"
               autoComplete="new-password"
               ref={newPasswordInput}
@@ -172,12 +173,12 @@ export default function UpdateSettingsModal({ toggleModal }) {
               placeholder="Leave blank to keep"
             />
           </div>
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>
+          <div className={modalStyles.inputGroup}>
+            <label className={modalStyles.inputLabel}>
               New Password Confirmation
             </label>
             <input
-              className={styles.input}
+              className={modalStyles.input}
               type="password"
               ref={newPasswordConfirmInput}
               autoComplete="off"
@@ -185,9 +186,9 @@ export default function UpdateSettingsModal({ toggleModal }) {
               placeholder="Leave blank to keep"
             />
           </div>
-          <div className={styles.settingsActions}>
+          <div className={modalStyles.settingsActions}>
             <button
-              className={styles.submitButton}
+              className={modalStyles.submitButton}
               type="submit"
               disabled={loading}
             >
@@ -195,7 +196,7 @@ export default function UpdateSettingsModal({ toggleModal }) {
               <span style={{ opacity: loading && "0" }}>Update</span>
             </button>
             <button
-              className={styles.deleteAccountBtn}
+              className={modalStyles.deleteAccountBtn}
               onClick={handleDeleteUser}
               disabled={loading}
               type="button"

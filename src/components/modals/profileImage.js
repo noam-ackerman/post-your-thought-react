@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { ExitSVG } from "../../utilities/logos";
 import { OvalContainer } from "../../utilities/spinners";
-import styles from "../../style-modules/style.module.css";
+import modalStyles from "../../style-modules/components/modals.module.css";
 
 export default function ProfileImage({ toggleModal, username, img }) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div className={styles.profileImageModal}>
+    <div className={modalStyles.profileImageModal}>
       <button
-        className={`${styles.exitBtn} ${styles.exitBtnBackground}`}
+        className={`${modalStyles.exitBtn} ${modalStyles.exitBtnBackground}`}
         onClick={toggleModal}
       >
         <ExitSVG color="#7c606b" height="23px" width="23px" />
@@ -18,7 +18,7 @@ export default function ProfileImage({ toggleModal, username, img }) {
       <img
         src={img}
         alt={username}
-        className={styles.profileImageElement}
+        className={modalStyles.profileImageElement}
         style={{ display: imageLoaded ? "block" : "none" }}
         onLoad={() => setImageLoaded(true)}
       />

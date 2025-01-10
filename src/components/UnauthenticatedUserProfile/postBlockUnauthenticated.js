@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { EmptyHeartSVG, FullHeartSVG } from "../../utilities/logos";
 import { formatDate, handleLike } from "../../utilities/actions";
 import useLongPost from "../../utilities/customHooks/useLongPost";
-import styles from "../../style-modules/style.module.css";
+import styles from "../../style-modules/global.module.css";
 import postsStyles from "../../style-modules/components/posts.module.css";
 
 export default function PostBlockUnauthenticated({ user, post }) {

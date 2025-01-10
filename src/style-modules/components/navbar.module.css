@@ -1,4 +1,4 @@
-.navContainer {
+.container {
   background-color: #eed5c2;
   width: 100%;
   padding: 20px 25px;
@@ -10,7 +10,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 10px -10px;
 }
 
-.MainTitleNav a {
+.MainTitle a {
   font-family: "Sigmar", cursive;
   color: #eda4bd;
   font-size: 2rem;
@@ -19,7 +19,7 @@
   -webkit-text-stroke-color: #fff;
 }
 
-.usernameNav {
+.username {
   color: #7c606b;
   background-color: rgb(187, 233, 255, 0.8);
   font-weight: 600;
@@ -28,46 +28,46 @@
 }
 
 @media (min-width: 650px) and (max-width: 1024px) {
-  .navContainer {
+  .container {
     gap: 8px;
   }
 }
 
 @media (max-width: 1024px) {
-  .navContainer {
+  .container {
     padding-bottom: 23px;
   }
-  .usernameNav {
+  .username {
     order: 6;
   }
-  .profileImageNav {
+  .profileImage {
     order: 5;
   }
 }
 
 @media (max-width: 649px) {
-  .navContainer {
+  .container {
     gap: 5px;
   }
 }
 
 @media (max-width: 550px) {
-  .MainTitleNav a {
+  .MainTitle a {
     font-size: 1.75rem;
   }
-  .usernameNav {
+  .username {
     margin-top: 5px;
   }
 }
 
 @media (max-width: 350px) {
-  .MainTitleNav a {
+  .MainTitle a {
     font-size: 1.5rem;
   }
-  .usernameNav span {
+  .username span {
     display: none;
   }
-  .usernameNav {
+  .username {
     font-size: 0.8rem;
   }
 }

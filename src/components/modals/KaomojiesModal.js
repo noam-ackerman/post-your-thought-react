@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ExitSVG, CopySvg } from "../../utilities/logos";
 import { OvalContainer } from "../../utilities/spinners";
-import styles from "../../style-modules/style.module.css";
+import modalStyles from "../../style-modules/components/modals.module.css";
 
 const fetchKaomojies = async () => {
   const res = await fetch(
@@ -27,7 +27,7 @@ export default function KaomojiesModal({ toggleModal }) {
   }
 
   const ErrorDisplay = (
-    <div className={styles.errorPageMessage}>
+    <div className={modalStyles.kaomojiesError}>
       Something Went Wrong (*꒦ິ⌒꒦ີ)
       <br />
       Try Again Later!
@@ -45,18 +45,21 @@ export default function KaomojiesModal({ toggleModal }) {
 
   return (
     <>
-      <div className={styles.modalOverlay} onClick={handleOverlayClick}></div>
-      <div ref={modal} className={styles.modalCardKaomojies}>
-        <button className={styles.exitBtn} onClick={toggleModal}>
+      <div
+        className={modalStyles.modalOverlay}
+        onClick={handleOverlayClick}
+      ></div>
+      <div ref={modal} className={modalStyles.modalCardKaomojies}>
+        <button className={modalStyles.exitBtn} onClick={toggleModal}>
           <ExitSVG color="#7c606b" height="15px" width="15px" />
         </button>
-        <div className={styles.kaomojiesContent}>
+        <div className={modalStyles.kaomojiesContent}>
           {status === "success" && data.record?.kaomojies ? (
             data.record.kaomojies.map((item) => (
-              <div className={styles.kaomojiCopyWrapper} key={item.id}>
-                <div className={styles.kaomojiWrapper}>{item.kaomoji}</div>
+              <div className={modalStyles.kaomojiCopyWrapper} key={item.id}>
+                <div className={modalStyles.kaomojiWrapper}>{item.kaomoji}</div>
                 <button
-                  className={`${styles.postSubmitbutton} ${styles.copyButton}`}
+                  className={modalStyles.copyButton}
                   onClick={(e) => {
                     const self = e.currentTarget;
                     self.style.backgroundColor = "#c1f7dc";

@@ -3,7 +3,7 @@ import { useUsersCtx } from "../../context/usersContext";
 import PostingForm from "../postingForm";
 import PostBlockAuthenticated from "./postBlockAuthenticated";
 import useRenderMorePosts from "../../utilities/customHooks/useRenderMorePosts";
-import styles from "../../style-modules/style.module.css";
+import styles from "../../style-modules/global.module.css";
 import postsStyles from "../../style-modules/components/posts.module.css";
 
 export default function PostsSectionAuthenticated() {

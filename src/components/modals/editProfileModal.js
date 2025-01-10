@@ -3,7 +3,8 @@ import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
 import { OvalLargeThumbnail } from "../../utilities/spinners";
 import { ExitSVG } from "../../utilities/logos";
-import styles from "../../style-modules/style.module.css";
+import styles from "../../style-modules/global.module.css";
+import modalStyles from "../../style-modules/components/modals.module.css";
 
 export default function EditProfileModal({ toggleModal }) {
   const { UpdateProfile } = useAuth();
@@ -85,19 +86,22 @@ export default function EditProfileModal({ toggleModal }) {
 
   return (
     <>
-      <div className={styles.modalOverlay} onClick={handleOverlayClick}></div>
-      <div ref={modal} className={styles.modalCard}>
-        <button className={styles.exitBtn} onClick={toggleModal}>
+      <div
+        className={modalStyles.modalOverlay}
+        onClick={handleOverlayClick}
+      ></div>
+      <div ref={modal} className={modalStyles.modalCard}>
+        <button className={modalStyles.exitBtn} onClick={toggleModal}>
           <ExitSVG color="#7c606b" height="15px" width="15px" />
         </button>
         <div className={styles.SecondaryTitle}>Update Profile</div>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          {error && <div className={styles.formError}>{error}</div>}
-          <div className={styles.inputGroup}>
-            <div className={styles.profileImgModalWrapper}>
+        <form className={modalStyles.form} onSubmit={handleSubmit}>
+          {error && <div className={modalStyles.formError}>{error}</div>}
+          <div className={modalStyles.inputGroup}>
+            <div className={modalStyles.profileImgModalWrapper}>
               {loading && <OvalLargeThumbnail />}
               <img
-                className={styles.profileImgModal}
+                className={modalStyles.profileImg}
                 src={imgUrl}
                 alt={currentUserData.displayName}
                 onLoad={() => setLoading(false)}
@@ -105,27 +109,27 @@ export default function EditProfileModal({ toggleModal }) {
             </div>
             <label
               htmlFor="fileInputTag"
-              className={styles.selectImageButton}
+              className={modalStyles.selectImageButton}
               disabled={loading}
             >
               Select an Image file{" "}
-              <span className={styles.maxSize}>(max 3MB)</span>
+              <span className={modalStyles.maxSize}>(max 3MB)</span>
               <input
                 id="fileInputTag"
                 type="file"
                 accept="image/png, image/jpg, image/gif, image/jpeg"
                 multiple={false}
                 ref={fileInput}
-                className={styles.input}
+                className={modalStyles.input}
                 onChange={handleImageUpload}
                 style={{ display: "none" }}
               />
             </label>
           </div>
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Nickname:</label>
+          <div className={modalStyles.inputGroup}>
+            <label className={modalStyles.inputLabel}>Nickname:</label>
             <input
-              className={styles.input}
+              className={modalStyles.input}
               type="text"
               name="nickname"
               defaultValue={currentUserData.displayName}
@@ -133,10 +137,10 @@ export default function EditProfileModal({ toggleModal }) {
               required
             />
           </div>
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Bio:</label>
+          <div className={modalStyles.inputGroup}>
+            <label className={modalStyles.inputLabel}>Bio:</label>
             <textarea
-              className={styles.textAreaSmall}
+              className={modalStyles.textArea}
               type="text"
               name="bio"
               defaultValue={currentUserData.bio}
@@ -144,7 +148,7 @@ export default function EditProfileModal({ toggleModal }) {
             />
           </div>
           <button
-            className={styles.submitButton}
+            className={modalStyles.submitButton}
             type="submit"
             disabled={loading}
           >

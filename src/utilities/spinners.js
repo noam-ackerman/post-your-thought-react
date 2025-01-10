@@ -1,5 +1,5 @@
 import { Hearts, Oval } from "react-loader-spinner";
-import styles from "../style-modules/style.module.css";
+import styles from "../style-modules/global.module.css";
 
 const HeartsPageLoader = () => {
   return (

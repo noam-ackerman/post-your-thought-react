@@ -2,7 +2,7 @@ import React from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import PostBlockUnauthenticated from "./postBlockUnauthenticated";
 import useRenderMorePosts from "../../utilities/customHooks/useRenderMorePosts";
-import styles from "../../style-modules/style.module.css";
+import styles from "../../style-modules/global.module.css";
 import postsStyles from "../../style-modules/components/posts.module.css";
 
 export default function PostsSectionUnauthenticated({ user }) {
