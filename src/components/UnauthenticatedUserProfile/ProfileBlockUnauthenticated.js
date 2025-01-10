@@ -3,33 +3,33 @@ import ReactDOM from "react-dom";
 import { OvalContainer } from "../../utilities/spinners";
 import ProfileImage from "../modals/profileImage";
 import useToggleModal from "../../utilities/customHooks/useToggleModal";
-import styles from "../../style-modules/style.module.css";
+import profileStyles from "../../style-modules/pages/profile.module.css";
 
 export default function ProfileBlockUnauthenticated({ user }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [modalOpen, toggleModal] = useToggleModal();
 
   return (
-    <div className={styles.profileBlockWrapper}>
-      <div className={styles.profileImageWrapper} onClick={toggleModal}>
+    <div className={profileStyles.profileBlockWrapper}>
+      <div className={profileStyles.profileImageWrapper} onClick={toggleModal}>
         {!imageLoaded && <OvalContainer />}
         <img
           style={{ display: imageLoaded ? "block" : "none" }}
           src={user.photoURL}
           onLoad={() => setImageLoaded(true)}
           alt={user.displayName}
-          className={styles.profileImage}
+          className={profileStyles.profileImage}
         />
       </div>
-      <div className={styles.profileDetailsWrapper}>
-        <div className={styles.detailProfile}>
-          <span className={styles.detailLabel}>Username:</span>
-          <span className={styles.detailTitle}>{user.displayName}</span>
+      <div className={profileStyles.profileDetailsWrapper}>
+        <div className={profileStyles.detailsProfile}>
+          <span className={profileStyles.detailsLabel}>Username:</span>
+          <span>{user.displayName}</span>
         </div>
         {user.bio && (
-          <div className={styles.detailProfile}>
-            <span className={styles.detailLabel}>Bio:</span>
-            <span className={styles.detailTitle}>{user.bio}</span>
+          <div className={profileStyles.detailsProfile}>
+            <span className={profileStyles.detailsLabel}>Bio:</span>
+            <span>{user.bio}</span>
           </div>
         )}
       </div>

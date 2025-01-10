@@ -58,6 +58,103 @@
   pointer-events: none;
 }
 
+.postingSectionWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.postBlockWrraper {
+  background-color: rgb(187, 233, 255);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 3px solid #fff;
+  width: 100%;
+  padding: 2rem 2rem 1.8rem;
+  border-radius: 5px;
+}
+
+.postInfoLineWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.usernamePost {
+  color: #fff;
+  background-color: #eda4bd;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  padding: 1px 5px;
+  width: fit-content;
+  display: block;
+  text-decoration: none;
+}
+
+.dateAndTime {
+  text-align: right;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+
+.postWrapper {
+  margin: 1.8rem 0;
+  padding: 0 0.7rem;
+}
+
+.postContent {
+  color: #7c606b;
+  font-family: "Cutive Mono", monospace;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  line-height: 1.4rem;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+  max-height: 11.3rem;
+  overflow: hidden;
+}
+.postContent div {
+  max-height: max-content;
+}
+
+.showMoreBtn {
+  padding-top: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  text-decoration: underline;
+  color: #eda4bd;
+  font-weight: 700;
+  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;
+}
+
+.likeWrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  flex: 1;
+}
+
+@media (max-width: 1024px) {
+  .postingSectionWrapper {
+    width: 100%;
+  }
+}
+
 @media (max-width: 767px) {
   .postSubmitbutton {
     font-size: 1rem;
@@ -70,11 +167,37 @@
   }
 }
 
+@media (max-width: 550px) {
+  .postBlockWrraper {
+    padding: 1.75rem 1.5rem 1.4rem;
+  }
+  .postInfoLineWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .usernamePost {
+    font-size: 0.9rem;
+  }
+  .dateAndTime {
+    padding: 0.8rem 0.4rem 0;
+    font-size: 0.9rem;
+  }
+  .postWrapper {
+    padding: 0 0.5rem;
+  }
+  .postContent {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 350px) {
   .actionsWrapper {
     gap: 0.5rem;
   }
   .postSubmitbutton {
     font-size: 0.85rem;
+  }
+  .usernamePost {
+    font-size: 0.8rem;
   }
 }

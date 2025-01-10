@@ -5,6 +5,7 @@ import { EmptyHeartSVG, FullHeartSVG } from "../../utilities/logos";
 import { formatDate, handleLike } from "../../utilities/actions";
 import useLongPost from "../../utilities/customHooks/useLongPost";
 import styles from "../../style-modules/style.module.css";
+import postsStyles from "../../style-modules/components/posts.module.css";
 
 export default function PostBlockUnauthenticated({ user, post }) {
   const time = formatDate(post.date);
@@ -27,9 +28,9 @@ export default function PostBlockUnauthenticated({ user, post }) {
   const postIsLikedByCurrentUser = postLikes.includes(currentUserData.userId);
 
   return (
-    <div className={styles.postBlockWrraper}>
-      <div className={styles.postInfoLineWrapper}>
-        <div className={styles.userInfo}>
+    <div className={postsStyles.postBlockWrraper}>
+      <div className={postsStyles.postInfoLineWrapper}>
+        <div className={postsStyles.userInfo}>
           <Link
             to={`/${user.userId}`}
             className={styles.profileImgThumbnailWrapper}
@@ -42,17 +43,17 @@ export default function PostBlockUnauthenticated({ user, post }) {
               onLoad={() => setImageLoaded(true)}
             />
           </Link>
-          <Link to={`/${user.userId}`} className={styles.usernamePost}>
+          <Link to={`/${user.userId}`} className={postsStyles.usernamePost}>
             {user.displayName}
           </Link>
         </div>
-        <div className={styles.dateAndTime}>{time}</div>
+        <div className={postsStyles.dateAndTime}>{time}</div>
       </div>
 
-      <div className={styles.postWrapper}>
+      <div className={postsStyles.postWrapper}>
         <div
           ref={postContentWrapper}
-          className={styles.postContent}
+          className={postsStyles.postContent}
           style={{ maxHeight: longPost && showMorePost && "max-content" }}
         >
           <div ref={postContent}>{post.content}</div>
@@ -60,14 +61,14 @@ export default function PostBlockUnauthenticated({ user, post }) {
         {longPost && (
           <>
             {!showMorePost && <div style={{ color: "#7c606b" }}>...</div>}
-            <div className={styles.showMoreBtn} onClick={handleShowMore}>
+            <div className={postsStyles.showMoreBtn} onClick={handleShowMore}>
               {showMorePost ? "Show less" : "Show more"}
             </div>
           </>
         )}
       </div>
       <div className={styles.actionWrapper}>
-        <div className={styles.likeWrapper}>
+        <div className={postsStyles.likeWrapper}>
           <div
             ref={heart}
             onClick={() =>

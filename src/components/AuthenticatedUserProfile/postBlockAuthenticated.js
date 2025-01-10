@@ -6,6 +6,7 @@ import { formatDate, handleLike } from "../../utilities/actions";
 import useLongPost from "../../utilities/customHooks/useLongPost";
 import useToggleBtnClick from "../../utilities/customHooks/useToggleButtonClick";
 import styles from "../../style-modules/style.module.css";
+import postsStyles from "../../style-modules/components/posts.module.css";
 
 export default function PostBlockAuthenticated({ post }) {
   const time = formatDate(post.date);
@@ -56,9 +57,9 @@ export default function PostBlockAuthenticated({ post }) {
   }
 
   return (
-    <div className={styles.postBlockWrraper}>
-      <div className={styles.postInfoLineWrapper}>
-        <div className={styles.userInfo}>
+    <div className={postsStyles.postBlockWrraper}>
+      <div className={postsStyles.postInfoLineWrapper}>
+        <div className={postsStyles.userInfo}>
           <Link
             to={`/${currentUserData?.userId}`}
             className={styles.profileImgThumbnailWrapper}
@@ -73,25 +74,25 @@ export default function PostBlockAuthenticated({ post }) {
           </Link>
           <Link
             to={`/${currentUserData?.userId}`}
-            className={styles.usernamePost}
+            className={postsStyles.usernamePost}
           >
             {currentUserData?.displayName}
           </Link>
         </div>
-        <div className={styles.dateAndTime}>{time}</div>
+        <div className={postsStyles.dateAndTime}>{time}</div>
       </div>
       {editMode ? (
         <textarea
-          className={`${styles.textArea} ${styles.marginTopBottom1}`}
+          className={`${postsStyles.textArea} ${styles.marginTopBottom1}`}
           required
           ref={textAreaEdit}
           defaultValue={post.content}
         />
       ) : (
-        <div className={styles.postWrapper}>
+        <div className={postsStyles.postWrapper}>
           <div
             ref={postContentWrapper}
-            className={styles.postContent}
+            className={postsStyles.postContent}
             style={{ maxHeight: longPost && showMorePost && "max-content" }}
           >
             <div ref={postContent}>{post.content}</div>
@@ -99,7 +100,7 @@ export default function PostBlockAuthenticated({ post }) {
           {longPost && (
             <>
               {!showMorePost && <div style={{ color: "#7c606b" }}>...</div>}
-              <div className={styles.showMoreBtn} onClick={handleShowMore}>
+              <div className={postsStyles.showMoreBtn} onClick={handleShowMore}>
                 {showMorePost ? "Show less" : "Show more"}
               </div>
             </>
@@ -107,7 +108,7 @@ export default function PostBlockAuthenticated({ post }) {
         </div>
       )}
       <div className={styles.actionWrapper}>
-        <div className={styles.likeWrapper}>
+        <div className={postsStyles.likeWrapper}>
           <div
             ref={heart}
             onClick={() =>

@@ -4,6 +4,7 @@ import PostingForm from "../postingForm";
 import PostBlockAuthenticated from "./postBlockAuthenticated";
 import useRenderMorePosts from "../../utilities/customHooks/useRenderMorePosts";
 import styles from "../../style-modules/style.module.css";
+import postsStyles from "../../style-modules/components/posts.module.css";
 
 export default function PostsSectionAuthenticated() {
   const { currentUserData, postsData } = useUsersCtx();
@@ -20,7 +21,7 @@ export default function PostsSectionAuthenticated() {
   );
 
   return (
-    <div ref={postsWrapper} className={styles.postingSectionWrapper}>
+    <div ref={postsWrapper} className={postsStyles.postingSectionWrapper}>
       <PostingForm />
       {currentUserPosts?.length ? (
         currentUserPosts.map((post, index) => {
