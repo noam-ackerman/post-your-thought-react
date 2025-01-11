@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useUsersCtx } from "../../context/usersContext";
 import { Link } from "react-router-dom";
-import { EmptyHeartSVG, FullHeartSVG } from "../../utilities/logos";
+import { EmptyHeartSVG, FullHeartSVG } from "../../utilities/icons";
 import { formatDate, handleLike } from "../../utilities/actions";
 import useLongPost from "../../utilities/customHooks/useLongPost";
 import styles from "../../style-modules/global.module.css";

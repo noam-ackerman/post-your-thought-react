@@ -1,0 +1,30 @@
+.heartsPageLoader {
+  margin: 12% auto;
+  justify-content: center;
+}
+
+.ovalBtn {
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%, 50%);
+}
+
+.ovalContainer {
+  display: block;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  min-height: 22rem;
+}
+
+.ovalContainer svg {
+  margin: auto;
+  display: block;
+}
+
+.ovalThumbnail {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+}

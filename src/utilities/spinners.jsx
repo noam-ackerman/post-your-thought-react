@@ -1,5 +1,5 @@
 import { Hearts, Oval } from "react-loader-spinner";
-import styles from "../style-modules/global.module.css";
+import spinnersStyles from "../style-modules/components/spinners.module.css";
 
 const HeartsPageLoader = () => {
   return (
@@ -9,7 +9,7 @@ const HeartsPageLoader = () => {
       color="#B5A1FF"
       ariaLabel="hearts-loading"
       wrapperStyle={{}}
-      wrapperClass={styles.heartsPageLoader}
+      wrapperClass={spinnersStyles.heartsPageLoader}
       visible={true}
     />
   );
@@ -22,7 +22,7 @@ const OvalBtn = () => {
       width={22}
       color="#B5A1FF"
       wrapperStyle={{}}
-      wrapperClass={styles.ovalBtn}
+      wrapperClass={spinnersStyles.ovalBtn}
       visible={true}
       ariaLabel="oval-loading"
       secondaryColor="#B5A1FF"
@@ -39,7 +39,7 @@ const OvalContainer = () => {
       width={138}
       color="#B5A1FF"
       wrapperStyle={{}}
-      wrapperClass={styles.ovalContainer}
+      wrapperClass={spinnersStyles.ovalContainer}
       visible={true}
       ariaLabel="oval-loading"
       secondaryColor="#B5A1FF"
@@ -56,7 +56,7 @@ const OvalLargeThumbnail = () => {
       width={138}
       color="#B5A1FF"
       wrapperStyle={{}}
-      wrapperClass={styles.ovalThumbnail}
+      wrapperClass={spinnersStyles.ovalThumbnail}
       visible={true}
       ariaLabel="oval-loading"
       secondaryColor="#B5A1FF"

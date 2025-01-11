@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
 import { useNavigate } from "react-router-dom";
 import { OvalBtn } from "../../utilities/spinners";
-import { ExitSVG } from "../../utilities/logos";
+import { ExitSVG } from "../../utilities/icons";
 import styles from "../../style-modules/global.module.css";
 import modalStyles from "../../style-modules/components/modals.module.css";
 

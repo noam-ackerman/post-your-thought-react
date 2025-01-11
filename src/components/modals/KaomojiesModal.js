@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ExitSVG, CopySvg } from "../../utilities/logos";
+import { ExitSVG, CopySvg } from "../../utilities/icons";
 import { OvalContainer } from "../../utilities/spinners";
 import modalStyles from "../../style-modules/components/modals.module.css";
 

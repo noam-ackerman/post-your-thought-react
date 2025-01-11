@@ -7,6 +7,7 @@ import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/p
 import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
 import useRenderMorePosts from "../utilities/customHooks/useRenderMorePosts";
 import styles from "../style-modules/global.module.css";
+import homepageStyles from "../style-modules/pages/homepage.module.css";
 
 export default function Homepage() {
   const { currentUser } = useAuth();
@@ -43,8 +44,8 @@ export default function Homepage() {
     <>
       {dataLoaded ? (
         <>
-          <div className={styles.heroBanner}>
-            <div ref={welcome} className={styles.heroBannerText}>
+          <div className={homepageStyles.heroBanner}>
+            <div ref={welcome} className={homepageStyles.heroBannerText}>
               <span style={{ color: "#eed5c2" }}>W</span>
               <span style={{ color: "#ccbfff" }}>E</span>
               <span style={{ color: "#c1f7dc" }}>L</span>
@@ -56,9 +57,9 @@ export default function Homepage() {
           </div>
           <div
             ref={feedsWrapper}
-            className={`${styles.feedsWrapper} ${styles.marginAuto}`}
+            className={`${homepageStyles.feedsWrapper} ${styles.marginAuto}`}
           >
-            <div ref={title} className={styles.homepageTitle}>
+            <div ref={title} className={homepageStyles.title}>
               <span>U</span>
               <span>s</span>
               <span>e</span>
@@ -84,7 +85,7 @@ export default function Homepage() {
               <span>･</span>
               <span>☆</span>
               <span>✧</span>
-              <div className={styles.cursor}></div>
+              <div className={homepageStyles.cursor}></div>
             </div>
             <PostingForm />
             {postsData.length ? (

@@ -1,0 +1,132 @@
+.heroBanner {
+  width: 100%;
+  height: 350px;
+  background-color: #8cb4fe;
+  border: 5px solid #eda4bd;
+  padding: 2rem;
+}
+
+.heroBannerText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 12rem;
+  gap: 1.2rem;
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.heroBannerText span {
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.feedsWrapper {
+  width: min(1200px, 99%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 2.5rem 7rem;
+}
+
+.title {
+  margin: 2.5rem auto 1rem 0;
+  font-size: 2.3rem;
+  font-family: "Cutive Mono", monospace;
+  letter-spacing: -0.5px;
+  color: #7c606b;
+  line-height: 2.4rem;
+  font-weight: 400;
+}
+
+.title span {
+  display: none;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 2.3rem;
+  vertical-align: text-top;
+  background-color: #7c606b;
+  margin-left: 8px;
+  animation: blink-animation 1s steps(5, start) infinite;
+}
+
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 650px) and (max-width: 1024px) {
+  .feedsWrapper {
+    gap: 1.5rem;
+    padding: 3.2rem 2.5rem 5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroBanner {
+    height: 300px;
+  }
+  .heroBannerText {
+    font-size: 8rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .heroBanner {
+    height: 250px;
+  }
+  .heroBannerText {
+    font-size: 5.5rem;
+    gap: 1rem;
+  }
+  .title {
+    font-size: 1.8rem;
+    margin: 0 auto 1rem 0;
+    line-height: 1.9rem;
+  }
+  .cursor {
+    height: 1.8rem;
+  }
+}
+
+@media (max-width: 649px) {
+  .feedsWrapper {
+    padding: 3.2rem 1.1rem 5rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .heroBanner {
+    height: 180px;
+  }
+  .heroBannerText {
+    font-size: 3.3rem;
+    gap: 0.7rem;
+  }
+  .title {
+    font-size: 1.15rem;
+    margin: 0 auto 0 0;
+    line-height: 1.15rem;
+  }
+  .cursor {
+    height: 1.1rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .title {
+    font-size: 1rem;
+  }
+}

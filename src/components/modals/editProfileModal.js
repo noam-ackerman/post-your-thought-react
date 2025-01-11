@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useUsersCtx } from "../../context/usersContext";
 import { OvalLargeThumbnail } from "../../utilities/spinners";
-import { ExitSVG } from "../../utilities/logos";
+import { ExitSVG } from "../../utilities/icons";
 import styles from "../../style-modules/global.module.css";
 import modalStyles from "../../style-modules/components/modals.module.css";
 

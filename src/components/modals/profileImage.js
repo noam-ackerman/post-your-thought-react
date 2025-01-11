@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ExitSVG } from "../../utilities/logos";
+import { ExitSVG } from "../../utilities/icons";
 import { OvalContainer } from "../../utilities/spinners";
 import modalStyles from "../../style-modules/components/modals.module.css";
 
