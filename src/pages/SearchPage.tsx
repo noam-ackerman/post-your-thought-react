@@ -1,7 +1,7 @@
 import { useState, useMemo, type ChangeEvent } from "react";
 import { useUsersCtx } from "@/context/UsersContext";
 import { Link } from "react-router-dom";
-import { HeartsPageLoader } from "@/primitives/spinners";
+import { HeartsPageLoader } from "@/components/atoms";
 import searchPageStyles from "@/style-modules/pages/searchPage.module.css";
 
 export function SearchPage() {

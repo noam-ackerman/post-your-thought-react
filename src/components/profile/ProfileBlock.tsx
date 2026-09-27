@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { OvalContainer } from "@/primitives/spinners";
 import { EditProfileModal } from "@/components/modals/EditProfileModal";
 import { ProfileImage } from "@/components/modals/ProfileImage";
 import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
-import { Button } from "@/atoms";
+import { Button, OvalContainer } from "@/components/atoms";
 import profileStyles from "@/style-modules/pages/profile.module.css";
 import styles from "@/style-modules/global.module.css";
 import type { UserRecord } from "@/types";

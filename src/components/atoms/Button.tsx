@@ -1,5 +1,5 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
-import { OvalBtn } from "@/primitives/spinners";
+import { OvalBtn } from "./spinners";
 import styles from "./button.module.css";
 
 type ButtonColor = "primary" | "pink" | "danger" | "info";

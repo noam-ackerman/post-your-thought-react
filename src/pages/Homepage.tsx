@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useUsersCtx } from "@/context/UsersContext";
 import { useAuth } from "@/context/AuthContext";
-import { HeartsPageLoader } from "@/primitives/spinners";
+import { HeartsPageLoader } from "@/components/atoms";
 import { PostingForm } from "@/components/posts/PostingForm";
 import { PostBlock } from "@/components/posts/PostBlock";
 import { useRenderMorePosts } from "@/utilities/customHooks/useRenderMorePosts";
@@ -14,10 +14,7 @@ export function Homepage() {
   const welcome = useRef<HTMLDivElement>(null);
   const title = useRef<HTMLDivElement>(null);
   const feedsWrapper = useRef<HTMLDivElement>(null);
-  const [numDisplayedPosts] = useRenderMorePosts(
-    feedsWrapper,
-    postsData?.length
-  );
+  const [numDisplayedPosts, sentinelRef] = useRenderMorePosts(postsData?.length);
 
   const dataLoaded =
     usersData !== undefined &&
@@ -113,6 +110,7 @@ export function Homepage() {
                 No Posts Yet
               </div>
             )}
+            <div ref={sentinelRef} />
           </div>
         </>
       ) : (

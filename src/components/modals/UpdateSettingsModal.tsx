@@ -2,8 +2,9 @@ import { useState, useRef, type SubmitEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useUsersCtx } from "@/context/UsersContext";
 import { useNavigate } from "react-router-dom";
-import { Heading, FormField, Button, Modal } from "@/atoms";
+import { Heading, FormField, Button, Modal } from "@/components/atoms";
 import { firebaseErrorCode } from "@/utilities/firebaseError";
+import { useToggleBtnClick } from "@/utilities/customHooks/useToggleButtonClick";
 import modalStyles from "@/style-modules/components/modals.module.css";
 
 interface UpdateSettingsModalProps {
@@ -29,13 +30,14 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [deleteClick, setDeleteClick] = useState(false);
   const navigate = useNavigate();
 
   const emailInput = useRef<HTMLInputElement>(null);
   const oldPasswordInput = useRef<HTMLInputElement>(null);
   const newPasswordInput = useRef<HTMLInputElement>(null);
   const newPasswordConfirmInput = useRef<HTMLInputElement>(null);
+  const deleteBtn = useRef<HTMLButtonElement>(null);
+  const [deleteClick, setDeleteClick] = useToggleBtnClick(deleteBtn);
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -95,6 +97,7 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
         try {
           setDeleting(true);
           document.body.classList.remove("modal-open");
+          document.body.style.top = "";
           const userPosts = Object.values(postsData ?? {}).filter(
             (post) => post.userId === currentUserData!.userId
           );
@@ -176,6 +179,7 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
             color="danger"
             shape="fullWidth"
             style={{ marginTop: 0 }}
+            ref={deleteBtn}
             onClick={handleDeleteUser}
             disabled={loading}
             type="button"

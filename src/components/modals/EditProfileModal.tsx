@@ -1,8 +1,7 @@
 import { useLayoutEffect, useRef, useState, type ChangeEvent, type SubmitEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useUsersCtx } from "@/context/UsersContext";
-import { OvalLargeThumbnail } from "@/primitives/spinners";
-import { Heading, FormField, Button, Modal } from "@/atoms";
+import { Heading, FormField, Button, Modal, OvalLargeThumbnail } from "@/components/atoms";
 import modalStyles from "@/style-modules/components/modals.module.css";
 
 interface EditProfileModalProps {

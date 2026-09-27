@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { PostingForm } from "./PostingForm";
 import { PostBlock } from "./PostBlock";
 import { useRenderMorePosts } from "@/utilities/customHooks/useRenderMorePosts";
@@ -13,12 +12,10 @@ interface PostsSectionProps {
 }
 
 export function PostsSection({ user, isOwner, posts }: PostsSectionProps) {
-  const postsWrapper = useRef<HTMLDivElement>(null);
-
-  const [numDisplayedPosts] = useRenderMorePosts(postsWrapper, posts?.length);
+  const [numDisplayedPosts, sentinelRef] = useRenderMorePosts(posts?.length);
 
   return (
-    <div ref={postsWrapper} className={postsStyles.postingSectionWrapper}>
+    <div className={postsStyles.postingSectionWrapper}>
       {isOwner && <PostingForm />}
       {posts?.length ? (
         posts.map((post, index) => {
@@ -40,6 +37,7 @@ export function PostsSection({ user, isOwner, posts }: PostsSectionProps) {
           No Posts Yet
         </div>
       )}
+      <div ref={sentinelRef} />
     </div>
   );
 }

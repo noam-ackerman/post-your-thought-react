@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ExitSVG } from "@/primitives/icons";
-import { OvalContainer } from "@/primitives/spinners";
+import { XmarkSVG, OvalContainer } from "@/components/atoms";
 import modalStyles from "@/style-modules/components/modals.module.css";
 
 interface ProfileImageProps {
@@ -18,7 +17,7 @@ export function ProfileImage({ toggleModal, username, img }: ProfileImageProps) 
         className={`${modalStyles.exitBtn} ${modalStyles.exitBtnBackground}`}
         onClick={toggleModal}
       >
-        <ExitSVG color="#7c606b" height="23px" width="23px" />
+        <XmarkSVG color="var(--color-plum)" height="24px" width="24px" />
       </button>
       {!imageLoaded && <OvalContainer />}
       <img

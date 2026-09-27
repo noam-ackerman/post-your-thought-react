@@ -6,7 +6,7 @@ const HeartsPageLoader = () => {
     <Hearts
       height="200"
       width="200"
-      color="#B5A1FF"
+      color="var(--color-spinner-accent)"
       ariaLabel="hearts-loading"
       wrapperStyle={{}}
       wrapperClass={spinnersStyles.heartsPageLoader}
@@ -20,12 +20,12 @@ const OvalBtn = () => {
     <Oval
       height={22}
       width={22}
-      color="#B5A1FF"
+      color="var(--color-spinner-accent)"
       wrapperStyle={{}}
       wrapperClass={spinnersStyles.ovalBtn}
       visible={true}
       ariaLabel="oval-loading"
-      secondaryColor="#B5A1FF"
+      secondaryColor="var(--color-spinner-accent)"
       strokeWidth={8}
       strokeWidthSecondary={8}
     />
@@ -37,12 +37,12 @@ const OvalContainer = () => {
     <Oval
       height={138}
       width={138}
-      color="#B5A1FF"
+      color="var(--color-spinner-accent)"
       wrapperStyle={{}}
       wrapperClass={spinnersStyles.ovalContainer}
       visible={true}
       ariaLabel="oval-loading"
-      secondaryColor="#B5A1FF"
+      secondaryColor="var(--color-spinner-accent)"
       strokeWidth={2}
       strokeWidthSecondary={2}
     />
@@ -54,12 +54,12 @@ const OvalLargeThumbnail = () => {
     <Oval
       height={138}
       width={138}
-      color="#B5A1FF"
+      color="var(--color-spinner-accent)"
       wrapperStyle={{}}
       wrapperClass={spinnersStyles.ovalThumbnail}
       visible={true}
       ariaLabel="oval-loading"
-      secondaryColor="#B5A1FF"
+      secondaryColor="var(--color-spinner-accent)"
       strokeWidth={2}
       strokeWidthSecondary={2}
     />

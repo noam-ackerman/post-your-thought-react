@@ -22,6 +22,9 @@
   --color-red: #ff5c5c;
   --color-red-light: #ff8585;
   --color-green: #74c365;
+  --color-black: #000;
+  --color-heart-liked: #ee4b2b;
+  --color-spinner-accent: #b5a1ff;
 
   /* Shadows */
   --shadow-color: rgba(99, 99, 99, 0.2);

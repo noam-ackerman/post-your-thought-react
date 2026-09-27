@@ -2,10 +2,16 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useUsersCtx } from "@/context/UsersContext";
-import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "@/primitives/icons";
 import { UpdateSettingsModal } from "@/components/modals/UpdateSettingsModal";
 import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
-import { Avatar, Button } from "@/atoms";
+import {
+  Avatar,
+  Button,
+  LogoutSVG,
+  SettingsSVG,
+  HomeSVG,
+  SearchSVG,
+} from "@/components/atoms";
 import styles from "@/style-modules/global.module.css";
 import navbarStyles from "@/style-modules/components/navbar.module.css";
 
@@ -41,20 +47,20 @@ export function Navbar() {
           className={navbarStyles.profileImage}
         />
         <Link to="/" title="Homepage" className={styles.actionButtonPrimary}>
-          <HomeSVG color="#fff" height="22px" width="22px" />
+          <HomeSVG color="var(--color-white)" height="22px" width="22px" />
         </Link>
         <Link
           to="/search-users"
           title="Search Users"
           className={styles.actionButtonPrimary}
         >
-          <SearchSVG color="#fff" height="23px" width="23px" />
+          <SearchSVG color="var(--color-white)" height="23px" width="23px" />
         </Link>
         <Button onClick={toggleModal} title="Settings">
-          <SettingsSVG color="#fff" height="21px" width="21px" />
+          <SettingsSVG color="var(--color-white)" height="21px" width="21px" />
         </Button>
         <Button title="Log Out" onClick={handleLogout}>
-          <LogoutSVG color="#fff" height="20px" width="20px" />
+          <LogoutSVG color="var(--color-white)" height="20px" width="20px" />
         </Button>
       </div>
       {modalOpen && <UpdateSettingsModal toggleModal={toggleModal} />}

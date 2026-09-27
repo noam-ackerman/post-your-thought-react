@@ -1,7 +1,7 @@
 import { useRef, useState, type SubmitEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Heading, FormField, Button } from "@/atoms";
+import { Heading, FormField, Button } from "@/components/atoms";
 import { firebaseErrorCode } from "@/utilities/firebaseError";
 import authStyles from "@/style-modules/pages/authPage.module.css";
 

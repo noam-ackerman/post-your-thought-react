@@ -1,4 +1,4 @@
-import { Heading } from "@/atoms";
+import { Heading } from "@/components/atoms";
 import errorPageStyles from "@/style-modules/pages/errorPage.module.css";
 
 export function ErrorPage() {

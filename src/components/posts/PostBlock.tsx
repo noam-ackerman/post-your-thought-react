@@ -1,9 +1,17 @@
 import { useRef, useState } from "react";
 import { useUsersCtx } from "@/context/UsersContext";
 import { Link } from "react-router-dom";
-import { EmptyHeartSVG, FullHeartSVG } from "@/primitives/icons";
 import { formatDate, handleLike } from "@/utilities/actions";
-import { Avatar, Button } from "@/atoms";
+import {
+  Avatar,
+  Button,
+  EmptyHeartSVG,
+  FullHeartSVG,
+  EditSVG,
+  CheckSVG,
+  TrashSVG,
+  XmarkSVG,
+} from "@/components/atoms";
 import { useLongPost } from "@/utilities/customHooks/useLongPost";
 import { useToggleBtnClick } from "@/utilities/customHooks/useToggleButtonClick";
 import styles from "@/style-modules/global.module.css";
@@ -122,9 +130,9 @@ export function PostBlock({ post, author, canEdit }: PostBlockProps) {
             }}
           >
             {postIsLikedByCurrentUser ? (
-              <FullHeartSVG color="#EE4B2B" height="24px" width="24px" />
+              <FullHeartSVG color="var(--color-heart-liked)" height="24px" width="24px" />
             ) : (
-              <EmptyHeartSVG color="#000" height="24px" width="24px" />
+              <EmptyHeartSVG color="var(--color-black)" height="24px" width="24px" />
             )}
           </div>
           <span className={styles.preventHighlightSelect}>
@@ -133,15 +141,38 @@ export function PostBlock({ post, author, canEdit }: PostBlockProps) {
         </div>
         {canEdit && (
           <>
-            <Button onClick={handleEditPost}>
-              {editMode ? "Save" : "Edit"}
+            {editMode && (
+              <Button
+                color="info"
+                onClick={() => setEditMode(false)}
+                title="Cancel"
+                aria-label="Cancel edit"
+              >
+                <XmarkSVG color="var(--color-white)" height="20px" width="20px" />
+              </Button>
+            )}{" "}
+            <Button
+              onClick={handleEditPost}
+              title={editMode ? "Save changes" : "Edit post"}
+              aria-label={editMode ? "Save changes" : "Edit post"}
+            >
+              {editMode ? (
+                <CheckSVG color="var(--color-white)" height="20px" width="20px" />
+              ) : (
+                <EditSVG color="var(--color-white)" height="20px" width="20px" />
+              )}
             </Button>{" "}
             <Button
               color="danger"
               ref={deletePostBtn}
               onClick={handleDeletePost}
+              title={btnClickedOnce ? "Confirm delete" : "Delete post"}
+              aria-label={btnClickedOnce ? "Confirm delete" : "Delete post"}
             >
-              {btnClickedOnce ? "Sure?" : "Delete"}
+              <span className={postsStyles.deleteConfirmContent}>
+                <TrashSVG color="var(--color-white)" height="20px" width="20px" />
+                {btnClickedOnce && "Sure?"}
+              </span>
             </Button>{" "}
           </>
         )}

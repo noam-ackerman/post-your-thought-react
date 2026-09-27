@@ -1,26 +1,25 @@
-import { useState, useEffect, useCallback, type RefObject } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export function useRenderMorePosts(
-  postsWrapperRef: RefObject<HTMLDivElement | null>,
-  postsLength: number | undefined
-) {
+export function useRenderMorePosts(postsLength: number | undefined) {
   const [numDisplayedPosts, setNumDisplayedPosts] = useState(14);
-
-  const renderMorePosts = useCallback(() => {
-    const lastChild = postsWrapperRef.current?.lastChild as HTMLElement | null;
-    const elementBottom = (lastChild?.offsetTop ?? 0) - 600;
-    const lastPositionY = window.scrollY;
-    if (lastPositionY > elementBottom) {
-      setNumDisplayedPosts((currentNum) => currentNum + 15);
-    }
-  }, [postsWrapperRef]);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if ((postsLength ?? 0) - 1 > numDisplayedPosts) {
-      document.addEventListener("scroll", renderMorePosts);
-    }
-    return () => document.removeEventListener("scroll", renderMorePosts);
-  }, [postsLength, numDisplayedPosts, renderMorePosts]);
+    const hasMore = (postsLength ?? 0) - 1 > numDisplayedPosts;
+    const sentinel = sentinelRef.current;
+    if (!hasMore || !sentinel) return;
 
-  return [numDisplayedPosts] as const;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setNumDisplayedPosts((currentNum) => currentNum + 15);
+        }
+      },
+      { rootMargin: "600px" }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [postsLength, numDisplayedPosts]);
+
+  return [numDisplayedPosts, sentinelRef] as const;
 }

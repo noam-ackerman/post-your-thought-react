@@ -1,7 +1,7 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useUsersCtx } from "@/context/UsersContext";
-import { HeartsPageLoader } from "@/primitives/spinners";
+import { HeartsPageLoader } from "@/components/atoms";
 import { ProfileBlock } from "@/components/profile/ProfileBlock";
 import { PostsSection } from "@/components/posts/PostsSection";
 import profileStyles from "@/style-modules/pages/profile.module.css";

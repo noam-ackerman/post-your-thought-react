@@ -1,6 +1,6 @@
 import { useRef, type CSSProperties, type ReactNode, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
-import { ExitSVG } from "@/primitives/icons";
+import { XmarkSVG } from "./icons";
 import modalStyles from "@/style-modules/components/modals.module.css";
 
 interface ModalProps {
@@ -26,7 +26,7 @@ export function Modal({ onClose, cardClassName, overlayStyle, children }: ModalP
       ></div>
       <div ref={cardRef} className={cardClassName || modalStyles.modalCard}>
         <button className={modalStyles.exitBtn} onClick={onClose}>
-          <ExitSVG color="#7c606b" height="15px" width="15px" />
+          <XmarkSVG color="var(--color-plum)" height="22px" width="22px" />
         </button>
         {children}
       </div>

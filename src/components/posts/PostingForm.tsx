@@ -3,7 +3,7 @@ import { uid } from "uid";
 import { useUsersCtx } from "@/context/UsersContext";
 import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
 import { KaomojiesModal } from "@/components/modals/KaomojiesModal";
-import { Button } from "@/atoms";
+import { Button } from "@/components/atoms";
 import styles from "@/style-modules/global.module.css";
 import postsStyles from "@/style-modules/components/posts.module.css";
 import type { PostRecord } from "@/types";

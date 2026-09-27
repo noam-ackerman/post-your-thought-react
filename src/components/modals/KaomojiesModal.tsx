@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { CopySvg } from "@/primitives/icons";
-import { OvalContainer } from "@/primitives/spinners";
-import { Modal } from "@/atoms";
+import { CopySvg, OvalContainer, Modal } from "@/components/atoms";
 import modalStyles from "@/style-modules/components/modals.module.css";
 
 interface Kaomoji {
@@ -74,7 +72,7 @@ export function KaomojiesModal({ toggleModal }: KaomojiesModalProps) {
                   }, 1000);
                 }}
               >
-                <CopySvg color="#fff" height="16px" width="16px" />
+                <CopySvg color="var(--color-white)" height="16px" width="16px" />
               </button>
             </div>
           ))
