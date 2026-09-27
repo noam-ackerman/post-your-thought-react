@@ -75,12 +75,7 @@ export function Signup() {
             autoComplete="off"
             required
           />
-          <Button
-            variant="submit"
-            styles={authStyles}
-            type="submit"
-            loading={loading}
-          >
+          <Button color="pink" shape="fullWidth" type="submit" loading={loading}>
             Sign Up
           </Button>
         </form>

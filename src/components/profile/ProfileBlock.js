@@ -40,10 +40,7 @@ export function ProfileBlock({ user, canEdit }) {
           </div>
         )}
         {canEdit && (
-          <Button
-            onClick={toggleEditModal}
-            className={`${styles.actionButtonPrimary} ${styles.marginTopBottom1}`}
-          >
+          <Button onClick={toggleEditModal} className={styles.marginTopBottom1}>
             Edit Profile
           </Button>
         )}

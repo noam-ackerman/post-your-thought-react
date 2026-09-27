@@ -43,12 +43,7 @@ export function ForgotPassword() {
             placeholder="example@example.com"
             required
           />
-          <Button
-            variant="submit"
-            styles={authStyles}
-            type="submit"
-            loading={loading}
-          >
+          <Button color="pink" shape="fullWidth" type="submit" loading={loading}>
             Reset Password
           </Button>
         </form>

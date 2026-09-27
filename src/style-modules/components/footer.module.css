@@ -1,11 +1,11 @@
 .footer {
-  background-color: #eed5c2;
+  background-color: var(--color-cream);
   width: 100%;
   padding: 1rem 0.2rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 10px 10px;
   text-align: center;
   margin-top: auto;
-  color: #7c606b;
+  color: var(--color-plum);
   font-family: "Cutive Mono", monospace;
   font-weight: 700;
   letter-spacing: 0;
@@ -18,7 +18,7 @@
 .footer a {
   font-family: "Sigmar", cursive;
   font-size: 11px;
-  color: #7c606b;
+  color: var(--color-plum);
   letter-spacing: 0.5px;
   transition: all 150ms ease;
   text-decoration: none;

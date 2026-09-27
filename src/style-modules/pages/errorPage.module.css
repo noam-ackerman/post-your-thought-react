@@ -12,7 +12,7 @@
   margin: 2rem auto;
   font-size: 1.2rem;
   font-family: "Cutive", serif;
-  color: #7c606b;
+  color: var(--color-plum);
   line-height: 2.5rem;
   font-weight: 400;
   letter-spacing: 1px;
@@ -20,7 +20,7 @@
 }
 
 .text a {
-  color: #8cb4fe;
+  color: var(--color-blue);
 }
 
 @media (max-width: 767px) {

@@ -60,12 +60,7 @@ export function Login() {
             name="password"
             required
           />
-          <Button
-            variant="submit"
-            styles={authStyles}
-            type="submit"
-            loading={loading}
-          >
+          <Button color="pink" shape="fullWidth" type="submit" loading={loading}>
             Login
           </Button>
         </form>

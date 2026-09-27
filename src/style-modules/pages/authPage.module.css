@@ -11,10 +11,10 @@
 .card {
   width: min(400px, 88%);
   margin: 5px 10px;
-  background: #eed5c2;
+  background: var(--color-cream);
   padding: 20px 30px;
-  border-radius: 5px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .form {
@@ -39,8 +39,8 @@
   width: 100%;
   display: block;
   padding: 12px 10px;
-  border-radius: 5px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   border: none;
   font-family: "Roboto", sans-serif;
   font-size: 0.9rem;
@@ -49,17 +49,17 @@
 
 .inputLabel {
   font-size: 1rem;
-  color: #7c606b;
+  color: var(--color-plum);
   font-weight: 600;
 }
 
 .error {
-  background: #ff5c5c;
-  color: #fff;
+  background: var(--color-red);
+  color: var(--color-white);
   font-size: 0.9rem;
   font-weight: 500;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 5px;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-sm);
   border: none;
   padding: 0.6rem 0.5rem;
   width: 100%;
@@ -68,12 +68,12 @@
 }
 
 .message {
-  background: #74c365;
-  color: #fff;
+  background: var(--color-green);
+  color: var(--color-white);
   font-size: 0.9rem;
   font-weight: 500;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 5px;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-sm);
   border: none;
   padding: 0.6rem 0.5rem;
   width: 100%;
@@ -81,57 +81,21 @@
   text-align: center;
 }
 
-.submitButton {
-  width: 100%;
-  background-color: #eda4bd;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 3px 8px 0px;
-  border: 2px solid #fff;
-  padding: 10px;
-  margin: 15px 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  transition: all 150ms ease;
-  position: relative;
-}
-
-.submitButton:hover {
-  background-color: #fbbcd1;
-}
-.submitButton[disabled] {
-  background-color: #f6d2de;
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto !important;
-  pointer-events: none;
-}
-
 .linkText {
   margin: 17px 0 8px;
   font-size: 1rem;
-  color: #7c606b;
+  color: var(--color-plum);
   font-weight: 500;
 }
 
 .linkText a {
-  color: #7c606b;
+  color: var(--color-plum);
   text-decoration: underline;
   font-weight: 400;
-}
-
-@media (max-width: 767px) {
-  .submitButton {
-    font-size: 1rem;
-  }
 }
 
 @media (max-width: 649px) {
   .AuthContainer {
     padding-bottom: 10%;
-  }
-}
-
-@media (max-width: 350px) {
-  .submitButton {
-    font-size: 0.85rem;
   }
 }

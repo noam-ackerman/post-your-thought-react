@@ -130,12 +130,7 @@ export function EditProfileModal({ toggleModal }) {
           name="bio"
           defaultValue={currentUserData.bio}
         />
-        <Button
-          variant="submit"
-          styles={modalStyles}
-          type="submit"
-          disabled={loading}
-        >
+        <Button color="pink" shape="fullWidth" type="submit" disabled={loading}>
           Update
         </Button>
       </form>

@@ -1,22 +1,17 @@
 import React, { forwardRef } from "react";
 import { OvalBtn } from "@/primitives/spinners";
-import globalStyles from "@/style-modules/global.module.css";
+import styles from "./button.module.css";
 
 export const Button = forwardRef(function Button(
-  { variant = "primary", styles, loading, className, disabled, children, ...rest },
+  { color = "primary", shape = "default", className, disabled, loading, children, ...rest },
   ref
 ) {
-  const variantClassName =
-    className ||
-    (variant === "submit" ? styles.submitButton : globalStyles.actionButtonPrimary);
+  const classes = [styles.base, styles[shape], styles[color], className]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <button
-      ref={ref}
-      className={variantClassName}
-      disabled={disabled ?? loading}
-      {...rest}
-    >
+    <button ref={ref} className={classes} disabled={disabled ?? loading} {...rest}>
       {loading && <OvalBtn />}
       <span style={loading !== undefined ? { opacity: loading && "0" } : undefined}>
         {children}

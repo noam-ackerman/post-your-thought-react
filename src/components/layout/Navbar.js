@@ -6,7 +6,7 @@ import { useUsersCtx } from "@/context/UsersContext";
 import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "@/primitives/icons";
 import { UpdateSettingsModal } from "@/components/modals/UpdateSettingsModal";
 import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
-import { Avatar } from "@/atoms";
+import { Avatar, Button } from "@/atoms";
 import styles from "@/style-modules/global.module.css";
 import navbarStyles from "@/style-modules/components/navbar.module.css";
 
@@ -51,20 +51,12 @@ export function Navbar() {
         >
           <SearchSVG color="#fff" height="23px" width="23px" />
         </Link>
-        <button
-          onClick={toggleModal}
-          className={styles.actionButtonPrimary}
-          title="Settings"
-        >
+        <Button onClick={toggleModal} title="Settings">
           <SettingsSVG color="#fff" height="21px" width="21px" />
-        </button>
-        <button
-          title="Log Out"
-          onClick={handleLogout}
-          className={styles.actionButtonPrimary}
-        >
+        </Button>
+        <Button title="Log Out" onClick={handleLogout}>
           <LogoutSVG color="#fff" height="20px" width="20px" />
-        </button>
+        </Button>
       </div>
       {modalOpen && <UpdateSettingsModal toggleModal={toggleModal} />}
     </div>

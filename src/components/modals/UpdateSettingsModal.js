@@ -164,16 +164,13 @@ export function UpdateSettingsModal({ toggleModal }) {
           placeholder="Leave blank to keep"
         />
         <div className={modalStyles.settingsActions}>
-          <Button
-            variant="submit"
-            styles={modalStyles}
-            type="submit"
-            loading={loading}
-          >
+          <Button color="pink" shape="fullWidth" type="submit" loading={loading}>
             Update
           </Button>
           <Button
-            className={modalStyles.deleteAccountBtn}
+            color="danger"
+            shape="fullWidth"
+            style={{ marginTop: 0 }}
             onClick={handleDeleteUser}
             disabled={loading}
             type="button"

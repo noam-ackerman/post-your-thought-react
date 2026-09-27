@@ -9,11 +9,11 @@
 
 .actionButtonPrimary {
   width: fit-content;
-  background-color: #ccbfff;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 3px 8px 0px;
-  border: 2px solid #fff;
+  background-color: var(--color-lavender);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--color-white);
   padding: 10px 20px;
   margin: 5px 0;
   font-size: 1.1rem;
@@ -23,10 +23,10 @@
 }
 
 .actionButtonPrimary:hover {
-  background-color: #dcd4ff;
+  background-color: var(--color-lavender-light);
 }
 .actionButtonPrimary[disabled] {
-  background-color: #dcd4ff;
+  background-color: var(--color-lavender-light);
   cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
   pointer-events: none;
 }
@@ -38,18 +38,18 @@
 .profileImgThumbnailWrapper {
   width: 49px;
   height: 49px;
-  border-radius: 999px;
-  border: 2px solid #fff;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
   display: block;
   transition: all 100ms ease-in-out;
 }
 
 .profileImgThumbnailWrapper:hover {
-  border-color: #8cb4fe;
+  border-color: var(--color-blue);
 }
 .profileImgThumbnail {
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -57,20 +57,20 @@
 
 .MainTitle {
   font-family: "Sigmar", cursive;
-  color: #eda4bd;
+  color: var(--color-pink);
   font-size: 3.6rem;
   padding: 10px;
   line-height: 4rem;
   margin-bottom: 1.2rem;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #fff;
+  -webkit-text-stroke-color: var(--color-white);
 }
 
 .SecondaryTitle {
   font-family: "Noto Sans", serif;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #7c606b;
-  color: #fff;
+  -webkit-text-stroke-color: var(--color-plum);
+  color: var(--color-white);
   font-size: 2rem;
   font-weight: 700;
   padding: 10px;

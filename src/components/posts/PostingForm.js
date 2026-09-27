@@ -3,6 +3,7 @@ import { uid } from "uid";
 import { useUsersCtx } from "@/context/UsersContext";
 import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
 import { KaomojiesModal } from "@/components/modals/KaomojiesModal";
+import { Button } from "@/atoms";
 import styles from "@/style-modules/global.module.css";
 import postsStyles from "@/style-modules/components/posts.module.css";
 
@@ -43,17 +44,12 @@ export function PostingForm() {
         >
           {error && <div className={postsStyles.error}>{error}</div>}
           <div className={`${styles.actionWrapper} ${styles.marginTopBottom0}`}>
-            <button
-              className={postsStyles.submitButton}
-              type="button"
-              onClick={toggleModal}
-              style={{ backgroundColor: "#8cb4fe" }}
-            >
+            <Button color="info" shape="compact" type="button" onClick={toggleModal}>
               Kaomojies
-            </button>
-            <button className={postsStyles.submitButton} type="submit">
+            </Button>
+            <Button color="pink" shape="compact" type="submit">
               Post
-            </button>
+            </Button>
           </div>
         </div>
       </form>

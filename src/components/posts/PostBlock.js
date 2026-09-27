@@ -19,9 +19,7 @@ export function PostBlock({ post, author, canEdit }) {
   const deletePostBtn = useRef();
   const textAreaEdit = useRef();
 
-  const [btnClickedOnce, setBtnClickedOnce] = useToggleBtnClick(
-    deletePostBtn?.current
-  );
+  const [btnClickedOnce, setBtnClickedOnce] = useToggleBtnClick(deletePostBtn);
   const [longPost, showMorePost, setShowMorePost, handleShowMore] = useLongPost(
     canEdit && editMode,
     post.content,
@@ -131,8 +129,12 @@ export function PostBlock({ post, author, canEdit }) {
             <Button onClick={handleEditPost}>
               {editMode ? "Save" : "Edit"}
             </Button>{" "}
-            <Button ref={deletePostBtn} onClick={handleDeletePost}>
-              {btnClickedOnce ? "Sure? 'Y'" : "Delete"}
+            <Button
+              color="danger"
+              ref={deletePostBtn}
+              onClick={handleDeletePost}
+            >
+              {btnClickedOnce ? "Sure?" : "Delete"}
             </Button>{" "}
           </>
         )}
