@@ -1,13 +1,12 @@
 import React, { useRef, useState } from "react";
-import ReactDOM from "react-dom";
 import { uid } from "uid";
-import { useUsersCtx } from "../context/usersContext";
-import useToggleModal from "../utilities/customHooks/useToggleModal";
-import KaomojiesModal from "./modals/KaomojiesModal";
-import styles from "../style-modules/global.module.css";
-import postsStyles from "../style-modules/components/posts.module.css";
+import { useUsersCtx } from "@/context/UsersContext";
+import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
+import { KaomojiesModal } from "@/components/modals/KaomojiesModal";
+import styles from "@/style-modules/global.module.css";
+import postsStyles from "@/style-modules/components/posts.module.css";
 
-export default function PostingForm() {
+export function PostingForm() {
   const { updatePost, currentUserData } = useUsersCtx();
   const textArea = useRef();
   const [error, setError] = useState(null);
@@ -58,11 +57,7 @@ export default function PostingForm() {
           </div>
         </div>
       </form>
-      {modalOpen &&
-        ReactDOM.createPortal(
-          <KaomojiesModal toggleModal={toggleModal} />,
-          document.getElementById("modal-root")
-        )}
+      {modalOpen && <KaomojiesModal toggleModal={toggleModal} />}
     </div>
   );
 }

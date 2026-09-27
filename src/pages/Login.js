@@ -1,11 +1,10 @@
 import React, { useRef, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { OvalBtn } from "../utilities/spinners";
-import styles from "../style-modules/global.module.css";
-import authStyles from "../style-modules/pages/authPage.module.css";
+import { Heading, FormField, Button } from "@/atoms";
+import authStyles from "@/style-modules/pages/authPage.module.css";
 
-export default function Login() {
+export function Login() {
   const { LoginUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
@@ -38,41 +37,37 @@ export default function Login() {
 
   return (
     <div className={authStyles.container}>
-      <div className={styles.MainTitle}>Post Your Thought.</div>
+      <Heading level="main">Post Your Thought.</Heading>
       <div className={authStyles.card}>
-        <div className={styles.SecondaryTitle}>Login</div>
+        <Heading level="secondary">Login</Heading>
         <form className={authStyles.form} onSubmit={handleSubmit}>
           {error && <div className={authStyles.error}>{error}</div>}
-          <div className={authStyles.inputGroup}>
-            <label className={authStyles.inputLabel}>Email</label>
-            <input
-              className={authStyles.input}
-              type="email"
-              ref={emailInput}
-              name="email"
-              autoComplete="email"
-              required
-            />
-          </div>
-          <div className={authStyles.inputGroup}>
-            <label className={authStyles.inputLabel}>Password</label>
-            <input
-              className={authStyles.input}
-              type="password"
-              ref={passwordInput}
-              autoComplete="current-password"
-              name="password"
-              required
-            />
-          </div>
-          <button
-            className={authStyles.submitButton}
+          <FormField
+            styles={authStyles}
+            label="Email"
+            ref={emailInput}
+            type="email"
+            name="email"
+            autoComplete="email"
+            required
+          />
+          <FormField
+            styles={authStyles}
+            label="Password"
+            ref={passwordInput}
+            type="password"
+            autoComplete="current-password"
+            name="password"
+            required
+          />
+          <Button
+            variant="submit"
+            styles={authStyles}
             type="submit"
-            disabled={loading}
+            loading={loading}
           >
-            {loading && <OvalBtn />}
-            <span style={{ opacity: loading && "0" }}>Login</span>
-          </button>
+            Login
+          </Button>
         </form>
         <div className={authStyles.linkText}>
           <Link to="/resetpassword">Forgot Password?</Link>

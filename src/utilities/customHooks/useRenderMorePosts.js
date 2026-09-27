@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-export default function useRenderMorePosts(postsWrapperRef, postsLength) {
+export function useRenderMorePosts(postsWrapperRef, postsLength) {
   const [numDisplayedPosts, setNumDisplayedPosts] = useState(14);
 
   const renderMorePosts = useCallback(() => {

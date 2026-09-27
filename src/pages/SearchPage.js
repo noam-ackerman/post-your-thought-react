@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useUsersCtx } from "../context/usersContext";
+import { useUsersCtx } from "@/context/UsersContext";
 import { Link } from "react-router-dom";
-import { HeartsPageLoader } from "../utilities/spinners";
-import searchPageStyles from "../style-modules/pages/searchPage.module.css";
+import { HeartsPageLoader } from "@/primitives/spinners";
+import searchPageStyles from "@/style-modules/pages/searchPage.module.css";
 
-export default function Search() {
+export function SearchPage() {
   const { usersData } = useUsersCtx();
   const [searchQuery, setsearchQuery] = useState("");
   const searchInput = React.useRef();

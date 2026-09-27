@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-export default function useToggleBtnClick(btnRef) {
+export function useToggleBtnClick(btnRef) {
   const [btnClickedOnce, setBtnClickedOnce] = useState(false);
 
   const handleDocumentClick = useCallback(

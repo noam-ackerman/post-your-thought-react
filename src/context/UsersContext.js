@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   getDatabase,
   ref as databaseRef,
@@ -88,6 +88,8 @@ const UsersContextProvider = ({ children }) => {
 
   React.useEffect(() => {
     if (currentUser) {
+      const userRef = databaseRef(database, "users/" + currentUser.uid);
+
       //setting current user in database on first signup
       get(child(databaseRef(database), "users/" + currentUser.uid)).then(
         (snapshot) => {
@@ -103,7 +105,6 @@ const UsersContextProvider = ({ children }) => {
         }
       );
       // current user data
-      const userRef = databaseRef(database, "users/" + currentUser.uid);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
         if (data) setCurrentUserData(data);

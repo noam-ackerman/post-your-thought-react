@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "../style-modules/global.module.css";
-import errorPageStyles from "../style-modules/pages/errorPage.module.css";
+import { Heading } from "@/atoms";
+import errorPageStyles from "@/style-modules/pages/errorPage.module.css";
 
-export default function ErrorPage() {
+export function ErrorPage() {
   return (
     <>
       <div className={errorPageStyles.container}>
-        <div className={styles.MainTitle}>Something Went Wrong :(</div>
+        <Heading level="main">Something Went Wrong :(</Heading>
         <div className={errorPageStyles.text}>
           Try to refresh the page or return later.
           <br />
@@ -19,7 +19,7 @@ export default function ErrorPage() {
           <br />
           and describe your scenario!
         </div>
-        <div className={styles.SecondaryTitle}>Thank you and apologies!</div>
+        <Heading level="secondary">Thank you and apologies!</Heading>
       </div>
     </>
   );

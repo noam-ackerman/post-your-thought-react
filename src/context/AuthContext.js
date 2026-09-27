@@ -13,7 +13,7 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from "firebase/auth";
-import firebaseApp from "../firebase";
+import { firebaseApp } from "@/firebase";
 
 const auth = getAuth(firebaseApp);
 const AuthContext = React.createContext();

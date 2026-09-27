@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { OvalContainer } from "../../utilities/spinners";
-import ProfileImage from "../modals/profileImage";
-import useToggleModal from "../../utilities/customHooks/useToggleModal";
-import profileStyles from "../../style-modules/pages/profile.module.css";
+import { OvalContainer } from "@/primitives/spinners";
+import { EditProfileModal } from "@/components/modals/EditProfileModal";
+import { ProfileImage } from "@/components/modals/ProfileImage";
+import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
+import { Button } from "@/atoms";
+import profileStyles from "@/style-modules/pages/profile.module.css";
+import styles from "@/style-modules/global.module.css";
 
-export default function ProfileBlockUnauthenticated({ user }) {
+export function ProfileBlock({ user, canEdit }) {
+  const [imageModalOpen, toggleImageModal] = useToggleModal();
+  const [editModalOpen, toggleEditModal] = useToggleModal();
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [modalOpen, toggleModal] = useToggleModal();
 
   return (
     <div className={profileStyles.profileBlockWrapper}>
-      <div className={profileStyles.profileImageWrapper} onClick={toggleModal}>
+      <div
+        className={profileStyles.profileImageWrapper}
+        onClick={toggleImageModal}
+      >
         {!imageLoaded && <OvalContainer />}
         <img
           style={{ display: imageLoaded ? "block" : "none" }}
@@ -32,16 +39,27 @@ export default function ProfileBlockUnauthenticated({ user }) {
             <span>{user.bio}</span>
           </div>
         )}
+        {canEdit && (
+          <Button
+            onClick={toggleEditModal}
+            className={`${styles.actionButtonPrimary} ${styles.marginTopBottom1}`}
+          >
+            Edit Profile
+          </Button>
+        )}
       </div>
-      {modalOpen &&
+      {imageModalOpen &&
         ReactDOM.createPortal(
           <ProfileImage
-            toggleModal={toggleModal}
+            toggleModal={toggleImageModal}
             username={user.displayName}
             img={user.photoURL}
           />,
           document.getElementById("modal-root")
         )}
+      {canEdit && editModalOpen && (
+        <EditProfileModal toggleModal={toggleEditModal} />
+      )}
     </div>
   );
 }

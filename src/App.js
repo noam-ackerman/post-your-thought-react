@@ -1,22 +1,21 @@
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import Signup from "./pages/signup";
-import Navbar from "./components/navbar";
-import Footer from "./components/footer";
-import Login from "./pages/login";
-import Profile from "./pages/Profile";
-import NavigateToProfile from "./components/AuthenticatedUserProfile/NavigateToProfile";
-import ProtectedRoute from "./components/routesWrappers/ProtectedRoute";
-import PublicAuthRoute from "./components/routesWrappers/PublicAuthRoute";
-import Homepage from "./pages/Homepage";
-import Search from "./pages/searchPage";
-import ForgotPassword from "./pages/forgotPassword";
-import ScrollToTop from "./utilities/scrollToTop";
+import { Signup } from "@/pages/Signup";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { Login } from "@/pages/Login";
+import { Profile } from "@/pages/Profile";
+import { NavigateToProfile } from "@/components/routes/NavigateToProfile";
+import { RouteGuard } from "@/components/routes/RouteGuard";
+import { Homepage } from "@/pages/Homepage";
+import { SearchPage } from "@/pages/SearchPage";
+import { ForgotPassword } from "@/pages/ForgotPassword";
+import { ScrollToTop } from "@/utilities/scrollToTop";
 
 function App() {
   const { currentUser } = useAuth();
@@ -30,57 +29,57 @@ function App() {
             path="/"
             exact
             element={
-              <ProtectedRoute>
+              <RouteGuard mode="protected">
                 <Homepage />
-              </ProtectedRoute>
+              </RouteGuard>
             }
           />
           <Route
             path="/profile"
             element={
-              <ProtectedRoute>
+              <RouteGuard mode="protected">
                 <NavigateToProfile />
-              </ProtectedRoute>
+              </RouteGuard>
             }
           />
           <Route
             path="/:userId"
             element={
-              <ProtectedRoute>
+              <RouteGuard mode="protected">
                 <Profile />
-              </ProtectedRoute>
+              </RouteGuard>
             }
           />
           <Route
             path="/search-users"
             element={
-              <ProtectedRoute>
-                <Search />
-              </ProtectedRoute>
+              <RouteGuard mode="protected">
+                <SearchPage />
+              </RouteGuard>
             }
           />
           <Route
             path="/signup"
             element={
-              <PublicAuthRoute>
+              <RouteGuard mode="public">
                 <Signup />
-              </PublicAuthRoute>
+              </RouteGuard>
             }
           />
           <Route
             path="/login"
             element={
-              <PublicAuthRoute>
+              <RouteGuard mode="public">
                 <Login />
-              </PublicAuthRoute>
+              </RouteGuard>
             }
           />
           <Route
             path="/resetpassword"
             element={
-              <PublicAuthRoute>
+              <RouteGuard mode="public">
                 <ForgotPassword />
-              </PublicAuthRoute>
+              </RouteGuard>
             }
           />
           <Route path="/*" element={<Navigate to="/" />} />
@@ -91,4 +90,4 @@ function App() {
   );
 }
 
-export default App;
+export { App };

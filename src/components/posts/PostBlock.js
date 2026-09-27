@@ -1,18 +1,18 @@
 import React, { useRef, useState } from "react";
-import { useUsersCtx } from "../../context/usersContext";
+import { useUsersCtx } from "@/context/UsersContext";
 import { Link } from "react-router-dom";
-import { EmptyHeartSVG, FullHeartSVG } from "../../utilities/icons";
-import { formatDate, handleLike } from "../../utilities/actions";
-import useLongPost from "../../utilities/customHooks/useLongPost";
-import useToggleBtnClick from "../../utilities/customHooks/useToggleButtonClick";
-import styles from "../../style-modules/global.module.css";
-import postsStyles from "../../style-modules/components/posts.module.css";
+import { EmptyHeartSVG, FullHeartSVG } from "@/primitives/icons";
+import { formatDate, handleLike } from "@/utilities/actions";
+import { Avatar, Button } from "@/atoms";
+import { useLongPost } from "@/utilities/customHooks/useLongPost";
+import { useToggleBtnClick } from "@/utilities/customHooks/useToggleButtonClick";
+import styles from "@/style-modules/global.module.css";
+import postsStyles from "@/style-modules/components/posts.module.css";
 
-export default function PostBlockAuthenticated({ post }) {
+export function PostBlock({ post, author, canEdit }) {
   const time = formatDate(post.date);
   const { updatePost, removePost, currentUserData } = useUsersCtx();
   const [editMode, setEditMode] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const heart = useRef();
   const postContentWrapper = useRef();
   const postContent = useRef();
@@ -23,7 +23,7 @@ export default function PostBlockAuthenticated({ post }) {
     deletePostBtn?.current
   );
   const [longPost, showMorePost, setShowMorePost, handleShowMore] = useLongPost(
-    editMode,
+    canEdit && editMode,
     post.content,
     postContent,
     postContentWrapper
@@ -60,28 +60,18 @@ export default function PostBlockAuthenticated({ post }) {
     <div className={postsStyles.postBlockWrraper}>
       <div className={postsStyles.postInfoLineWrapper}>
         <div className={postsStyles.userInfo}>
-          <Link
-            to={`/${currentUserData?.userId}`}
-            className={styles.profileImgThumbnailWrapper}
-          >
-            <img
-              className={styles.profileImgThumbnail}
-              src={currentUserData?.photoURL}
-              alt={currentUserData?.displayName}
-              style={{ display: imageLoaded ? "block" : "none" }}
-              onLoad={() => setImageLoaded(true)}
-            />
-          </Link>
-          <Link
-            to={`/${currentUserData?.userId}`}
-            className={postsStyles.usernamePost}
-          >
-            {currentUserData?.displayName}
+          <Avatar
+            to={`/${author?.userId}`}
+            src={author?.photoURL}
+            alt={author?.displayName}
+          />
+          <Link to={`/${author?.userId}`} className={postsStyles.usernamePost}>
+            {author?.displayName}
           </Link>
         </div>
         <div className={postsStyles.dateAndTime}>{time}</div>
       </div>
-      {editMode ? (
+      {canEdit && editMode ? (
         <textarea
           className={`${postsStyles.textArea} ${styles.marginTopBottom1}`}
           required
@@ -136,16 +126,16 @@ export default function PostBlockAuthenticated({ post }) {
             {postLikes.length}
           </span>
         </div>
-        <button className={styles.actionButtonPrimary} onClick={handleEditPost}>
-          {editMode ? "Save" : "Edit"}
-        </button>{" "}
-        <button
-          className={styles.actionButtonPrimary}
-          ref={deletePostBtn}
-          onClick={handleDeletePost}
-        >
-          {btnClickedOnce ? "Sure? 'Y'" : "Delete"}
-        </button>{" "}
+        {canEdit && (
+          <>
+            <Button onClick={handleEditPost}>
+              {editMode ? "Save" : "Edit"}
+            </Button>{" "}
+            <Button ref={deletePostBtn} onClick={handleDeletePost}>
+              {btnClickedOnce ? "Sure? 'Y'" : "Delete"}
+            </Button>{" "}
+          </>
+        )}
       </div>
     </div>
   );

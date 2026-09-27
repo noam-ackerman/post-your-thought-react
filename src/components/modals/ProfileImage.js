@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { ExitSVG } from "../../utilities/icons";
-import { OvalContainer } from "../../utilities/spinners";
-import modalStyles from "../../style-modules/components/modals.module.css";
+import { ExitSVG } from "@/primitives/icons";
+import { OvalContainer } from "@/primitives/spinners";
+import modalStyles from "@/style-modules/components/modals.module.css";
 
-export default function ProfileImage({ toggleModal, username, img }) {
+export function ProfileImage({ toggleModal, username, img }) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (

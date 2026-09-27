@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ExitSVG, CopySvg } from "../../utilities/icons";
-import { OvalContainer } from "../../utilities/spinners";
-import modalStyles from "../../style-modules/components/modals.module.css";
+import { CopySvg } from "@/primitives/icons";
+import { OvalContainer } from "@/primitives/spinners";
+import { Modal } from "@/atoms";
+import modalStyles from "@/style-modules/components/modals.module.css";
 
 const fetchKaomojies = async () => {
   const res = await fetch(
@@ -18,16 +19,11 @@ const fetchKaomojies = async () => {
   return res.json();
 };
 
-export default function KaomojiesModal({ toggleModal }) {
+export function KaomojiesModal({ toggleModal }) {
   const { status, data } = useQuery({
     queryKey: ["kaomojies"],
     queryFn: fetchKaomojies,
   });
-  const modal = useRef();
-
-  function handleOverlayClick(event) {
-    if (event.target !== modal.current) toggleModal();
-  }
 
   const ErrorDisplay = (
     <div className={modalStyles.kaomojiesError}>
@@ -47,43 +43,34 @@ export default function KaomojiesModal({ toggleModal }) {
   );
 
   return (
-    <>
-      <div
-        className={modalStyles.modalOverlay}
-        onClick={handleOverlayClick}
-      ></div>
-      <div ref={modal} className={modalStyles.modalCardKaomojies}>
-        <button className={modalStyles.exitBtn} onClick={toggleModal}>
-          <ExitSVG color="#7c606b" height="15px" width="15px" />
-        </button>
-        <div className={modalStyles.kaomojiesContent}>
-          {status === "success" && data.record?.kaomojies ? (
-            data.record.kaomojies.map((item) => (
-              <div className={modalStyles.kaomojiCopyWrapper} key={item.id}>
-                <div className={modalStyles.kaomojiWrapper}>{item.kaomoji}</div>
-                <button
-                  className={modalStyles.copyButton}
-                  onClick={(e) => {
-                    const self = e.currentTarget;
-                    self.style.backgroundColor = "#c1f7dc";
-                    navigator.clipboard.writeText(item.kaomoji);
-                    setTimeout(() => {
-                      self.style.backgroundColor = "#eda4bd";
-                    }, 1000);
-                  }}
-                >
-                  <CopySvg color="#fff" height="16px" width="16px" />
-                </button>
-              </div>
-            ))
-          ) : (status === "success" && !data.record?.kaomojies) ||
-            status === "error" ? (
-            ErrorDisplay
-          ) : status === "pending" ? (
-            <OvalContainer />
-          ) : null}
-        </div>
+    <Modal onClose={toggleModal} cardClassName={modalStyles.modalCardKaomojies}>
+      <div className={modalStyles.kaomojiesContent}>
+        {status === "success" && data.record?.kaomojies ? (
+          data.record.kaomojies.map((item) => (
+            <div className={modalStyles.kaomojiCopyWrapper} key={item.id}>
+              <div className={modalStyles.kaomojiWrapper}>{item.kaomoji}</div>
+              <button
+                className={modalStyles.copyButton}
+                onClick={(e) => {
+                  const self = e.currentTarget;
+                  self.style.backgroundColor = "#c1f7dc";
+                  navigator.clipboard.writeText(item.kaomoji);
+                  setTimeout(() => {
+                    self.style.backgroundColor = "#eda4bd";
+                  }, 1000);
+                }}
+              >
+                <CopySvg color="#fff" height="16px" width="16px" />
+              </button>
+            </div>
+          ))
+        ) : (status === "success" && !data.record?.kaomojies) ||
+          status === "error" ? (
+          ErrorDisplay
+        ) : status === "pending" ? (
+          <OvalContainer />
+        ) : null}
       </div>
-    </>
+    </Modal>
   );
 }

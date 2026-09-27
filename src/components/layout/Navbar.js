@@ -1,20 +1,19 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useUsersCtx } from "../context/usersContext";
-import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "../utilities/icons";
-import UpdateSettingsModal from "./modals/updateSettingsModal";
-import useToggleModal from "../utilities/customHooks/useToggleModal";
-import styles from "../style-modules/global.module.css";
-import navbarStyles from "../style-modules/components/navbar.module.css";
+import { useUsersCtx } from "@/context/UsersContext";
+import { LogoutSVG, SettingsSVG, HomeSVG, SearchSVG } from "@/primitives/icons";
+import { UpdateSettingsModal } from "@/components/modals/UpdateSettingsModal";
+import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
+import { Avatar } from "@/atoms";
+import styles from "@/style-modules/global.module.css";
+import navbarStyles from "@/style-modules/components/navbar.module.css";
 
-export default function Navbar() {
+export function Navbar() {
   const navigate = useNavigate();
   const { currentUser, LogoutUser } = useAuth();
   const [modalOpen, toggleModal] = useToggleModal();
-  const [imageLoaded, setImageLoaded] = useState(false);
   const { currentUserData } = useUsersCtx();
 
   async function handleLogout() {
@@ -36,19 +35,12 @@ export default function Navbar() {
           Hi {currentUserData?.displayName || currentUser?.displayName}{" "}
           <span>(✧ω✧)☆</span>
         </div>
-        <Link
+        <Avatar
           to={`/${currentUserData?.userId}`}
-          title="My Profile"
-          className={`${styles.profileImgThumbnailWrapper} ${navbarStyles.profileImage}`}
-        >
-          <img
-            className={styles.profileImgThumbnail}
-            src={currentUserData?.photoURL}
-            alt={currentUserData?.displayName}
-            style={{ display: imageLoaded ? "block" : "none" }}
-            onLoad={() => setImageLoaded(true)}
-          />
-        </Link>
+          src={currentUserData?.photoURL}
+          alt={currentUserData?.displayName}
+          className={navbarStyles.profileImage}
+        />
         <Link to="/" title="Homepage" className={styles.actionButtonPrimary}>
           <HomeSVG color="#fff" height="22px" width="22px" />
         </Link>
@@ -74,11 +66,7 @@ export default function Navbar() {
           <LogoutSVG color="#fff" height="20px" width="20px" />
         </button>
       </div>
-      {modalOpen &&
-        ReactDOM.createPortal(
-          <UpdateSettingsModal toggleModal={toggleModal} />,
-          document.getElementById("modal-root")
-        )}
+      {modalOpen && <UpdateSettingsModal toggleModal={toggleModal} />}
     </div>
   );
 }

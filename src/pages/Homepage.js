@@ -1,15 +1,14 @@
 import React from "react";
-import { useUsersCtx } from "../context/usersContext";
-import { useAuth } from "../context/AuthContext";
-import { HeartsPageLoader } from "../utilities/spinners";
-import PostingForm from "../components/postingForm";
-import PostBlockUnauthenticated from "../components/UnauthenticatedUserProfile/postBlockUnauthenticated";
-import PostBlockAuthenticated from "../components/AuthenticatedUserProfile/postBlockAuthenticated";
-import useRenderMorePosts from "../utilities/customHooks/useRenderMorePosts";
-import styles from "../style-modules/global.module.css";
-import homepageStyles from "../style-modules/pages/homepage.module.css";
+import { useUsersCtx } from "@/context/UsersContext";
+import { useAuth } from "@/context/AuthContext";
+import { HeartsPageLoader } from "@/primitives/spinners";
+import { PostingForm } from "@/components/posts/PostingForm";
+import { PostBlock } from "@/components/posts/PostBlock";
+import { useRenderMorePosts } from "@/utilities/customHooks/useRenderMorePosts";
+import styles from "@/style-modules/global.module.css";
+import homepageStyles from "@/style-modules/pages/homepage.module.css";
 
-export default function Homepage() {
+export function Homepage() {
   const { currentUser } = useAuth();
   const { usersData, postsData, currentUserData } = useUsersCtx();
   const welcome = React.useRef();
@@ -91,20 +90,18 @@ export default function Homepage() {
             {postsData.length ? (
               postsData.map((post, index) => {
                 if (index <= numDisplayedPosts) {
-                  if (post.userId === currentUser.uid) {
-                    return (
-                      <PostBlockAuthenticated key={post.postId} post={post} />
-                    );
-                  } else {
-                    let user = usersData[post.userId];
-                    return (
-                      <PostBlockUnauthenticated
-                        key={post.postId}
-                        user={user}
-                        post={post}
-                      />
-                    );
-                  }
+                  const isOwnPost = post.userId === currentUser.uid;
+                  const author = isOwnPost
+                    ? currentUserData
+                    : usersData[post.userId];
+                  return (
+                    <PostBlock
+                      key={post.postId}
+                      post={post}
+                      author={author}
+                      canEdit={isOwnPost}
+                    />
+                  );
                 } else {
                   return null;
                 }

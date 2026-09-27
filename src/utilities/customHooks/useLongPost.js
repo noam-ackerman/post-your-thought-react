@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function useLongPost(
+export function useLongPost(
   editMode,
   postContent,
   postContentRef,

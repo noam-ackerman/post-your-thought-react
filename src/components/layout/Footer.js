@@ -1,7 +1,7 @@
 import React from "react";
-import footerStyles from "../style-modules/components/footer.module.css";
+import footerStyles from "@/style-modules/components/footer.module.css";
 
-export default function Footer() {
+export function Footer() {
   return (
     <div className={footerStyles.footer}>
       This site is an{" "}
