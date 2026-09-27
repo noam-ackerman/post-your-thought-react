@@ -11,7 +11,7 @@ const fetchKaomojies = async () => {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        "X-Master-Key": process.env.REACT_APP_JSONBIN_MASTER_KEY,
+        "X-Master-Key": import.meta.env.VITE_JSONBIN_MASTER_KEY,
       },
     }
   );
@@ -19,7 +19,10 @@ const fetchKaomojies = async () => {
 };
 
 export default function KaomojiesModal({ toggleModal }) {
-  const { status, data } = useQuery(["kaomojies"], fetchKaomojies);
+  const { status, data } = useQuery({
+    queryKey: ["kaomojies"],
+    queryFn: fetchKaomojies,
+  });
   const modal = useRef();
 
   function handleOverlayClick(event) {
@@ -76,7 +79,7 @@ export default function KaomojiesModal({ toggleModal }) {
           ) : (status === "success" && !data.record?.kaomojies) ||
             status === "error" ? (
             ErrorDisplay
-          ) : status === "loading" ? (
+          ) : status === "pending" ? (
             <OvalContainer />
           ) : null}
         </div>
