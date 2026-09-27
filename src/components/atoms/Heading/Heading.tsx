@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import styles from "@/style-modules/global.module.css";
+import styles from "./heading.module.css";
 
 interface HeadingProps {
   level?: "main" | "secondary";

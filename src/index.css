@@ -11,7 +11,7 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #c1f7dc;
+  background-color: var(--color-mint);
   overflow-x: hidden;
   cursor: var(--cursor-disabled);
 }

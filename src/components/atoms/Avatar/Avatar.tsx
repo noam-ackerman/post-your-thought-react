@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "@/style-modules/global.module.css";
+import styles from "./avatar.module.css";
 
 interface AvatarProps {
   to?: string;

@@ -65,7 +65,7 @@ export function KaomojiesModal({ toggleModal }: KaomojiesModalProps) {
                 className={modalStyles.copyButton}
                 onClick={(e) => {
                   const self = e.currentTarget;
-                  self.style.backgroundColor = "#c1f7dc";
+                  self.style.backgroundColor = "var(--color-mint)";
                   navigator.clipboard.writeText(item.kaomoji);
                   setTimeout(() => {
                     self.style.backgroundColor = "#eda4bd";

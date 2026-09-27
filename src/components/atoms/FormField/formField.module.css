@@ -26,8 +26,7 @@
 }
 
 .input:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--color-lavender-light);
+  outline: 2px solid var(--color-lavender);
 }
 
 .textarea {
@@ -45,8 +44,7 @@
 }
 
 .textarea:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--color-lavender-light);
+  outline: 2px solid var(--color-lavender);
 }
 
 .errorInput {
@@ -54,7 +52,7 @@
 }
 
 .errorInput:focus {
-  box-shadow: 0 0 0 3px var(--color-red-light) !important;
+  outline: none;
 }
 
 .errorText {

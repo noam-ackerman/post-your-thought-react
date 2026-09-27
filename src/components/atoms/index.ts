@@ -1,8 +1,8 @@
-export { Heading } from "./Heading";
-export { FormField } from "./FormField";
-export { Button } from "./Button";
-export { Avatar } from "./Avatar";
-export { Modal } from "./Modal";
+export { Heading } from "./Heading/Heading";
+export { FormField } from "./FormField/FormField";
+export { Button } from "./Button/Button";
+export { Avatar } from "./Avatar/Avatar";
+export { Modal } from "./Modal/Modal";
 export {
   SearchSVG,
   HomeSVG,
@@ -21,4 +21,4 @@ export {
   OvalBtn,
   OvalContainer,
   OvalLargeThumbnail,
-} from "./spinners";
+} from "./Spinners/spinners";

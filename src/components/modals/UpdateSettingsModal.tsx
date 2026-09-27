@@ -83,7 +83,7 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
           }
         }
       }
-      setMessage("Your setting were updated!");
+      setMessage("Your settings were updated!");
     } catch {
       return setError("Failed! Incorrent password");
     } finally {
@@ -135,7 +135,7 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
     <Modal
       onClose={toggleModal}
       overlayStyle={{
-        backgroundColor: deleting ? "#c1f7dc" : undefined,
+        backgroundColor: deleting ? "var(--color-mint)" : undefined,
         opacity: deleting ? 1 : undefined,
       }}
     >

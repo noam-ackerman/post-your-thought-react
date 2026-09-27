@@ -7,78 +7,6 @@
   margin: 0.5rem 0;
 }
 
-.actionButtonPrimary {
-  width: fit-content;
-  background-color: var(--color-lavender);
-  color: var(--color-white);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
-  border: 2px solid var(--color-white);
-  padding: 10px 20px;
-  margin: 5px 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  transition: all 150ms ease;
-  display: block;
-}
-
-.actionButtonPrimary:hover {
-  background-color: var(--color-lavender-light);
-}
-.actionButtonPrimary[disabled] {
-  background-color: var(--color-lavender-light);
-  cursor: var(--cursor-disabled);
-  pointer-events: none;
-}
-
-.actionButtonPrimary svg {
-  vertical-align: middle;
-}
-
-.profileImgThumbnailWrapper {
-  width: 49px;
-  height: 49px;
-  border-radius: var(--radius-pill);
-  border: 2px solid var(--color-white);
-  box-shadow: var(--shadow-sm);
-  display: block;
-  transition: all 100ms ease-in-out;
-}
-
-.profileImgThumbnailWrapper:hover {
-  border-color: var(--color-blue);
-}
-.profileImgThumbnail {
-  border-radius: var(--radius-pill);
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.MainTitle {
-  font-family: "Sigmar", cursive;
-  color: var(--color-pink);
-  font-size: 3.6rem;
-  padding: 10px;
-  line-height: 4rem;
-  margin-bottom: 1.2rem;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: var(--color-white);
-}
-
-.SecondaryTitle {
-  font-family: "Noto Sans", serif;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: var(--color-plum);
-  color: var(--color-white);
-  font-size: 2rem;
-  font-weight: 700;
-  padding: 10px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 100%;
-}
-
 .fullWidth {
   width: 100%;
 }
@@ -113,32 +41,10 @@
     gap: 0.82rem;
     justify-content: flex-start;
   }
-  .actionButtonPrimary {
-    padding: 8px 12px;
-  }
-  .actionButtonPrimary {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 550px) {
-  .MainTitle {
-    font-size: 3rem;
-  }
-  .SecondaryTitle {
-    font-size: 1.6rem;
-  }
 }
 
 @media (max-width: 350px) {
   .actionWrapper {
     gap: 0.5rem;
-  }
-  .actionButtonPrimary {
-    font-size: 0.85rem;
-  }
-  .profileImgThumbnailWrapper {
-    width: 45px;
-    height: 45px;
   }
 }

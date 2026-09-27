@@ -102,7 +102,7 @@ export function EditProfileModal({ toggleModal }: EditProfileModalProps) {
         {error && <div className={modalStyles.formError}>{error}</div>}
         <div className={modalStyles.inputGroup}>
           <div className={modalStyles.profileImgModalWrapper}>
-            <OvalLargeThumbnail />{/* TEMP: forced visible to check alignment */}
+            {loading && <OvalLargeThumbnail />}
             <img
               className={modalStyles.profileImg}
               src={imgUrl}

@@ -2,6 +2,7 @@ import { PostingForm } from "./PostingForm";
 import { PostBlock } from "./PostBlock";
 import { useRenderMorePosts } from "@/utilities/customHooks/useRenderMorePosts";
 import styles from "@/style-modules/global.module.css";
+import headingStyles from "@/components/atoms/Heading/heading.module.css";
 import postsStyles from "@/style-modules/components/posts.module.css";
 import type { PostRecord, UserRecord } from "@/types";
 
@@ -33,7 +34,7 @@ export function PostsSection({ user, isOwner, posts }: PostsSectionProps) {
           }
         })
       ) : (
-        <div className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}>
+        <div className={`${headingStyles.SecondaryTitle} ${styles.marginTopBottom3}`}>
           No Posts Yet
         </div>
       )}

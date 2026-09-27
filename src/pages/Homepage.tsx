@@ -6,6 +6,7 @@ import { PostingForm } from "@/components/posts/PostingForm";
 import { PostBlock } from "@/components/posts/PostBlock";
 import { useRenderMorePosts } from "@/utilities/customHooks/useRenderMorePosts";
 import styles from "@/style-modules/global.module.css";
+import headingStyles from "@/components/atoms/Heading/heading.module.css";
 import homepageStyles from "@/style-modules/pages/homepage.module.css";
 
 export function Homepage() {
@@ -44,7 +45,7 @@ export function Homepage() {
             <div ref={welcome} className={homepageStyles.heroBannerText}>
               <span style={{ color: "#eed5c2" }}>W</span>
               <span style={{ color: "#ccbfff" }}>E</span>
-              <span style={{ color: "#c1f7dc" }}>L</span>
+              <span style={{ color: "var(--color-mint)" }}>L</span>
               <span style={{ color: "rgb(187, 233, 255, 0.8)" }}>C</span>
               <span style={{ color: "#FFA9D4" }}>O</span>
               <span style={{ color: "#eed5c2" }}>M</span>
@@ -105,7 +106,7 @@ export function Homepage() {
               })
             ) : (
               <div
-                className={`${styles.SecondaryTitle} ${styles.marginTopBottom3}`}
+                className={`${headingStyles.SecondaryTitle} ${styles.marginTopBottom3}`}
               >
                 No Posts Yet
               </div>

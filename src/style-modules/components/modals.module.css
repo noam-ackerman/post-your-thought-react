@@ -1,18 +1,3 @@
-.modalOverlay {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgb(0, 0, 0);
-  opacity: 0.6;
-  z-index: 2;
-  position: fixed;
-  transition: all 100ms ease;
-}
-
-.modalCard,
 .modalCardKaomojies {
   position: fixed;
   background: var(--color-cream);
@@ -22,12 +7,6 @@
   bottom: 50%;
   right: 50%;
   z-index: 3;
-}
-.modalCard {
-  width: min(420px, 88%);
-  padding: 1.6rem 2rem;
-}
-.modalCardKaomojies {
   width: min(650px, 88%);
   padding: 2.5rem 1.3rem;
 }
@@ -268,10 +247,6 @@
 }
 
 @media (max-width: 767px) {
-  .modalOverlay {
-    display: none;
-  }
-  .modalCard,
   .modalCardKaomojies {
     transform: none;
     right: 0;
@@ -281,12 +256,6 @@
     width: 100vw;
     height: 100vh;
     height: 100svh;
-  }
-  .modalCard {
-    overflow-y: scroll;
-    padding: 2rem 2rem;
-  }
-  .modalCardKaomojies {
     padding: 2.5rem 1.1rem;
   }
 

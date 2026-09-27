@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { useUsersCtx } from "@/context/UsersContext";
 import { UpdateSettingsModal } from "@/components/modals/UpdateSettingsModal";
 import { LogoutConfirmModal } from "@/components/modals/LogoutConfirmModal";
@@ -48,16 +47,12 @@ export function Navbar() {
           alt={currentUserData?.displayName}
           className={navbarStyles.profileImage}
         />
-        <Link to="/" title="Homepage" className={styles.actionButtonPrimary}>
+        <Button as={Link} to="/" title="Homepage">
           <HomeSVG color="var(--color-white)" height="22px" width="22px" />
-        </Link>
-        <Link
-          to="/search-users"
-          title="Search Users"
-          className={styles.actionButtonPrimary}
-        >
+        </Button>
+        <Button as={Link} to="/search-users" title="Search Users">
           <SearchSVG color="var(--color-white)" height="23px" width="23px" />
-        </Link>
+        </Button>
         <Button onClick={toggleSettingsModal} title="Settings">
           <SettingsSVG color="var(--color-white)" height="21px" width="21px" />
         </Button>

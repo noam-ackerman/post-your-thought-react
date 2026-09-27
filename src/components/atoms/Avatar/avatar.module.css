@@ -1,0 +1,27 @@
+.profileImgThumbnailWrapper {
+  width: 49px;
+  height: 49px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
+  display: block;
+  transition: all 100ms ease-in-out;
+}
+
+.profileImgThumbnailWrapper:hover {
+  border-color: var(--color-blue);
+}
+
+.profileImgThumbnail {
+  border-radius: var(--radius-pill);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 350px) {
+  .profileImgThumbnailWrapper {
+    width: 45px;
+    height: 45px;
+  }
+}
