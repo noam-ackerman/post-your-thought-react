@@ -93,10 +93,6 @@
   margin-bottom: 1rem;
 }
 
-.marginTopBottom2 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
 .marginTopBottom3 {
   margin-top: 3rem;
   margin-bottom: 3rem;
@@ -104,10 +100,6 @@
 
 .marginAuto {
   margin: auto;
-}
-
-.maxWidth1200 {
-  max-width: 1200px;
 }
 
 .preventHighlightSelect {
