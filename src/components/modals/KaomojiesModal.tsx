@@ -1,0 +1,88 @@
+import { useQuery } from "@tanstack/react-query";
+import { CopySvg, OvalContainer, Modal } from "@/components/atoms";
+import modalStyles from "@/style-modules/components/modals.module.css";
+
+interface Kaomoji {
+  id: string;
+  kaomoji: string;
+}
+
+interface KaomojiesResponse {
+  record?: {
+    kaomojies?: Kaomoji[];
+  };
+}
+
+const fetchKaomojies = async (): Promise<KaomojiesResponse> => {
+  const res = await fetch(
+    "https://api.jsonbin.io/v3/b/648c215b9d312622a3706eac",
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        "X-Master-Key": import.meta.env.VITE_JSONBIN_MASTER_KEY,
+      },
+    }
+  );
+  return res.json();
+};
+
+interface KaomojiesModalProps {
+  toggleModal: () => void;
+}
+
+export function KaomojiesModal({ toggleModal }: KaomojiesModalProps) {
+  const { status, data } = useQuery({
+    queryKey: ["kaomojies"],
+    queryFn: fetchKaomojies,
+  });
+
+  const ErrorDisplay = (
+    <div className={modalStyles.kaomojiesError}>
+      Something Went Wrong (*꒦ິ⌒꒦ີ)
+      <br />
+      Try Again Later!
+      <br />
+      If this error still occurs,
+      <br />
+      Please report to
+      <br />
+      <a href="mailto:developer.noam@gmail.com">
+        developer.noam@gmail.com
+      </a>{" "}
+      <br />
+    </div>
+  );
+
+  return (
+    <Modal onClose={toggleModal} cardClassName={modalStyles.modalCardKaomojies}>
+      <div className={modalStyles.kaomojiesContent}>
+        {status === "success" && data.record?.kaomojies ? (
+          data.record.kaomojies.map((item) => (
+            <div className={modalStyles.kaomojiCopyWrapper} key={item.id}>
+              <div className={modalStyles.kaomojiWrapper}>{item.kaomoji}</div>
+              <button
+                className={modalStyles.copyButton}
+                onClick={(e) => {
+                  const self = e.currentTarget;
+                  self.style.backgroundColor = "var(--color-mint)";
+                  navigator.clipboard.writeText(item.kaomoji);
+                  setTimeout(() => {
+                    self.style.backgroundColor = "#eda4bd";
+                  }, 1000);
+                }}
+              >
+                <CopySvg color="var(--color-white)" height="16px" width="16px" />
+              </button>
+            </div>
+          ))
+        ) : (status === "success" && !data.record?.kaomojies) ||
+          status === "error" ? (
+          ErrorDisplay
+        ) : status === "pending" ? (
+          <OvalContainer />
+        ) : null}
+      </div>
+    </Modal>
+  );
+}

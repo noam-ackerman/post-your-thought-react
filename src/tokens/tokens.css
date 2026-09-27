@@ -1,0 +1,45 @@
+/*
+  Design tokens extracted from the values already in use across
+  style-modules/. Values are unchanged from their original literals —
+  this is a naming pass, not a redesign.
+
+  Breakpoints (documented here for reference; CSS custom properties
+  cannot be used inside @media conditions, so these stay as literals
+  in each stylesheet): 350px, 550px, 649/650px, 767px, 1024px.
+*/
+
+:root {
+  /* Colors */
+  --color-white: #fff;
+  --color-plum: #7c606b;
+  --color-pink: #eda4bd;
+  --color-pink-light: #fbbcd1;
+  --color-pink-pale: #f6d2de;
+  --color-cream: #eed5c2;
+  --color-lavender: #ccbfff;
+  --color-lavender-light: #dcd4ff;
+  --color-blue: #8cb4fe;
+  --color-blue-light: #adccfe;
+  --color-red: #ff5c5c;
+  --color-red-light: #ff8585;
+  --color-mint: #c1f7dc;
+  --color-green: #6fc48a;
+  --color-black: #000;
+  --color-heart-liked: #ee4b2b;
+  --color-spinner-accent: #b5a1ff;
+
+  /* Shadows */
+  --shadow-color: rgba(99, 99, 99, 0.2);
+  --shadow-color-alt: rgba(100, 100, 111, 0.2);
+  --shadow-sm: var(--shadow-color) 0px 2px 8px 0px;
+  --shadow-md: var(--shadow-color) 0px 3px 8px 0px;
+  --shadow-lg: var(--shadow-color-alt) 0px 7px 29px 0px;
+
+  /* Radii */
+  --radius-sm: 5px;
+  --radius-pill: 999px;
+
+  /* Cursors */
+  --cursor-pointer: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto;
+  --cursor-disabled: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
+}

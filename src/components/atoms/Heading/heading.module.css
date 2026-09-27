@@ -1,0 +1,32 @@
+.MainTitle {
+  font-family: "Sigmar", cursive;
+  color: var(--color-pink);
+  font-size: 3.6rem;
+  padding: 10px;
+  line-height: 4rem;
+  margin-bottom: 1.2rem;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--color-white);
+}
+
+.SecondaryTitle {
+  font-family: "Noto Sans", serif;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--color-plum);
+  color: var(--color-white);
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+@media (max-width: 550px) {
+  .MainTitle {
+    font-size: 3rem;
+  }
+  .SecondaryTitle {
+    font-size: 1.6rem;
+  }
+}

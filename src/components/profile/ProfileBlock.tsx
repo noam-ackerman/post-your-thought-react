@@ -1,0 +1,67 @@
+import { useState } from "react";
+import { createPortal } from "react-dom";
+import { EditProfileModal } from "@/components/modals/EditProfileModal";
+import { ProfileImage } from "@/components/modals/ProfileImage";
+import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
+import { Button, OvalContainer } from "@/components/atoms";
+import profileStyles from "@/style-modules/pages/profile.module.css";
+import styles from "@/style-modules/global.module.css";
+import type { UserRecord } from "@/types";
+
+interface ProfileBlockProps {
+  user: UserRecord;
+  canEdit: boolean;
+}
+
+export function ProfileBlock({ user, canEdit }: ProfileBlockProps) {
+  const [imageModalOpen, toggleImageModal] = useToggleModal();
+  const [editModalOpen, toggleEditModal] = useToggleModal();
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  return (
+    <div className={profileStyles.profileBlockWrapper}>
+      <div
+        className={profileStyles.profileImageWrapper}
+        onClick={toggleImageModal}
+      >
+        {!imageLoaded && <OvalContainer />}
+        <img
+          style={{ display: imageLoaded ? "block" : "none" }}
+          src={user.photoURL}
+          onLoad={() => setImageLoaded(true)}
+          alt={user.displayName}
+          className={profileStyles.profileImage}
+        />
+      </div>
+      <div className={profileStyles.profileDetailsWrapper}>
+        <div className={profileStyles.detailsProfile}>
+          <span className={profileStyles.detailsLabel}>Username:</span>
+          <span>{user.displayName}</span>
+        </div>
+        {user.bio && (
+          <div className={profileStyles.detailsProfile}>
+            <span className={profileStyles.detailsLabel}>Bio:</span>
+            <span>{user.bio}</span>
+          </div>
+        )}
+        {canEdit && (
+          <Button onClick={toggleEditModal} className={styles.marginTopBottom1}>
+            Edit Profile
+          </Button>
+        )}
+      </div>
+      {imageModalOpen &&
+        createPortal(
+          <ProfileImage
+            toggleModal={toggleImageModal}
+            username={user.displayName}
+            img={user.photoURL}
+          />,
+          document.getElementById("modal-root")!
+        )}
+      {canEdit && editModalOpen && (
+        <EditProfileModal toggleModal={toggleEditModal} />
+      )}
+    </div>
+  );
+}
