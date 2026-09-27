@@ -3,6 +3,8 @@ import { useAuth } from "@/context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Heading, FormField, Button } from "@/components/atoms";
 import { firebaseErrorCode } from "@/utilities/firebaseError";
+import { loginSchema } from "@/schemas/auth";
+import { useFormValidation } from "@/utilities/customHooks/useFormValidation";
 import authStyles from "@/style-modules/pages/authPage.module.css";
 
 export function Login() {
@@ -12,13 +14,23 @@ export function Login() {
   const navigate = useNavigate();
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
+  const { fieldErrors, validate, revalidateIfAttempted } = useFormValidation(loginSchema);
+
+  function getValues() {
+    return {
+      email: emailInput.current!.value,
+      password: passwordInput.current!.value,
+    };
+  }
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+    setError("");
+    const result = validate(getValues());
+    if (result.errors) return;
     try {
-      setError("");
       setLoading(true);
-      await LoginUser(emailInput.current!.value, passwordInput.current!.value);
+      await LoginUser(result.data.email, result.data.password);
       navigate("/");
     } catch (err) {
       const code = firebaseErrorCode(err);
@@ -39,25 +51,28 @@ export function Login() {
       <Heading level="main">Post Your Thought.</Heading>
       <div className={authStyles.card}>
         <Heading level="secondary">Login</Heading>
-        <form className={authStyles.form} onSubmit={handleSubmit}>
+        <form
+          className={authStyles.form}
+          onSubmit={handleSubmit}
+          onInput={() => revalidateIfAttempted(getValues())}
+          noValidate
+        >
           {error && <div className={authStyles.error}>{error}</div>}
           <FormField
-            styles={authStyles}
             label="Email"
             ref={emailInput}
             type="email"
             name="email"
             autoComplete="email"
-            required
+            error={fieldErrors.email}
           />
           <FormField
-            styles={authStyles}
             label="Password"
             ref={passwordInput}
             type="password"
             autoComplete="current-password"
             name="password"
-            required
+            error={fieldErrors.password}
           />
           <Button color="pink" shape="fullWidth" type="submit" loading={loading}>
             Login

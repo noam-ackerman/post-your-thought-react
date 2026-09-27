@@ -13,12 +13,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #c1f7dc;
   overflow-x: hidden;
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
+  cursor: var(--cursor-disabled);
 }
 
 a,
 button {
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;
+  cursor: var(--cursor-pointer) !important;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -32,11 +32,11 @@ image {
 
 input,
 textarea {
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
+  cursor: var(--cursor-disabled);
 }
 
 button[disabled] {
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto !important;
+  cursor: var(--cursor-disabled) !important;
 }
 
 body.modal-open {

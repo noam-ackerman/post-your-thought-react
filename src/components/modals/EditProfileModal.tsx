@@ -2,6 +2,8 @@ import { useLayoutEffect, useRef, useState, type ChangeEvent, type SubmitEvent }
 import { useAuth } from "@/context/AuthContext";
 import { useUsersCtx } from "@/context/UsersContext";
 import { Heading, FormField, Button, Modal, OvalLargeThumbnail } from "@/components/atoms";
+import { editProfileSchema } from "@/schemas/profile";
+import { useFormValidation } from "@/utilities/customHooks/useFormValidation";
 import modalStyles from "@/style-modules/components/modals.module.css";
 
 interface EditProfileModalProps {
@@ -18,6 +20,16 @@ export function EditProfileModal({ toggleModal }: EditProfileModalProps) {
   const fileInput = useRef<HTMLInputElement>(null);
   const nicknameInput = useRef<HTMLInputElement>(null);
   const bioInput = useRef<HTMLTextAreaElement>(null);
+  const { fieldErrors, validate, revalidateIfAttempted } = useFormValidation(
+    editProfileSchema
+  );
+
+  function getValues() {
+    return {
+      nickname: nicknameInput.current!.value,
+      bio: bioInput.current!.value,
+    };
+  }
 
   async function handleImageUpload(e: ChangeEvent<HTMLInputElement>) {
     setLoading(true);
@@ -42,31 +54,28 @@ export function EditProfileModal({ toggleModal }: EditProfileModalProps) {
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+    const result = validate(getValues());
+    if (result.errors) return;
     setLoading(true);
     const thereIsImage = fileInput.current!.value !== "";
-    if (nicknameInput.current!.value.length > 20) {
-      setLoading(false);
-      setError("Username is too long! Max 20 characters");
-      return;
-    }
     try {
       if (thereIsImage) {
         await UpdateProfile({
-          displayName: nicknameInput.current!.value,
+          displayName: result.data.nickname,
           photoURL: imgUrl,
         });
         await updateUserDatabase({
-          displayName: nicknameInput.current!.value,
+          displayName: result.data.nickname,
           photoURL: imgUrl,
-          bio: bioInput.current!.value,
+          bio: result.data.bio,
         });
       } else {
         await UpdateProfile({
-          displayName: nicknameInput.current!.value,
+          displayName: result.data.nickname,
         });
         await updateUserDatabase({
-          displayName: nicknameInput.current!.value,
-          bio: bioInput.current!.value,
+          displayName: result.data.nickname,
+          bio: result.data.bio,
         });
       }
       toggleModal();
@@ -84,11 +93,16 @@ export function EditProfileModal({ toggleModal }: EditProfileModalProps) {
   return (
     <Modal onClose={toggleModal}>
       <Heading level="secondary">Update Profile</Heading>
-      <form className={modalStyles.form} onSubmit={handleSubmit}>
+      <form
+        className={modalStyles.form}
+        onSubmit={handleSubmit}
+        onInput={() => revalidateIfAttempted(getValues())}
+        noValidate
+      >
         {error && <div className={modalStyles.formError}>{error}</div>}
         <div className={modalStyles.inputGroup}>
           <div className={modalStyles.profileImgModalWrapper}>
-            {loading && <OvalLargeThumbnail />}
+            <OvalLargeThumbnail />{/* TEMP: forced visible to check alignment */}
             <img
               className={modalStyles.profileImg}
               src={imgUrl}
@@ -105,27 +119,23 @@ export function EditProfileModal({ toggleModal }: EditProfileModalProps) {
               accept="image/png, image/jpg, image/gif, image/jpeg"
               multiple={false}
               ref={fileInput}
-              className={modalStyles.input}
               onChange={handleImageUpload}
               style={{ display: "none" }}
             />
           </label>
         </div>
         <FormField
-          styles={modalStyles}
           label="Nickname:"
           ref={nicknameInput}
           type="text"
           name="nickname"
           defaultValue={currentUserData!.displayName}
-          required
+          error={fieldErrors.nickname}
         />
         <FormField
-          styles={modalStyles}
           label="Bio:"
           as="textarea"
           ref={bioInput}
-          className={modalStyles.textArea}
           name="bio"
           defaultValue={currentUserData!.bio}
         />

@@ -2,7 +2,7 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { OvalBtn } from "./spinners";
 import styles from "./button.module.css";
 
-type ButtonColor = "primary" | "pink" | "danger" | "info";
+type ButtonColor = "primary" | "secondary" | "pink" | "danger";
 type ButtonShape = "default" | "compact" | "fullWidth";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

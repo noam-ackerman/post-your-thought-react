@@ -34,6 +34,7 @@ export function SearchPage() {
             name="search"
             placeholder="Search username/email"
             onChange={handleChange}
+            autoComplete="off"
           />
           <div className={searchPageStyles.wrapper}>
             {scoredUsers.length > 0 &&

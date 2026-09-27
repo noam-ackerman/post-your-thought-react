@@ -3,6 +3,8 @@ import { useAuth } from "@/context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Heading, FormField, Button } from "@/components/atoms";
 import { firebaseErrorCode } from "@/utilities/firebaseError";
+import { signupSchema } from "@/schemas/auth";
+import { useFormValidation } from "@/utilities/customHooks/useFormValidation";
 import authStyles from "@/style-modules/pages/authPage.module.css";
 
 export function Signup() {
@@ -13,16 +15,24 @@ export function Signup() {
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
   const passwordConfirmInput = useRef<HTMLInputElement>(null);
+  const { fieldErrors, validate, revalidateIfAttempted } = useFormValidation(signupSchema);
+
+  function getValues() {
+    return {
+      email: emailInput.current!.value,
+      password: passwordInput.current!.value,
+      passwordConfirmation: passwordConfirmInput.current!.value,
+    };
+  }
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (passwordInput.current!.value !== passwordConfirmInput.current!.value) {
-      return setError("Passwords do not match!");
-    }
+    setError("");
+    const result = validate(getValues());
+    if (result.errors) return;
     try {
-      setError("");
       setLoading(true);
-      await SignupUser(emailInput.current!.value, passwordInput.current!.value);
+      await SignupUser(result.data.email, result.data.password);
       navigate("/");
     } catch (err) {
       const code = firebaseErrorCode(err);
@@ -45,37 +55,39 @@ export function Signup() {
       <Heading level="main">Post Your Thought.</Heading>
       <div className={authStyles.card}>
         <Heading level="secondary">Sign Up</Heading>
-        <form className={authStyles.form} onSubmit={handleSubmit}>
+        <form
+          className={authStyles.form}
+          onSubmit={handleSubmit}
+          onInput={() => revalidateIfAttempted(getValues())}
+          noValidate
+        >
           {error && <div className={authStyles.error}>{error}</div>}
           <FormField
-            styles={authStyles}
             label="Email"
             ref={emailInput}
             type="email"
             name="email"
             autoComplete="email"
             placeholder="example@example.com"
-            required
+            error={fieldErrors.email}
           />
           <FormField
-            styles={authStyles}
             label="Password"
             ref={passwordInput}
             type="password"
             name="password"
             placeholder="=< 6 characters"
             autoComplete="new-password"
-            required
+            error={fieldErrors.password}
           />
           <FormField
-            styles={authStyles}
             label="Password Confirmation"
             ref={passwordConfirmInput}
             type="password"
             name="password-confirmation"
             placeholder="=< 6 characters"
             autoComplete="off"
-            required
+            error={fieldErrors.passwordConfirmation}
           />
           <Button color="pink" shape="fullWidth" type="submit" loading={loading}>
             Sign Up

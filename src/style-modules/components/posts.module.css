@@ -31,6 +31,11 @@
   font-weight: 500px;
 }
 
+.textArea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-lavender-light);
+}
+
 .error {
   color: var(--color-red);
   font-size: 0.9rem;
@@ -116,7 +121,11 @@
   text-decoration: underline;
   color: var(--color-pink);
   font-weight: 700;
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;
+  cursor: var(--cursor-pointer) !important;
+}
+
+.truncationEllipsis {
+  color: var(--color-plum);
 }
 
 .likeWrapper {
@@ -126,6 +135,10 @@
   padding: 0.5rem 0.6rem;
   font-size: 1rem;
   flex: 1;
+}
+
+.heartButton {
+  cursor: var(--cursor-pointer);
 }
 
 .deleteConfirmContent {

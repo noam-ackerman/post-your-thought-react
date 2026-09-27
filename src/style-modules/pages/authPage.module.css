@@ -26,33 +26,6 @@
   margin-top: 1rem;
 }
 
-.inputGroup {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 10px;
-  width: 100%;
-}
-
-.input {
-  width: 100%;
-  display: block;
-  padding: 12px 10px;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
-  border: none;
-  font-family: "Roboto", sans-serif;
-  font-size: 0.9rem;
-  font-weight: 400;
-}
-
-.inputLabel {
-  font-size: 1rem;
-  color: var(--color-plum);
-  font-weight: 600;
-}
-
 .error {
   background: var(--color-red);
   color: var(--color-white);

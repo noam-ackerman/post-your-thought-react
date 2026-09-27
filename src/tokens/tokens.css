@@ -19,6 +19,7 @@
   --color-lavender: #ccbfff;
   --color-lavender-light: #dcd4ff;
   --color-blue: #8cb4fe;
+  --color-blue-light: #adccfe;
   --color-red: #ff5c5c;
   --color-red-light: #ff8585;
   --color-green: #74c365;
@@ -36,4 +37,8 @@
   /* Radii */
   --radius-sm: 5px;
   --radius-pill: 999px;
+
+  /* Cursors */
+  --cursor-pointer: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto;
+  --cursor-disabled: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
 }

@@ -11,6 +11,7 @@ import type { PostRecord } from "@/types";
 export function PostingForm() {
   const { updatePost, currentUserData } = useUsersCtx();
   const textArea = useRef<HTMLTextAreaElement>(null);
+  const [isEmpty, setIsEmpty] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [modalOpen, toggleModal] = useToggleModal();
 
@@ -25,6 +26,7 @@ export function PostingForm() {
     updatePost(newPostData.postId, newPostData)
       .then(() => {
         textArea.current!.value = "";
+        setIsEmpty(true);
       })
       .catch(() => {
         setError("Something went wrong!");
@@ -36,8 +38,8 @@ export function PostingForm() {
       <form className={postsStyles.form} onSubmit={handleSubmit}>
         <textarea
           className={postsStyles.textArea}
-          required
           ref={textArea}
+          onChange={(e) => setIsEmpty(!e.target.value.trim())}
           placeholder="Post your thought here..."
         />
         <div
@@ -45,10 +47,10 @@ export function PostingForm() {
         >
           {error && <div className={postsStyles.error}>{error}</div>}
           <div className={`${styles.actionWrapper} ${styles.marginTopBottom0}`}>
-            <Button color="info" shape="compact" type="button" onClick={toggleModal}>
+            <Button color="secondary" shape="compact" type="button" onClick={toggleModal}>
               Kaomojies
             </Button>
-            <Button color="pink" shape="compact" type="submit">
+            <Button color="pink" shape="compact" type="submit" disabled={isEmpty}>
               Post
             </Button>
           </div>

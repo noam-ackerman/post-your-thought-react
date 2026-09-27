@@ -27,7 +27,7 @@
 }
 .actionButtonPrimary[disabled] {
   background-color: var(--color-lavender-light);
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
+  cursor: var(--cursor-disabled);
   pointer-events: none;
 }
 

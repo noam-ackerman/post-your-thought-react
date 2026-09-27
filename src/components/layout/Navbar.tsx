@@ -3,6 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useUsersCtx } from "@/context/UsersContext";
 import { UpdateSettingsModal } from "@/components/modals/UpdateSettingsModal";
+import { LogoutConfirmModal } from "@/components/modals/LogoutConfirmModal";
 import { useToggleModal } from "@/utilities/customHooks/useToggleModal";
 import {
   Avatar,
@@ -18,7 +19,8 @@ import navbarStyles from "@/style-modules/components/navbar.module.css";
 export function Navbar() {
   const navigate = useNavigate();
   const { currentUser, LogoutUser } = useAuth();
-  const [modalOpen, toggleModal] = useToggleModal();
+  const [settingsModalOpen, toggleSettingsModal] = useToggleModal();
+  const [logoutModalOpen, toggleLogoutModal] = useToggleModal();
   const { currentUserData } = useUsersCtx();
 
   async function handleLogout() {
@@ -56,14 +58,22 @@ export function Navbar() {
         >
           <SearchSVG color="var(--color-white)" height="23px" width="23px" />
         </Link>
-        <Button onClick={toggleModal} title="Settings">
+        <Button onClick={toggleSettingsModal} title="Settings">
           <SettingsSVG color="var(--color-white)" height="21px" width="21px" />
         </Button>
-        <Button title="Log Out" onClick={handleLogout}>
+        <Button title="Log Out" onClick={toggleLogoutModal}>
           <LogoutSVG color="var(--color-white)" height="20px" width="20px" />
         </Button>
       </div>
-      {modalOpen && <UpdateSettingsModal toggleModal={toggleModal} />}
+      {settingsModalOpen && (
+        <UpdateSettingsModal toggleModal={toggleSettingsModal} />
+      )}
+      {logoutModalOpen && (
+        <LogoutConfirmModal
+          toggleModal={toggleLogoutModal}
+          onConfirm={handleLogout}
+        />
+      )}
     </div>
   );
 }

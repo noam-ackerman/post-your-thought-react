@@ -1,0 +1,64 @@
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.inputLabel {
+  font-size: 1rem;
+  color: var(--color-plum);
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  display: block;
+  padding: 12px 10px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-lavender-light);
+}
+
+.textarea {
+  width: 100%;
+  height: 5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  padding: 8px 10px;
+  line-height: 1.3rem;
+  font-weight: 500px;
+  resize: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+}
+
+.textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-lavender-light);
+}
+
+.errorInput {
+  border: 2px solid var(--color-red) !important;
+}
+
+.errorInput:focus {
+  box-shadow: 0 0 0 3px var(--color-red-light) !important;
+}
+
+.errorText {
+  color: var(--color-red);
+  font-size: 0.8rem;
+  margin-top: -2px;
+}

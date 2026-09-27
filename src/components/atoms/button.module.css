@@ -45,7 +45,20 @@
 }
 .primary[disabled] {
   background-color: var(--color-lavender-light);
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto;
+  cursor: var(--cursor-disabled);
+  pointer-events: none;
+}
+
+.secondary {
+  background-color: var(--color-blue);
+  box-shadow: var(--shadow-md);
+}
+.secondary:hover {
+  background-color: var(--color-blue-light);
+}
+.secondary[disabled] {
+  background-color: var(--color-blue-light);
+  cursor: var(--cursor-disabled);
   pointer-events: none;
 }
 
@@ -58,7 +71,7 @@
 }
 .pink[disabled] {
   background-color: var(--color-pink-pale);
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat988.cur), auto !important;
+  cursor: var(--cursor-disabled) !important;
   pointer-events: none;
 }
 
@@ -69,14 +82,6 @@
 .danger:hover,
 .danger[disabled] {
   background-color: var(--color-red-light);
-}
-
-.info {
-  background-color: var(--color-blue);
-  box-shadow: var(--shadow-md);
-}
-.info:hover {
-  background-color: var(--color-blue);
 }
 
 @media (max-width: 767px) {

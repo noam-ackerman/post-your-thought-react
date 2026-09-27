@@ -102,7 +102,9 @@ export function PostBlock({ post, author, canEdit }: PostBlockProps) {
           </div>
           {longPost && (
             <>
-              {!showMorePost && <div style={{ color: "#7c606b" }}>...</div>}
+              {!showMorePost && (
+                <div className={postsStyles.truncationEllipsis}>...</div>
+              )}
               <div className={postsStyles.showMoreBtn} onClick={handleShowMore}>
                 {showMorePost ? "Show less" : "Show more"}
               </div>
@@ -114,6 +116,7 @@ export function PostBlock({ post, author, canEdit }: PostBlockProps) {
         <div className={postsStyles.likeWrapper}>
           <div
             ref={heart}
+            className={postsStyles.heartButton}
             onClick={() =>
               handleLike(
                 heart,
@@ -124,10 +127,6 @@ export function PostBlock({ post, author, canEdit }: PostBlockProps) {
               )
             }
             data-action={postIsLikedByCurrentUser ? "unlike" : "like"}
-            style={{
-              cursor:
-                "url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto",
-            }}
           >
             {postIsLikedByCurrentUser ? (
               <FullHeartSVG color="var(--color-heart-liked)" height="24px" width="24px" />
@@ -143,7 +142,7 @@ export function PostBlock({ post, author, canEdit }: PostBlockProps) {
           <>
             {editMode && (
               <Button
-                color="info"
+                color="secondary"
                 onClick={() => setEditMode(false)}
                 title="Cancel"
                 aria-label="Cancel edit"

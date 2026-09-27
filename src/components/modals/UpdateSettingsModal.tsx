@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Heading, FormField, Button, Modal } from "@/components/atoms";
 import { firebaseErrorCode } from "@/utilities/firebaseError";
 import { useToggleBtnClick } from "@/utilities/customHooks/useToggleButtonClick";
+import { updateSettingsSchema } from "@/schemas/profile";
+import { useFormValidation } from "@/utilities/customHooks/useFormValidation";
 import modalStyles from "@/style-modules/components/modals.module.css";
 
 interface UpdateSettingsModalProps {
@@ -38,22 +40,30 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
   const newPasswordConfirmInput = useRef<HTMLInputElement>(null);
   const deleteBtn = useRef<HTMLButtonElement>(null);
   const [deleteClick, setDeleteClick] = useToggleBtnClick(deleteBtn);
+  const { fieldErrors, setFieldErrors, validate, revalidateIfAttempted } =
+    useFormValidation(updateSettingsSchema);
+
+  function getValues() {
+    return {
+      email: emailInput.current!.value,
+      oldPassword: oldPasswordInput.current!.value,
+      newPassword: newPasswordInput.current!.value,
+      newPasswordConfirmation: newPasswordConfirmInput.current!.value,
+    };
+  }
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     setMessage("");
+    const result = validate(getValues());
+    if (result.errors) return;
     setLoading(true);
     try {
-      await reAuthenticateUser(oldPasswordInput.current!.value);
-      if (
-        newPasswordInput.current!.value !== newPasswordConfirmInput.current!.value
-      ) {
-        return setError("Passwords do not match!");
-      }
-      if (emailInput.current!.value !== currentUser!.email) {
+      await reAuthenticateUser(result.data.oldPassword);
+      if (result.data.email !== currentUser!.email) {
         try {
-          await UpdateEmail(emailInput.current!.value);
+          await UpdateEmail(result.data.email);
         } catch (err) {
           if (firebaseErrorCode(err) === "auth/invalid-email") {
             return setError("Failed to update! Invalid email.");
@@ -62,9 +72,9 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
           }
         }
       }
-      if (newPasswordInput.current!.value) {
+      if (result.data.newPassword) {
         try {
-          await UpdatePassword(newPasswordInput.current!.value);
+          await UpdatePassword(result.data.newPassword);
         } catch (err) {
           if (firebaseErrorCode(err) === "auth/weak-password") {
             setError("Password must be at least 6 characters long");
@@ -84,8 +94,8 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
   async function handleDeleteUser() {
     setError("");
     setMessage("");
-    if (!oldPasswordInput.current!.checkValidity()) {
-      oldPasswordInput.current!.reportValidity();
+    if (!oldPasswordInput.current!.value.trim()) {
+      setFieldErrors({ oldPassword: "Current password is required" });
       return;
     }
     if (!deleteClick) {
@@ -130,46 +140,49 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
       }}
     >
       <Heading level="secondary">Update Settings</Heading>
-      <form className={modalStyles.form} onSubmit={handleSubmit}>
+      <form
+        className={modalStyles.form}
+        onSubmit={handleSubmit}
+        onInput={() => revalidateIfAttempted(getValues())}
+        noValidate
+      >
         {error && <div className={modalStyles.formError}>{error}</div>}
         {message && <div className={modalStyles.formMessage}>{message}</div>}
         <FormField
-          styles={modalStyles}
           label="Email"
           ref={emailInput}
           type="email"
           name="email"
           autoComplete="email"
           defaultValue={currentUser!.email ?? ""}
-          required
+          error={fieldErrors.email}
         />
         <FormField
-          styles={modalStyles}
           label="Old Password"
           ref={oldPasswordInput}
           type="password"
           name="old-password"
           autoComplete="current-password"
           placeholder="Required for update"
-          required
+          error={fieldErrors.oldPassword}
         />
         <FormField
-          styles={modalStyles}
           label="New Password"
           ref={newPasswordInput}
           type="password"
           autoComplete="new-password"
           name="password"
           placeholder="Leave blank to keep"
+          error={fieldErrors.newPassword}
         />
         <FormField
-          styles={modalStyles}
           label="New Password Confirmation"
           ref={newPasswordConfirmInput}
           type="password"
           autoComplete="off"
           name="password-confirmation"
           placeholder="Leave blank to keep"
+          error={fieldErrors.newPasswordConfirmation}
         />
         <div className={modalStyles.settingsActions}>
           <Button color="pink" shape="fullWidth" type="submit" loading={loading}>
@@ -184,7 +197,7 @@ export function UpdateSettingsModal({ toggleModal }: UpdateSettingsModalProps) {
             disabled={loading}
             type="button"
           >
-            {!deleteClick ? "Delete My Account" : "Are you sure? 'Yes'"}
+            {!deleteClick ? "Delete My Account" : "Are you sure?"}
           </Button>
         </div>
       </form>

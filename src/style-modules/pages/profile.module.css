@@ -19,14 +19,14 @@
   border-radius: var(--radius-sm);
   border: 3px solid var(--color-white);
   box-shadow: var(--shadow-sm);
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto;
+  cursor: var(--cursor-pointer);
 }
 .profileImageWrapper {
   width: 100%;
   border-radius: var(--radius-sm);
   border: 3px solid var(--color-white);
   box-shadow: var(--shadow-sm);
-  cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto;
+  cursor: var(--cursor-pointer);
 }
 
 .profileImage {
